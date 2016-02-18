@@ -1,5 +1,5 @@
 //
-//  Number.cpp
+//  Identifier.cpp
 //  BassLive 2.0
 //
 //  Created by Bass Jansson on 17/02/16.
@@ -10,23 +10,24 @@
 
 
 //========================================================================
-Number::Number() : Signal('#')
+Identifier::Identifier (char c) : Signal(c)
 {
-    typeColor = ofColor(120, 109, 196);
+    typeColor = ofColor(131, 192, 87);
 }
 
 //========================================================================
-void Number::keyPressed (int key)
+void Identifier::keyPressed (int key)
 {
-    if ((key > 47 && key < 58) || key == 46)
+    if (key > 47 && key < 58)
     {
+        if (getFunction(RIGHT)->removeSelectedType(false))
+            new Number();
+        
         new Character(key);
     }
     else if ((key > 64 && key < 91) ||
              (key > 96 && key < 123))
     {
-        getFunction(RIGHT)->removeSelectedType(false);
-        new Identifier('$');
         new Character(key);
     }
 }

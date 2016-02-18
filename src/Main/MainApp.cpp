@@ -15,6 +15,7 @@ void MainApp::setup()
     ofSetWindowShape(ofGetScreenWidth() - 150, ofGetScreenHeight() - 150);
     ofSetWindowPosition(75, 75);
     ofSetWindowTitle("BassLive 2.0");
+    ofSetBackgroundAuto(false);
     
     
     f = new Function();
@@ -33,6 +34,9 @@ void MainApp::update()
 
 void MainApp::draw()
 {
+//    ofSetColor(0, 100);
+//    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+    
     ofBackground(0);
     ofSetColor(255);
     float x = 50;
@@ -75,7 +79,7 @@ void MainApp::mouseDragged (int x, int y, int button)
 
 void MainApp::mousePressed (int x, int y, int button)
 {
-    
+    f->mousePressedMain(x, y, button);
 }
 
 void MainApp::mouseReleased (int x, int y, int button)

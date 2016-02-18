@@ -1,26 +1,26 @@
 //
-//  Name.hpp
+//  Identifier.hpp
 //  BassLive 2.0
 //
 //  Created by Bass Jansson on 17/02/16.
 //
 //
 
-#ifndef Name_hpp
-#define Name_hpp
+#ifndef Identifier_hpp
+#define Identifier_hpp
 
 #include "Signal.hpp"
 
 
-class Name : public Signal
+class Identifier : public Signal
 {
 public:
     //========================================================================
-    Name (char c);
+    Identifier (char c);
     
     //========================================================================
     virtual void keyPressed (int key);
 };
 
 
-#endif /* Name_hpp */
+#endif /* Identifier_hpp */

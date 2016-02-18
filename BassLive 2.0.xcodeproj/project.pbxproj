@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E4171C851C74D7BC001635E6 /* Signal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4171C831C74D7BC001635E6 /* Signal.cpp */; };
-		E4171C881C74D879001635E6 /* Name.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4171C861C74D879001635E6 /* Name.cpp */; };
+		E4171C881C74D879001635E6 /* Identifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4171C861C74D879001635E6 /* Identifier.cpp */; };
 		E4171C8B1C74DA01001635E6 /* Number.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4171C891C74DA01001635E6 /* Number.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E49903821C6A6C2B0010CC17 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E49903801C6A6C2B0010CC17 /* Character.cpp */; };
@@ -50,8 +50,8 @@
 /* Begin PBXFileReference section */
 		E4171C831C74D7BC001635E6 /* Signal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Signal.cpp; path = src/Types/Signal.cpp; sourceTree = SOURCE_ROOT; };
 		E4171C841C74D7BC001635E6 /* Signal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Signal.hpp; path = src/Types/Signal.hpp; sourceTree = SOURCE_ROOT; };
-		E4171C861C74D879001635E6 /* Name.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Name.cpp; path = src/Types/Name.cpp; sourceTree = SOURCE_ROOT; };
-		E4171C871C74D879001635E6 /* Name.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Name.hpp; path = src/Types/Name.hpp; sourceTree = SOURCE_ROOT; };
+		E4171C861C74D879001635E6 /* Identifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Identifier.cpp; path = src/Types/Identifier.cpp; sourceTree = SOURCE_ROOT; };
+		E4171C871C74D879001635E6 /* Identifier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Identifier.hpp; path = src/Types/Identifier.hpp; sourceTree = SOURCE_ROOT; };
 		E4171C891C74DA01001635E6 /* Number.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Number.cpp; path = src/Types/Number.cpp; sourceTree = SOURCE_ROOT; };
 		E4171C8A1C74DA01001635E6 /* Number.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Number.hpp; path = src/Types/Number.hpp; sourceTree = SOURCE_ROOT; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -117,8 +117,8 @@
 				E4171C841C74D7BC001635E6 /* Signal.hpp */,
 				E4171C891C74DA01001635E6 /* Number.cpp */,
 				E4171C8A1C74DA01001635E6 /* Number.hpp */,
-				E4171C861C74D879001635E6 /* Name.cpp */,
-				E4171C871C74D879001635E6 /* Name.hpp */,
+				E4171C861C74D879001635E6 /* Identifier.cpp */,
+				E4171C871C74D879001635E6 /* Identifier.hpp */,
 				E49903951C6A6D700010CC17 /* Function.cpp */,
 				E49903961C6A6D700010CC17 /* Function.hpp */,
 			);
@@ -263,7 +263,7 @@
 				E4171C8B1C74DA01001635E6 /* Number.cpp in Sources */,
 				E49903821C6A6C2B0010CC17 /* Character.cpp in Sources */,
 				E49903851C6A6C6E0010CC17 /* Type.cpp in Sources */,
-				E4171C881C74D879001635E6 /* Name.cpp in Sources */,
+				E4171C881C74D879001635E6 /* Identifier.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

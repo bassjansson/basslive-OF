@@ -12,8 +12,14 @@
 #include "ofMain.h"
 
 #define FRAME_RATE 30
+
 #define HORIZONTAL 0
 #define VERTICAL   1
+
+#define LEFT  0
+#define RIGHT 1
+#define UP    0
+#define DOWN  1
 
 class Character;
 class Type;
@@ -39,19 +45,22 @@ public:
     bool loadFont (const string& fileName, int fontSize);
     
     //========================================================================
-    virtual Character* draw (float& x, float& y, bool v);
+    virtual Character* draw   (float& x, float& y, bool v);
+    virtual void mousePressed (float x, float y, int button);
+    virtual void keyPressed   (int key);
     
     //========================================================================
-    Character* getNextChar();
-    CharType   getCharType();
-    bool       getNoneType();
-    Type*      getParentType();
+    CharType getCharType();
+    Type*    getParentType();
+    
+    //========================================================================
+    Character* getCharacter (bool dir);
+    Type*      getType      (bool dir);
+    Function*  getFunction  (bool dir);
     
 protected:
     //========================================================================
-    void removeSelectedChar (bool b);
-    void moveLeft();
-    void moveRight();
+    bool removeSelectedChar (bool b);
     
     //========================================================================
     static ofTrueTypeFont charFont;
@@ -62,7 +71,7 @@ protected:
     
     //========================================================================
     CharType charType;
-    bool     noneType;
+    float x, y;
     
 private:
     //========================================================================

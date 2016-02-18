@@ -7,6 +7,7 @@
 //
 
 #include "Type.hpp"
+#include "Number.hpp"
 
 
 //========================================================================
@@ -17,14 +18,12 @@ Type::Type (char c) : Character(c)
     else
         charType = TYPE;
     
-    noneType = false;
-    
     typeColor = ofColor(255);
 }
 
 Type::~Type()
 {
-    Character* c = getNextChar();
+    Character* c = getCharacter(RIGHT);
     
     while (true)
     {
@@ -35,7 +34,7 @@ Type::~Type()
             break;
 
         charSelected = c;
-        c = c->getNextChar();
+        c = c->getCharacter(RIGHT);
         removeSelectedChar(false);
     }
 }
@@ -57,14 +56,12 @@ Character* Type::draw (float& x, float& y, bool v)
             return NULL;
         
         if (c->getCharType() != CHARACTER)
+        {
+            x += charWidth;
             return c;
+        }
         
         ofSetColor(typeColor);
         c = c->draw(x, y, HORIZONTAL);
     }
-}
-
-void Type::keyPressed (int key)
-{
-    
 }

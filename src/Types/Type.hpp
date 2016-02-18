@@ -21,7 +21,6 @@ public:
     
     //========================================================================
     virtual Character* draw (float& x, float& y, bool v);
-    virtual void keyPressed (int key);
     
 protected:
     //========================================================================

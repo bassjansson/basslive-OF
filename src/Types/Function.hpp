@@ -9,11 +9,11 @@
 #ifndef Function_hpp
 #define Function_hpp
 
-#include "Name.hpp"
 #include "Number.hpp"
+#include "Identifier.hpp"
 
 
-class Function : public Name
+class Function : public Identifier
 {
 public:
     //========================================================================
@@ -21,16 +21,19 @@ public:
     ~Function();
     
     //========================================================================
-    Character* draw (float& x, float& y, bool v);
-    //void keyPressed (int key);
+    virtual Character* draw (float& x, float& y, bool v);
     
     //========================================================================
-    void keyPressedMain (int key);
+    void mousePressedMain (float x, float y, int button);
+    void keyPressedMain   (int key);
+    
+    //========================================================================
+    bool removeSelectedType (bool removeFunctions);
     
 private:
     //========================================================================
-    Name* identifier;
-    Type* close;
+    Identifier* identifier;
+    Type*       close;
 };
 
 
