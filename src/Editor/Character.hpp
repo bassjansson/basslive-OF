@@ -11,8 +11,6 @@
 
 #include "ofMain.h"
 
-#define FRAME_RATE 30
-
 #define HORIZONTAL 0
 #define VERTICAL   1
 
@@ -21,9 +19,16 @@
 #define UP    0
 #define DOWN  1
 
+#define CHAR_TYPE_NUMB  '#'
+#define CHAR_TYPE_IDEN  '$'
+#define CHAR_FUNC_IDEN  ':'
+#define CHAR_FUNC_OPEN  '('
+#define CHAR_FUNC_CLOSE ')'
+
 class Character;
 class Type;
 class Function;
+class MainFunction;
 
 
 enum CharType
@@ -39,48 +44,39 @@ class Character
 {
 public:
     //========================================================================
-    Character (char c);
+    Character (char c, MainFunction* mf);
     
     //========================================================================
-    bool loadFont (const string& fileName, int fontSize);
-    
-    //========================================================================
-    virtual Character* draw   (float& x, float& y, bool v);
+    virtual Character* draw   (float& x, float& y, bool vertical);
     virtual void mousePressed (float x, float y, int button);
-    virtual void keyPressed   (int key);
-    
-    //========================================================================
-    CharType getCharType();
-    Type*    getParentType();
+    virtual void drawCursor   ();
     
     //========================================================================
     Character* getCharacter (bool dir);
     Type*      getType      (bool dir);
     Function*  getFunction  (bool dir);
     
+    //========================================================================
+    CharType getCharType();
+    Type*    getParentType();
+    
 protected:
     //========================================================================
-    bool removeSelectedChar (bool b);
+    bool removeSelectedChar (bool removeFunctionBodies);
     
     //========================================================================
-    static ofTrueTypeFont charFont;
-    static float          charWidth;
-    static float          charHeight;
-    static Character*     charSelected;
-    static int            charCursorTime;
-    
-    //========================================================================
+    MainFunction* mf;
     CharType charType;
-    float x, y;
+    
+    //========================================================================
+    Character* left;
+    Character* right;
     
 private:
     //========================================================================
     string charString;
     float  animation;
-    
-    //========================================================================
-    Character* left;
-    Character* right;
+    float  x, y;
 };
 
 

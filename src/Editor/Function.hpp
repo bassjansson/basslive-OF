@@ -9,7 +9,6 @@
 #ifndef Function_hpp
 #define Function_hpp
 
-#include "Number.hpp"
 #include "Identifier.hpp"
 
 
@@ -17,20 +16,14 @@ class Function : public Identifier
 {
 public:
     //========================================================================
-     Function();
-    ~Function();
+     Function (MainFunction* mf);
+    ~Function ();
     
     //========================================================================
-    virtual Character* draw (float& x, float& y, bool v);
+    virtual Character* draw (float& x, float& y, bool vertical);
+    virtual void keyPressed (int key);
     
-    //========================================================================
-    void mousePressedMain (float x, float y, int button);
-    void keyPressedMain   (int key);
-    
-    //========================================================================
-    bool removeSelectedType (bool removeFunctions);
-    
-private:
+protected:
     //========================================================================
     Identifier* identifier;
     Type*       close;

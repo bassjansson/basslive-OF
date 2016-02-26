@@ -6,58 +6,38 @@
 //
 //
 
-#include "Character.hpp"
-#include "Function.hpp"
-
-
-ofTrueTypeFont Character::charFont;
-float          Character::charWidth = 0.0f;
-float          Character::charHeight = 0.0f;
-Character*     Character::charSelected = NULL;
-int            Character::charCursorTime = 0;
+#include "MainFunction.hpp"
 
 
 //========================================================================
-Character::Character (char c)
+Character::Character (char c, MainFunction* mf)
 {
+    this->mf = mf;
     charType = CHARACTER;
-    x = y = 0.0f;
     
     charString = c;
     animation  = 0.0f;
-    
-    if (charSelected == NULL)
+    x = y      = 0.0f;
+
+    if (this == mf)
     {
-        left         = this;
-        right        = this;
-        charSelected = this;
+        left  = this;
+        right = this;
     }
     else
     {
-        left  = charSelected;
-        right = charSelected->right;
+        left  = mf->charSelected;
+        right = mf->charSelected->right;
         
-        left->right  = this;
-        right->left  = this;
-        charSelected = this;
+        left->right = this;
+        right->left = this;
     }
+    
+    mf->charSelected = this;
 }
 
 //========================================================================
-bool Character::loadFont (const string& fileName, int fontSize)
-{
-    if (charFont.load(fileName, fontSize))
-    {
-        charWidth  = charFont.stringWidth("X");
-        charHeight = charFont.stringHeight("Xgj{|");
-        
-        return true;
-    }
-    
-    return false;
-}
-//========================================================================
-Character* Character::draw (float& x, float& y, bool v)
+Character* Character::draw (float& x, float& y, bool vertical)
 {
     // Init character position
     if (this->x == 0.0f) this->x = x;
@@ -65,14 +45,8 @@ Character* Character::draw (float& x, float& y, bool v)
     
     
     // Update input position
-    x += charWidth;
-    if (v) y += charHeight;
-    
-    
-    // Update character position
-    float factor = 0.3f;
-    this->x = (1.0f - factor) * this->x + factor * x;
-    this->y = (1.0f - factor) * this->y + factor * y;
+    x += mf->charWidth;
+    if (vertical) y += mf->charHeight;
     
     
     // Draw character
@@ -84,11 +58,11 @@ Character* Character::draw (float& x, float& y, bool v)
     
     ofTranslate(this->x * factor2 + (this->x - 100) * factor1,
                 this->y * factor2);
-    ofTranslate(charWidth * 0.5f, charHeight * 0.5f);
+    ofTranslate(mf->charWidth * 0.5f, mf->charHeight * 0.5f);
     ofRotate(factor1 * factor1 * -45.0f);
     ofScale(factor3, factor3);
-    charFont.drawString(charString, -charWidth * 0.5f,
-                        charHeight * 0.5f + charFont.getDescenderHeight());
+    mf->charFont.drawString(charString, -mf->charWidth * 0.5f,
+                            mf->charHeight * 0.5f + mf->charFont.getDescenderHeight());
     
     ofPopMatrix();
     
@@ -100,18 +74,10 @@ Character* Character::draw (float& x, float& y, bool v)
         animation += 0.08f;
     
     
-    // Draw cursor
-    if (charSelected == this)
-    {
-        if (charCursorTime < FRAME_RATE / 2)
-        {
-            ofSetColor(255);
-            ofDrawRectangle(this->x + charWidth * 0.95f, this->y,
-                            charWidth * 0.1f, charHeight);
-        }
-        
-        charCursorTime = (charCursorTime + 1) % FRAME_RATE;
-    }
+    // Update character position
+    float factor = 0.3f;
+    this->x = (1.0f - factor) * this->x + factor * x;
+    this->y = (1.0f - factor) * this->y + factor * y;
     
     
     // Return next character
@@ -131,49 +97,21 @@ Character* Character::draw (float& x, float& y, bool v)
 
 void Character::mousePressed (float x, float y, int button)
 {
-    if (charSelected != this && button == OF_MOUSE_BUTTON_LEFT)
+    if (right != mf && button == OF_MOUSE_BUTTON_LEFT)
     {
-        if ((x >= this->x && x < this->x + charWidth) &&
-            (y >= this->y && y < this->y + charHeight))
-            charSelected = this;
+        if ((x >= this->x && x < this->x + mf->charWidth) &&
+            (y >= this->y && y < this->y + mf->charHeight))
+            mf->charSelected = this;
         else
             right->mousePressed(x, y, button);
     }
 }
 
-void Character::keyPressed (int key)
+void Character::drawCursor()
 {
-    if (key > 47 && key < 58)
-    {
-        new Number();
-    }
-    else if ((key > 64 && key < 91) ||
-             (key > 96 && key < 123))
-    {
-        new Identifier('$');
-    }
-}
-
-//========================================================================
-CharType Character::getCharType()
-{
-    return charType;
-}
-
-Type* Character::getParentType()
-{
-    Character* c = this;
-    
-    while (true)
-    {
-        if (c == NULL)
-            return NULL;
-        
-        if (c->getCharType() != CHARACTER)
-            return (Type*)c;
-        
-        c = c->left;
-    }
+    ofSetColor(255);
+    ofDrawRectangle(this->x + mf->charWidth * 0.95f, this->y,
+                    mf->charWidth * 0.1f, mf->charHeight);
 }
 
 //========================================================================
@@ -222,18 +160,42 @@ Function* Character::getFunction (bool dir)
 }
 
 //========================================================================
-bool Character::removeSelectedChar (bool b)
+CharType Character::getCharType()
 {
-    if (!b)
-        if (charSelected == this || charSelected->getCharType() == FUNCTION_BODY)
-            return false;
+    return charType;
+}
+
+Type* Character::getParentType()
+{
+    Character* c = this;
     
-    Character* c = charSelected;
+    while (true)
+    {
+        if (c == NULL)
+            return NULL;
+        
+        if (c->getCharType() != CHARACTER)
+            return (Type*)c;
+        
+        c = c->left;
+    }
+}
+
+//========================================================================
+bool Character::removeSelectedChar (bool removeFunctionBodies)
+{
+    if (mf->charSelected == this || mf->charSelected == mf)
+        return false;
+        
+    if (!removeFunctionBodies && mf->charSelected->getCharType() == FUNCTION_BODY)
+        return false;
+    
+    Character* c = mf->charSelected;
     
     c->left->right = c->right;
     c->right->left = c->left;
     
-    charSelected = c->left;
+    mf->charSelected = c->left;
     
     switch (c->getCharType())
     {

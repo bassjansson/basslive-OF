@@ -1,6 +1,6 @@
 
 #include "ofMain.h"
-#include "MainApp.h"
+#include "MainApp.hpp"
 
 
 int main()

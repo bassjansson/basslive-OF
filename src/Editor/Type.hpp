@@ -16,11 +16,12 @@ class Type : public Character
 {
 public:
     //========================================================================
-     Type (char c);
+     Type (char c, MainFunction* mf);
     ~Type ();
     
     //========================================================================
-    virtual Character* draw (float& x, float& y, bool v);
+    virtual Character* draw (float& x, float& y, bool vertical);
+    virtual void keyPressed (int key);
     
 protected:
     //========================================================================

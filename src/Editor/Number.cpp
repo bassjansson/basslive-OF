@@ -6,11 +6,11 @@
 //
 //
 
-#include "Function.hpp"
+#include "MainFunction.hpp"
 
 
 //========================================================================
-Number::Number() : Signal('#')
+Number::Number (MainFunction* mf) : Type(CHAR_TYPE_NUMB, mf)
 {
     typeColor = ofColor(120, 109, 196);
 }
@@ -19,14 +19,5 @@ Number::Number() : Signal('#')
 void Number::keyPressed (int key)
 {
     if ((key > 47 && key < 58) || key == 46)
-    {
-        new Character(key);
-    }
-    else if ((key > 64 && key < 91) ||
-             (key > 96 && key < 123))
-    {
-        getFunction(RIGHT)->removeSelectedType(false);
-        new Identifier('$');
-        new Character(key);
-    }
+        new Character(key, mf);
 }

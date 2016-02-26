@@ -6,14 +6,13 @@
 //
 //
 
-#include "Type.hpp"
-#include "Number.hpp"
+#include "MainFunction.hpp"
 
 
 //========================================================================
-Type::Type (char c) : Character(c)
+Type::Type (char c, MainFunction* mf) : Character(c, mf)
 {
-    if (c == ':' || c == ')')
+    if (c == CHAR_FUNC_IDEN || c == CHAR_FUNC_CLOSE)
         charType = FUNCTION_BODY;
     else
         charType = TYPE;
@@ -33,21 +32,21 @@ Type::~Type()
         if (c->getCharType() != CHARACTER)
             break;
 
-        charSelected = c;
+        mf->charSelected = c;
         c = c->getCharacter(RIGHT);
         removeSelectedChar(false);
     }
 }
 
 //========================================================================
-Character* Type::draw (float& x, float& y, bool v)
+Character* Type::draw (float& x, float& y, bool vertical)
 {
     // Draw type character
     if (charType == FUNCTION || charType == FUNCTION_BODY)
         ofSetColor(255);
     else
         ofSetColor(typeColor);
-    Character* c = Character::draw(x, y, v);
+    Character* c = Character::draw(x, y, vertical);
     
     // Draw type string
     while (true)
@@ -57,11 +56,26 @@ Character* Type::draw (float& x, float& y, bool v)
         
         if (c->getCharType() != CHARACTER)
         {
-            x += charWidth;
+            x += mf->charWidth;
             return c;
         }
         
         ofSetColor(typeColor);
         c = c->draw(x, y, HORIZONTAL);
+    }
+}
+
+void Type::keyPressed (int key)
+{    
+    if ((key > 47 && key < 58) || key == 46)
+    {
+        new Number(mf);
+        new Character(key, mf);
+    }
+    else if ((key > 64 && key < 91) ||
+             (key > 96 && key < 123))
+    {
+        new Identifier(mf);
+        new Character(key, mf);
     }
 }
