@@ -160,6 +160,11 @@ Function* Character::getFunction (bool dir)
 }
 
 //========================================================================
+string Character::getCharString()
+{
+    return charString;
+}
+
 CharType Character::getCharType()
 {
     return charType;

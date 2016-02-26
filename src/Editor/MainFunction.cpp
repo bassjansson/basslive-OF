@@ -19,8 +19,6 @@ MainFunction::MainFunction (string name) : Function(this)
     charHeight = charFont.stringHeight("Xgj{|");
     charCursorTime = 0;
     
-    memory = new Memory();
-    
     // Create main
     new Character('m', mf);
     new Character('a', mf);
@@ -32,8 +30,6 @@ MainFunction::MainFunction (string name) : Function(this)
 
 MainFunction::~MainFunction()
 {
-    delete memory;
-    
     // TODO: delete all characters
 }
 
@@ -59,6 +55,15 @@ void MainFunction::keyPressed (int key)
                 case 'f': removeTypeIfSelected(); new Function(mf); break;
                 case 'i': removeTypeIfSelected(); new Identifier(mf); break;
                 case 'n': removeTypeIfSelected(); new Number(mf); break;
+                    
+                case 'o':
+                    charSelected = identifier;
+                    new Function(mf);
+                    break;
+                    
+                case OF_KEY_RETURN:
+                    charSelected->getParentType()->trigger();
+                    break;
             }
         }
         else
@@ -155,6 +160,23 @@ bool MainFunction::removeTypeIfSelected()
                            ->getType(RIGHT)->getCharacter(LEFT);
         else
             charSelected = charSelected->getType(RIGHT)->getCharacter(LEFT);
+    }
+}
+
+//========================================================================
+Function* MainFunction::getFunctionWithID (string id)
+{
+    Function* f = getFunction(RIGHT);
+    
+    while (true)
+    {
+        if (f == NULL || f == mf)
+            return NULL;
+        
+        if (f->getType(RIGHT)->getTypeString() == id)
+            return f;
+        
+        f = f->getFunction(RIGHT);
     }
 }
 

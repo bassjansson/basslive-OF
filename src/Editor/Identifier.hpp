@@ -20,7 +20,13 @@ public:
     Identifier (MainFunction* mf);
     
     //========================================================================
-    virtual void keyPressed (int key);
+    virtual Type* process    (sig& output, Clock& clock);
+    virtual void  keyPressed (int key);
+    virtual void  trigger    ();
+    
+private:
+    //========================================================================
+    Function* value;
 };
 
 

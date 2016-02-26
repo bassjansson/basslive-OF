@@ -12,8 +12,6 @@
 //========================================================================
 AudioEngine::AudioEngine()
 {
-    memory = NULL;
-    
     clock.clock = 0;
     clock.size  = BUFFERSIZE;
     
@@ -36,58 +34,19 @@ AudioEngine::~AudioEngine()
     delete[] click;
 }
 
-//========================================================================
-void AudioEngine::setMemoryPointer (Memory** memory)
+void AudioEngine::audioOut (MainFunction* mf, sig output, tick size, int channels)
 {
-    this->memory = memory;
-}
-
-//========================================================================
-void AudioEngine::audioIn (sample* input, tick size, int channels)
-{
-    if (memory)
-    if (*memory)
-    {
-        // Write input to ADC
-        for (int c = 0; c < 2; c++)//(int c = CHANNEL_INPUT; c < CHANNEL_CLICK; c++)
-        {
-            Signal& adc = *(*memory)->getADC()->getOutput(c);// - CHANNEL_INPUT);
-            
-            for (tick t = 0; t < size; t++)
-                adc[t] = input[t * channels + c];
-        }
-    }
-}
-
-void AudioEngine::audioOut (sample* output, tick size, int channels)
-{
-    if (memory)
-    if (*memory)
+    if (mf)
     {
         // Process clock and click
         processClockAndClick();
         
-        // Process buffers
-        (*memory)->processBuffers(clock);
-        
-        // Process DAC
-        (*memory)->getDAC()->processModule(clock);
-        
-        // Write click to output
-//        for (int c = 2; c < 4; c++)//(int c = CHANNEL_CLICK; c < CHANNEL_OUTPUT; c++)
-//        {
-//            for (tick t = 0; t < size; t++)
-//                output[t * channels + c] = click[t];
-//        }
-        
         // Write DAC to output
-        for (int c = 0; c < 2; c++)//(int c = CHANNEL_OUTPUT; c < CHANNEL_SIZE; c++)
-        {
-            Signal& dac = *(*memory)->getDAC()->getInput(c);// - CHANNEL_OUTPUT);
-            
+        sig dac;
+        mf->process(dac, clock);
+        for (int c = 0; c < channels; c++)
             for (tick t = 0; t < size; t++)
                 output[t * channels + c] = dac[t] + click[t];
-        }
     }
 }
 
@@ -96,12 +55,8 @@ void AudioEngine::processClockAndClick()
 {
     clock.clock++;
     
-    if (memory)
-    if (*memory)
-    {
-        clock.beatLength = (*memory)->getBeatLength();
-        clock.barLength  = (*memory)->getBarLength();
-    }
+//    clock.beatLength = (*memory)->getBeatLength();
+//    clock.barLength  = (*memory)->getBarLength();
     
     tick clockStart = clock[clock.size - 1] + 1;
     

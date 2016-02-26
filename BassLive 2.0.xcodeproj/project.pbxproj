@@ -14,11 +14,6 @@
 		E4E5B6781C7F9EFB00064968 /* MainFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B65F1C7F9EFB00064968 /* MainFunction.cpp */; };
 		E4E5B6791C7F9EFB00064968 /* Number.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6611C7F9EFB00064968 /* Number.cpp */; };
 		E4E5B67B1C7F9EFB00064968 /* Type.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6651C7F9EFB00064968 /* Type.cpp */; };
-		E4E5B67C1C7F9EFB00064968 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6681C7F9EFB00064968 /* AudioEngine.cpp */; };
-		E4E5B67D1C7F9EFB00064968 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B66B1C7F9EFB00064968 /* Memory.cpp */; };
-		E4E5B67E1C7F9EFB00064968 /* AudioBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B66E1C7F9EFB00064968 /* AudioBuffer.cpp */; };
-		E4E5B67F1C7F9EFB00064968 /* AudioModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6701C7F9EFB00064968 /* AudioModule.cpp */; };
-		E4E5B6801C7F9EFB00064968 /* BasicModules.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6721C7F9EFB00064968 /* BasicModules.cpp */; };
 		E4E5B6851C7FA70B00064968 /* Editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6811C7FA70B00064968 /* Editor.cpp */; };
 		E4E5B6AB1C7FA78C00064968 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6881C7FA78C00064968 /* README.md */; };
 		E4E5B6AC1C7FA78C00064968 /* ofxFpsPlotter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B68A1C7FA78C00064968 /* ofxFpsPlotter.cpp */; };
@@ -45,6 +40,7 @@
 		E4E5B6D41C7FA81F00064968 /* ofxSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6C91C7FA81F00064968 /* ofxSlider.cpp */; };
 		E4E5B6D51C7FA81F00064968 /* ofxSliderGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6CB1C7FA81F00064968 /* ofxSliderGroup.cpp */; };
 		E4E5B6D61C7FA81F00064968 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6CD1C7FA81F00064968 /* ofxToggle.cpp */; };
+		E4E5B6DA1C80AF7600064968 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6681C7F9EFB00064968 /* AudioEngine.cpp */; };
 		E4EC234B1C28535B00E06DC5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EC23481C28535B00E06DC5 /* main.cpp */; };
 		E4EC234C1C28535B00E06DC5 /* MainApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EC23491C28535B00E06DC5 /* MainApp.cpp */; };
 /* End PBXBuildFile section */
@@ -469,11 +465,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4E5B6851C7FA70B00064968 /* Editor.cpp in Sources */,
-				E4E5B67C1C7F9EFB00064968 /* AudioEngine.cpp in Sources */,
 				E4E5B67B1C7F9EFB00064968 /* Type.cpp in Sources */,
 				E4E5B6B61C7FA78C00064968 /* ofxMinimalToggle.cpp in Sources */,
 				E4E5B6B41C7FA78C00064968 /* ofxMasterSlaveControl.cpp in Sources */,
 				E4E5B6B01C7FA78C00064968 /* ofxGuiPage.cpp in Sources */,
+				E4E5B6DA1C80AF7600064968 /* AudioEngine.cpp in Sources */,
 				E4E5B6B91C7FA78C00064968 /* ofxTabbedPages.cpp in Sources */,
 				E4E5B6781C7F9EFB00064968 /* MainFunction.cpp in Sources */,
 				E4E5B6B71C7FA78C00064968 /* ofxPanelExtended.cpp in Sources */,
@@ -488,21 +484,17 @@
 				E4E5B6BB1C7FA78C00064968 /* ofxVerticalSlider.cpp in Sources */,
 				E4E5B6B31C7FA78C00064968 /* ofxLabelExtended.cpp in Sources */,
 				E4E5B6D21C7FA81F00064968 /* ofxLabel.cpp in Sources */,
-				E4E5B6801C7F9EFB00064968 /* BasicModules.cpp in Sources */,
 				E4E5B6AE1C7FA78C00064968 /* ofxGuiGroupExtended.cpp in Sources */,
-				E4E5B67F1C7F9EFB00064968 /* AudioModule.cpp in Sources */,
 				E4E5B6D01C7FA81F00064968 /* ofxButton.cpp in Sources */,
 				E4EC234C1C28535B00E06DC5 /* MainApp.cpp in Sources */,
 				E4EC234B1C28535B00E06DC5 /* main.cpp in Sources */,
 				E4E5B6D11C7FA81F00064968 /* ofxGuiGroup.cpp in Sources */,
-				E4E5B67E1C7F9EFB00064968 /* AudioBuffer.cpp in Sources */,
 				E4E5B6B11C7FA78C00064968 /* ofxGuiSpacer.cpp in Sources */,
 				E4E5B6B21C7FA78C00064968 /* ofxGuiZoomableBaseDraws.cpp in Sources */,
 				E4E5B6B81C7FA78C00064968 /* ofxRotarySlider.cpp in Sources */,
 				E4E5B6B51C7FA78C00064968 /* ofxMinimalButton.cpp in Sources */,
 				E4E5B6AC1C7FA78C00064968 /* ofxFpsPlotter.cpp in Sources */,
 				E4E5B6761C7F9EFB00064968 /* Function.cpp in Sources */,
-				E4E5B67D1C7F9EFB00064968 /* Memory.cpp in Sources */,
 				E4E5B6CF1C7FA81F00064968 /* ofxBaseGui.cpp in Sources */,
 				E4E5B6D61C7FA81F00064968 /* ofxToggle.cpp in Sources */,
 				E4E5B6D41C7FA81F00064968 /* ofxSlider.cpp in Sources */,

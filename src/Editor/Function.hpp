@@ -9,10 +9,10 @@
 #ifndef Function_hpp
 #define Function_hpp
 
-#include "Identifier.hpp"
+#include "Type.hpp"
 
 
-class Function : public Identifier
+class Function : public Type
 {
 public:
     //========================================================================
@@ -20,13 +20,22 @@ public:
     ~Function ();
     
     //========================================================================
-    virtual Character* draw (float& x, float& y, bool vertical);
-    virtual void keyPressed (int key);
+    virtual Character* draw  (float& x, float& y, bool vertical);
+    virtual Type* process    (sig& output, Clock& clock);
+    virtual void  keyPressed (int key);
+    virtual void  trigger    ();
     
 protected:
     //========================================================================
     Identifier* identifier;
     Type*       close;
+    
+private:
+    //========================================================================
+    AudioModule* module;
+    sig_vec      inputs;
+    tick         clock;
+    string       am_id;
 };
 
 

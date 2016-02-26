@@ -57,6 +57,7 @@ public:
     Function*  getFunction  (bool dir);
     
     //========================================================================
+    string   getCharString();
     CharType getCharType();
     Type*    getParentType();
     

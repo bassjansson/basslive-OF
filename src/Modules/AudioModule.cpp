@@ -10,52 +10,6 @@
 
 
 //========================================================================
-Signal::Signal (AudioModule* module)
-{
-    this->value  = 0.0f;
-    this->buffer = NULL;
-    this->b_size = 0;
-    this->module = module;
-}
-
-Signal::Signal (sample value)
-{
-    this->value  = value;
-    this->buffer = NULL;
-    this->b_size = 0;
-    this->module = NULL;
-}
-
-//========================================================================
-void Signal::allocate (tick size)
-{
-    if (buffer) delete[] buffer;
-    
-    b_size = size;
-    buffer = new sample[b_size];
-    
-    for (tick t = 0; t < b_size; t++)
-        buffer[t] = 0.0f;
-}
-
-void Signal::deallocate()
-{
-    if (buffer) delete[] buffer;
-}
-
-tick Signal::size()
-{
-    return b_size;
-}
-
-//========================================================================
-void Signal::processModule (Clock& clock)
-{
-    if (module) module->processModule(clock);
-}
-
-
-//========================================================================
 AudioModule::AudioModule (string ID, int inputChannels, int outputChannels)
 {
     this->AM_ID = ID;

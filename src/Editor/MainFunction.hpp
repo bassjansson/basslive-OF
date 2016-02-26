@@ -11,8 +11,6 @@
 
 #include "ofxGuiExtended.h"
 
-#include "Memory.h"
-
 #include "Number.hpp"
 #include "Identifier.hpp"
 #include "Function.hpp"
@@ -36,14 +34,15 @@ public:
     bool removeTypeIfSelected();
     
     //========================================================================
+    Function*    getFunctionWithID  (string id);
+    AudioModule* getNewModuleWithID (string id) { return NULL; };
+    
+    //========================================================================
     ofTrueTypeFont charFont;
     float          charWidth;
     float          charHeight;
     Character*     charSelected;
     int            charCursorTime;
-    
-    //========================================================================
-    Memory* memory;
     
 protected:
     //========================================================================

@@ -18,9 +18,6 @@ void MainApp::setup()
     
     editor.setup();
     
-    audioEngine = new AudioEngine();
-    audioEngine->setMemoryPointer(editor.getMemoryPointer());
-    
     // TODO: List devices in interface
     soundStream.printDeviceList();
     soundStream.setDeviceID(6);
@@ -30,8 +27,6 @@ void MainApp::setup()
 void MainApp::exit()
 {
     soundStream.close();
-    
-    delete audioEngine;
     
     editor.exit();
 }
@@ -49,12 +44,12 @@ void MainApp::draw()
 //========================================================================
 void MainApp::audioIn (float* buffer, int size, int channels)
 {
-    audioEngine->audioIn(buffer, size, channels);
+    //editor.audioIn(buffer, size, channels);
 }
 
 void MainApp::audioOut (float* buffer, int size, int channels)
 {
-    audioEngine->audioOut(buffer, size, channels);
+    editor.audioOut(buffer, size, channels);
 }
 
 //========================================================================

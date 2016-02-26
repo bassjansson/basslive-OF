@@ -10,6 +10,7 @@
 #define Type_hpp
 
 #include "Character.hpp"
+#include "AudioModule.h"
 
 
 class Type : public Character
@@ -20,12 +21,19 @@ public:
     ~Type ();
     
     //========================================================================
-    virtual Character* draw (float& x, float& y, bool vertical);
-    virtual void keyPressed (int key);
+    virtual Character* draw  (float& x, float& y, bool vertical);
+    virtual Type* process    (sig& output, Clock& clock);
+    virtual void  keyPressed (int key);
+    virtual void  trigger    () {};
+    
+    //========================================================================
+    string getTypeString();
     
 protected:
     //========================================================================
     ofColor typeColor;
+    string  typeString;
+    sig     typeSignal;
 };
 
 

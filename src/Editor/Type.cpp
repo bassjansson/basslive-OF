@@ -17,7 +17,12 @@ Type::Type (char c, MainFunction* mf) : Character(c, mf)
     else
         charType = TYPE;
     
-    typeColor = ofColor(255);
+    typeColor  = ofColor(255);
+    typeString = "";
+    typeSignal = new sample[BUFFERSIZE];
+    
+    for (tick t = 0; t < BUFFERSIZE; t++)
+        typeSignal[t] = 0.0f;
 }
 
 Type::~Type()
@@ -36,6 +41,8 @@ Type::~Type()
         c = c->getCharacter(RIGHT);
         removeSelectedChar(false);
     }
+    
+    delete[] typeSignal;
 }
 
 //========================================================================
@@ -49,6 +56,7 @@ Character* Type::draw (float& x, float& y, bool vertical)
     Character* c = Character::draw(x, y, vertical);
     
     // Draw type string
+    typeString = "";
     while (true)
     {
         if (c == NULL)
@@ -61,8 +69,16 @@ Character* Type::draw (float& x, float& y, bool vertical)
         }
         
         ofSetColor(typeColor);
+        typeString += c->getCharString();
         c = c->draw(x, y, HORIZONTAL);
     }
+}
+
+Type* Type::process (sig& output, Clock& clock)
+{
+    output = typeSignal;
+    
+    return getType(RIGHT);
 }
 
 void Type::keyPressed (int key)
@@ -78,4 +94,10 @@ void Type::keyPressed (int key)
         new Identifier(mf);
         new Character(key, mf);
     }
+}
+
+//========================================================================
+string Type::getTypeString()
+{
+    return typeString;
 }

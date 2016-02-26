@@ -9,7 +9,7 @@
 #ifndef __BassLive__AudioEngine__
 #define __BassLive__AudioEngine__
 
-#include "Memory.h"
+#include "MainFunction.hpp"
 
 
 class AudioEngine
@@ -20,20 +20,15 @@ public:
     ~AudioEngine();
     
     //========================================================================
-    void setMemoryPointer (Memory** memory);
-    
-    //========================================================================
-    void audioIn  (sample* input,  tick size, int channels);
-    void audioOut (sample* output, tick size, int channels);
+    void audioOut (MainFunction* mf, sig output, tick size, int channels);
     
 private:
     //========================================================================
     void processClockAndClick();
     
     //========================================================================
-    Memory** memory;
-    Clock    clock;
-    sample*  click;
+    Clock   clock;
+    sample* click;
 };
 
 

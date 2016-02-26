@@ -3,7 +3,6 @@
 
 #include "ofMain.h"
 #include "Editor.hpp"
-#include "AudioEngine.h"
 
 
 class MainApp : public ofBaseApp
@@ -37,6 +36,5 @@ public:
 private:
     //========================================================================
     Editor        editor;
-    AudioEngine*  audioEngine;
     ofSoundStream soundStream;
 };

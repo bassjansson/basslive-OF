@@ -10,6 +10,7 @@
 #define __BassLive__Editor__
 
 #include "MainFunction.hpp"
+#include "AudioEngine.h"
 
 #define EDITOR_WIDTH  (ofGetWidth())
 #define EDITOR_HEIGHT (ofGetHeight() - FONT_SIZE * 2)
@@ -25,25 +26,21 @@ public:
     void draw();
     
     //========================================================================
-    void mousePressed (float x, float y, int button);
-    void keyPressed   (int key);
-    
-    //========================================================================
-    void windowResized();
-    
-    //========================================================================
-    Memory** getMemoryPointer();
+    void audioOut      (sig output, tick size, int channels);
+    void mousePressed  (float x, float y, int button);
+    void keyPressed    (int key);
+    void windowResized ();
     
 private:
     //========================================================================
     void newPage();
     
     //========================================================================
-    ofxTabbedPages  tabbedPages;
-    vector<MainFunction*> pages;
+    AudioEngine* audioEngine;
     
     //========================================================================
-    Memory* memory;
+    ofxTabbedPages  tabbedPages;
+    vector<MainFunction*> pages;
 };
 
 

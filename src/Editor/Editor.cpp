@@ -12,6 +12,8 @@
 //========================================================================
 void Editor::setup()
 {
+    audioEngine = new AudioEngine();
+    
     tabbedPages.setup();
     
     tabbedPages.setDefaultBackgroundColor(ofColor(10, 12, 20));
@@ -28,8 +30,6 @@ void Editor::setup()
     tabbedPages.setDefaultHeight(FONT_SIZE * 2);
     tabbedPages.setShape(0, 0, EDITOR_WIDTH, EDITOR_HEIGHT + FONT_SIZE * 2);
     
-    memory = NULL;
-    
     newPage();
 }
 
@@ -38,11 +38,13 @@ void Editor::exit()
     for (int i = 0; i < pages.size(); i++)
         delete pages[i];
     pages.clear();
+    
+    delete audioEngine;
 }
 
 void Editor::update()
 {
-    memory = ((MainFunction*)tabbedPages.getActiveTab())->memory;
+    
 }
 
 void Editor::draw()
@@ -53,6 +55,12 @@ void Editor::draw()
 }
 
 //========================================================================
+void Editor::audioOut (sig output, tick size, int channels)
+{
+    audioEngine->audioOut((MainFunction*)tabbedPages.getActiveTab(),
+                          output, size, channels);
+}
+
 void Editor::mousePressed (float x, float y, int button)
 {
     ((MainFunction*)tabbedPages.getActiveTab())->mousePressed(x, y, button);
@@ -66,19 +74,12 @@ void Editor::keyPressed (int key)
         newPage();
 }
 
-//========================================================================
 void Editor::windowResized()
 {
     tabbedPages.setSize(EDITOR_WIDTH, EDITOR_HEIGHT + FONT_SIZE * 2);
     
     for (int i = 0; i < pages.size(); i++)
         pages[i]->setSize(EDITOR_WIDTH, EDITOR_HEIGHT);
-}
-
-//========================================================================
-Memory** Editor::getMemoryPointer()
-{
-    return &memory;
 }
 
 //========================================================================
