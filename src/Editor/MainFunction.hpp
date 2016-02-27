@@ -27,8 +27,9 @@ public:
     ~MainFunction ();
     
     //========================================================================
-    void mousePressed (float x, float y, int button);
-    void keyPressed   (int key);
+    void mousePressed  (float x, float y, int button);
+    void mouseReleased (float x, float y, int button);
+    void keyPressed    (int key);
     
     //========================================================================
     bool removeTypeIfSelected();

@@ -47,9 +47,11 @@ public:
     Character (char c, MainFunction* mf);
     
     //========================================================================
-    virtual Character* draw   (float& x, float& y, bool vertical);
-    virtual void mousePressed (float x, float y, int button);
-    virtual void drawCursor   ();
+    virtual Character* getEndChar();
+    virtual Character* draw    (float& x, float& y, bool vertical);
+    virtual void mousePressed  (float x, float y, int button);
+    virtual void mouseReleased (float x, float y, int button);
+    virtual void drawCursor();
     
     //========================================================================
     Character* getCharacter (bool dir);
@@ -57,27 +59,25 @@ public:
     Function*  getFunction  (bool dir);
     
     //========================================================================
-    string   getCharString();
-    CharType getCharType();
-    Type*    getParentType();
+    string     getCharString();
+    CharType   getCharType();
+    Type*      getParentType();
     
 protected:
     //========================================================================
     bool removeSelectedChar (bool removeFunctionBodies);
+    void   moveSelectedChar (Character* destination);
     
     //========================================================================
     MainFunction* mf;
     CharType charType;
+    string charString;
+    float animation;
+    float x, y;
     
     //========================================================================
     Character* left;
     Character* right;
-    
-private:
-    //========================================================================
-    string charString;
-    float  animation;
-    float  x, y;
 };
 
 

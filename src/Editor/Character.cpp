@@ -12,9 +12,8 @@
 //========================================================================
 Character::Character (char c, MainFunction* mf)
 {
-    this->mf = mf;
-    charType = CHARACTER;
-    
+    this->mf   = mf;
+    charType   = CHARACTER;
     charString = c;
     animation  = 0.0f;
     x = y      = 0.0f;
@@ -37,6 +36,11 @@ Character::Character (char c, MainFunction* mf)
 }
 
 //========================================================================
+Character* Character::getEndChar()
+{
+    return this;
+}
+
 Character* Character::draw (float& x, float& y, bool vertical)
 {
     // Init character position
@@ -47,6 +51,26 @@ Character* Character::draw (float& x, float& y, bool vertical)
     // Update input position
     x += mf->charWidth;
     if (vertical) y += mf->charHeight;
+    
+    if (this == mf)
+    {
+        x = this->x;
+        y = this->y;
+    }
+    
+    if (mf->charSelected->getCharType() != FUNCTION_BODY)
+    {
+        if (ofGetMousePressed() && mf->charSelected == this)
+        {
+            x = ofGetMouseX() - mf->charWidth  / 2;
+            y = ofGetMouseY() - mf->charHeight / 2;
+        }
+        else if (ofGetMousePressed() && mf->charSelected->getEndChar()->right == this)
+        {
+            x = mf->charSelected->left->x + mf->charWidth;
+            y = mf->charSelected->left->y;
+        }
+    }
     
     
     // Draw character
@@ -104,6 +128,19 @@ void Character::mousePressed (float x, float y, int button)
             mf->charSelected = this;
         else
             right->mousePressed(x, y, button);
+    }
+}
+
+void Character::mouseReleased (float x, float y, int button)
+{
+    if (right != mf && button == OF_MOUSE_BUTTON_LEFT)
+    {
+        if (mf->charSelected != this &&
+            (x >= this->x && x < this->x + mf->charWidth) &&
+            (y >= this->y && y < this->y + mf->charHeight))
+            moveSelectedChar(this);
+        else
+            right->mouseReleased(x, y, button);
     }
 }
 
@@ -219,4 +256,26 @@ bool Character::removeSelectedChar (bool removeFunctionBodies)
     }
     
     return true;
+}
+
+void Character::moveSelectedChar (Character* destination)
+{
+    if (mf->charSelected->getParentType() == mf ||
+        mf->charSelected->getCharType() == FUNCTION_BODY ||
+        destination->getParentType() == mf ||
+        (mf->charSelected->getCharType() == CHARACTER &&
+         destination->getCharString() == ")"))
+        return;
+    
+    Character* begin = mf->charSelected;
+    Character* end   = begin->getEndChar();
+    
+    begin->left->right = end->right;
+    end->right->left   = begin->left;
+    
+    begin->left = destination;
+    end->right  = destination->right;
+    
+    begin->left->right = begin;
+    end->right->left   = end;
 }

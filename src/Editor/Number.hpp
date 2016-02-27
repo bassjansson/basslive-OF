@@ -20,7 +20,7 @@ public:
     
     //========================================================================
     virtual void keyPressed (int key);
-    virtual void trigger    ();
+    virtual void trigger();
     
 private:
     //========================================================================

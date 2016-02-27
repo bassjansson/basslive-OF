@@ -20,7 +20,7 @@ void MainApp::setup()
     
     // TODO: List devices in interface
     soundStream.printDeviceList();
-    soundStream.setDeviceID(6);
+    soundStream.setDeviceID(7);
     soundStream.setup(this, 2, 2, SAMPLERATE, BUFFERSIZE, 4);
 }
 
@@ -81,7 +81,7 @@ void MainApp::mousePressed (int x, int y, int button)
 
 void MainApp::mouseReleased (int x, int y, int button)
 {
-    
+    editor.mouseReleased(x, y, button);
 }
 
 //========================================================================

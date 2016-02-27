@@ -31,6 +31,8 @@ void Editor::setup()
     tabbedPages.setShape(0, 0, EDITOR_WIDTH, EDITOR_HEIGHT + FONT_SIZE * 2);
     
     newPage();
+    
+    mouseIsPressed = false;
 }
 
 void Editor::exit()
@@ -44,7 +46,8 @@ void Editor::exit()
 
 void Editor::update()
 {
-    
+    if (mouseIsPressed && !ofGetMousePressed())
+        mouseReleased(ofGetMouseX(), ofGetMouseY(), OF_MOUSE_BUTTON_LEFT);
 }
 
 void Editor::draw()
@@ -64,6 +67,15 @@ void Editor::audioOut (sig output, tick size, int channels)
 void Editor::mousePressed (float x, float y, int button)
 {
     ((MainFunction*)tabbedPages.getActiveTab())->mousePressed(x, y, button);
+    
+    mouseIsPressed = true;
+}
+
+void Editor::mouseReleased (float x, float y, int button)
+{
+    ((MainFunction*)tabbedPages.getActiveTab())->mouseReleased(x, y, button);
+    
+    mouseIsPressed = false;
 }
 
 void Editor::keyPressed (int key)

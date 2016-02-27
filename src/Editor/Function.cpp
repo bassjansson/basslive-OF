@@ -33,6 +33,11 @@ Function::~Function()
 }
 
 //========================================================================
+Character* Function::getEndChar()
+{
+    return close;
+}
+
 Character* Function::draw (float& x, float& y, bool vertical)
 {
     // Draw function type

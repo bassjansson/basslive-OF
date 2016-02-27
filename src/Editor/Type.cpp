@@ -46,6 +46,11 @@ Type::~Type()
 }
 
 //========================================================================
+Character* Type::getEndChar()
+{
+    return getType(RIGHT)->getCharacter(LEFT);
+}
+
 Character* Type::draw (float& x, float& y, bool vertical)
 {
     // Draw type character

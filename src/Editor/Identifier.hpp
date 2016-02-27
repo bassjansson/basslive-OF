@@ -22,7 +22,7 @@ public:
     //========================================================================
     virtual Type* process    (sig& output, Clock& clock);
     virtual void  keyPressed (int key);
-    virtual void  trigger    ();
+    virtual void  trigger();
     
 private:
     //========================================================================

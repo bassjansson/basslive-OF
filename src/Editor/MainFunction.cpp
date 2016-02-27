@@ -36,7 +36,12 @@ MainFunction::~MainFunction()
 //========================================================================
 void MainFunction::mousePressed (float x, float y, int button)
 {
-    Function::mousePressed(x - charWidth/2, y, button);
+    Character::mousePressed(x, y, button);
+}
+
+void MainFunction::mouseReleased (float x, float y, int button)
+{
+    Character::mouseReleased(x - charWidth / 2, y, button);
 }
 
 void MainFunction::keyPressed (int key)
@@ -185,7 +190,7 @@ void MainFunction::render()
 {
     ofxGuiPage::render();
     
-    float x = 0;
+    float x = FONT_SIZE * 2;
     float y = FONT_SIZE * 4;
     
     Function::draw(x, y, HORIZONTAL);

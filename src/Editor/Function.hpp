@@ -20,10 +20,11 @@ public:
     ~Function ();
     
     //========================================================================
-    virtual Character* draw  (float& x, float& y, bool vertical);
-    virtual Type* process    (sig& output, Clock& clock);
-    virtual void  keyPressed (int key);
-    virtual void  trigger    ();
+    virtual Character* getEndChar();
+    virtual Character* draw (float& x, float& y, bool vertical);
+    virtual Type* process   (sig& output, Clock& clock);
+    virtual void keyPressed (int key);
+    virtual void trigger();
     
 protected:
     //========================================================================

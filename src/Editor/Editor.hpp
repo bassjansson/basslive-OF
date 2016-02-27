@@ -28,6 +28,7 @@ public:
     //========================================================================
     void audioOut      (sig output, tick size, int channels);
     void mousePressed  (float x, float y, int button);
+    void mouseReleased (float x, float y, int button);
     void keyPressed    (int key);
     void windowResized ();
     
@@ -41,6 +42,8 @@ private:
     //========================================================================
     ofxTabbedPages  tabbedPages;
     vector<MainFunction*> pages;
+    
+    bool mouseIsPressed;
 };
 
 
