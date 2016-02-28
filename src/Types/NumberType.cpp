@@ -6,37 +6,35 @@
 //
 //
 
-#include "MainFunction.hpp"
+#include "Types.h"
 
 
 //========================================================================
-Number::Number (MainFunction* mf) : Type(CHAR_TYPE_NUMB, mf)
+NumberType::NumberType (MainFunction* mf)
+: Type(CHAR_TYPE_NUMBER, mf)
 {
-    typeColor = ofColor(100, 89, 176);
-    
-    value = 0.0f;
+    typeType = NUMBER;
 }
 
 //========================================================================
-void Number::keyPressed (int key)
+void NumberType::keyPressed (int key)
 {
     if ((key > 47 && key < 58) || key == 46)
-    {
-        typeColor = ofColor(100, 89, 176);
         new Character(key, mf);
-    }
 }
 
-void Number::trigger()
+void NumberType::trigger()
 {
     char* err;
+    float value = strtof(getTypeString().c_str(), &err);
     
-    typeColor = ofColor(120, 109, 196);
-    value = strtof(typeString.c_str(), &err);
-    
-    if (*err != 0)
+    if (*err == 0)
     {
-        typeColor = ofColor(255, 0, 0);
+        flash(ofColor(120, 109, 196));
+    }
+    else
+    {
+        flash(ofColor(255, 0, 0));
         value = 0.0f;
     }
     

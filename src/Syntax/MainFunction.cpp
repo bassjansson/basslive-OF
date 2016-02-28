@@ -6,7 +6,7 @@
 //
 //
 
-#include "MainFunction.hpp"
+#include "Types.h"
 
 
 //========================================================================
@@ -190,13 +190,29 @@ void MainFunction::render()
 {
     ofxGuiPage::render();
     
-    float x = FONT_SIZE * 2;
-    float y = FONT_SIZE * 4;
+    
+    ofPushMatrix();
+    
+    float x = 0;
+    float y = 0;
     
     Function::draw(x, y, HORIZONTAL);
     
     if (charCursorTime < FRAME_RATE / 2)
         charSelected->drawCursor();
     
+    float xScale = (ofGetWidth()  - FONT_SIZE * 4) / x;
+    float yScale = (ofGetHeight() - FONT_SIZE * 6) / y;
+    
+    ofScale(xScale, yScale);
+    ofTranslate(FONT_SIZE * 2, FONT_SIZE * 4);
+    
+    ofPopMatrix();
+    
+    
     charCursorTime = (charCursorTime + 1) % FRAME_RATE;
+    
+    
+    string id = identifier->getTypeString();
+    if (id != "") setName(id);
 }

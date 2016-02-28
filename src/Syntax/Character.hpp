@@ -19,11 +19,14 @@
 #define UP    0
 #define DOWN  1
 
-#define CHAR_TYPE_NUMB  '#'
-#define CHAR_TYPE_IDEN  '$'
-#define CHAR_FUNC_IDEN  ':'
-#define CHAR_FUNC_OPEN  '('
-#define CHAR_FUNC_CLOSE ')'
+#define CHAR_TYPE_NUMBER '$'
+#define CHAR_TYPE_MOD_ID ':'
+#define CHAR_TYPE_BUF_ID '@'
+
+#define CHAR_FUNC_MOD_OPEN  '('
+#define CHAR_FUNC_MOD_CLOSE ')'
+#define CHAR_FUNC_BUF_OPEN  '['
+#define CHAR_FUNC_BUF_CLOSE ']'
 
 class Character;
 class Type;
@@ -48,10 +51,12 @@ public:
     
     //========================================================================
     virtual Character* getEndChar();
-    virtual Character* draw    (float& x, float& y, bool vertical);
+    virtual Character* draw (float& x, float& y, bool vertical);
+    virtual void drawCursor();
+    
+    //========================================================================
     virtual void mousePressed  (float x, float y, int button);
     virtual void mouseReleased (float x, float y, int button);
-    virtual void drawCursor();
     
     //========================================================================
     Character* getCharacter (bool dir);
@@ -59,9 +64,9 @@ public:
     Function*  getFunction  (bool dir);
     
     //========================================================================
-    string     getCharString();
-    CharType   getCharType();
-    Type*      getParentType();
+    Type*    getParentType();
+    string   getCharString();
+    CharType charType;
     
 protected:
     //========================================================================
@@ -70,10 +75,12 @@ protected:
     
     //========================================================================
     MainFunction* mf;
-    CharType charType;
-    string charString;
-    float animation;
     float x, y;
+    
+private:
+    //========================================================================
+    string charString;
+    float  animation;
     
     //========================================================================
     Character* left;

@@ -6,13 +6,13 @@
 //
 //
 
-#include "Editor.hpp"
+#include "Engine.hpp"
 
 
 //========================================================================
-void Editor::setup()
+void Engine::setup()
 {
-    audioEngine = new AudioEngine();
+    mouseIsPressed = false;
     
     tabbedPages.setup();
     
@@ -32,25 +32,40 @@ void Editor::setup()
     
     newPage();
     
-    mouseIsPressed = false;
+    // Init click and clock
+    clock.clock = 0;
+    clock.size  = BUFFERSIZE;
+    
+    clock.beatLength = SAMPLERATE / 2;
+    clock.barLength  = clock.beatLength * 4;
+    
+    clock.buffer = new   tick[clock.size];
+    click        = new sample[clock.size];
+    
+    for (tick t = 0; t < clock.size; t++)
+    {
+        clock.buffer[t] = t;
+        click[t] = 0.0f;
+    }
 }
 
-void Editor::exit()
+void Engine::exit()
 {
     for (int i = 0; i < pages.size(); i++)
         delete pages[i];
     pages.clear();
     
-    delete audioEngine;
+    delete[] clock.buffer;
+    delete[] click;
 }
 
-void Editor::update()
+void Engine::update()
 {
     if (mouseIsPressed && !ofGetMousePressed())
         mouseReleased(ofGetMouseX(), ofGetMouseY(), OF_MOUSE_BUTTON_LEFT);
 }
 
-void Editor::draw()
+void Engine::draw()
 {
     ofBackground(50);
 
@@ -58,27 +73,39 @@ void Editor::draw()
 }
 
 //========================================================================
-void Editor::audioOut (sig output, tick size, int channels)
-{
-    audioEngine->audioOut((MainFunction*)tabbedPages.getActiveTab(),
-                          output, size, channels);
+void Engine::audioOut (sig output, tick size, int channels)
+{    
+    MainFunction* mf = (MainFunction*)tabbedPages.getActiveTab();
+    
+    if (mf)
+    {
+        // Process clock and click
+        processClockAndClick();
+        
+        // Write DAC to output
+        sig dac;
+        mf->process(dac, clock);
+        for (int c = 0; c < channels; c++)
+            for (tick t = 0; t < size; t++)
+                output[t * channels + c] = dac[t] + click[t];
+    }
 }
 
-void Editor::mousePressed (float x, float y, int button)
+void Engine::mousePressed (float x, float y, int button)
 {
     ((MainFunction*)tabbedPages.getActiveTab())->mousePressed(x, y, button);
     
     mouseIsPressed = true;
 }
 
-void Editor::mouseReleased (float x, float y, int button)
+void Engine::mouseReleased (float x, float y, int button)
 {
     ((MainFunction*)tabbedPages.getActiveTab())->mouseReleased(x, y, button);
     
     mouseIsPressed = false;
 }
 
-void Editor::keyPressed (int key)
+void Engine::keyPressed (int key)
 {
     ((MainFunction*)tabbedPages.getActiveTab())->keyPressed(key);
     
@@ -86,7 +113,7 @@ void Editor::keyPressed (int key)
         newPage();
 }
 
-void Editor::windowResized()
+void Engine::windowResized()
 {
     tabbedPages.setSize(EDITOR_WIDTH, EDITOR_HEIGHT + FONT_SIZE * 2);
     
@@ -95,10 +122,36 @@ void Editor::windowResized()
 }
 
 //========================================================================
-void Editor::newPage()
+void Engine::newPage()
 {
     pages.push_back(new MainFunction("#" + ofToString(pages.size() + 1)));
     tabbedPages.add(pages.back());
     tabbedPages.setActiveTab(pages.size() - 1);
     windowResized();
+}
+
+void Engine::processClockAndClick()
+{
+    clock.clock++;
+    
+    //    clock.beatLength = (*memory)->getBeatLength();
+    //    clock.barLength  = (*memory)->getBarLength();
+    
+    tick clockStart = clock[clock.size - 1] + 1;
+    
+    for (tick t = 0; t < clock.size; t++)
+    {
+        clock.buffer[t] = clockStart + t;
+        
+        sample freq = clock[t] % clock.barLength / clock.beatLength;
+        if (freq < 1.0f) freq = 1000.0f;
+        else freq = 500.0f;
+        
+        sample osc = sinf(clock[t] * freq / SAMPLERATE * TWO_PI);
+        
+        sample amp = 1.0f - sample(clock[t] % clock.beatLength) / SAMPLERATE * 100.0f;
+        if (amp < 0.0f) amp = 0.0f;
+        
+        click[t] = osc * amp * 0.5f;
+    }
 }

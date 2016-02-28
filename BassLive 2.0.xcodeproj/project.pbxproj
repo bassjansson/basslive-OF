@@ -8,13 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
-		E4E5B6751C7F9EFB00064968 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6591C7F9EFB00064968 /* Character.cpp */; };
-		E4E5B6761C7F9EFB00064968 /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B65B1C7F9EFB00064968 /* Function.cpp */; };
-		E4E5B6771C7F9EFB00064968 /* Identifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B65D1C7F9EFB00064968 /* Identifier.cpp */; };
-		E4E5B6781C7F9EFB00064968 /* MainFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B65F1C7F9EFB00064968 /* MainFunction.cpp */; };
-		E4E5B6791C7F9EFB00064968 /* Number.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6611C7F9EFB00064968 /* Number.cpp */; };
-		E4E5B67B1C7F9EFB00064968 /* Type.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6651C7F9EFB00064968 /* Type.cpp */; };
-		E4E5B6851C7FA70B00064968 /* Editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6811C7FA70B00064968 /* Editor.cpp */; };
 		E4E5B6AB1C7FA78C00064968 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6881C7FA78C00064968 /* README.md */; };
 		E4E5B6AC1C7FA78C00064968 /* ofxFpsPlotter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B68A1C7FA78C00064968 /* ofxFpsPlotter.cpp */; };
 		E4E5B6AD1C7FA78C00064968 /* ofxGuiBaseDraws.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B68C1C7FA78C00064968 /* ofxGuiBaseDraws.cpp */; };
@@ -40,9 +33,19 @@
 		E4E5B6D41C7FA81F00064968 /* ofxSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6C91C7FA81F00064968 /* ofxSlider.cpp */; };
 		E4E5B6D51C7FA81F00064968 /* ofxSliderGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6CB1C7FA81F00064968 /* ofxSliderGroup.cpp */; };
 		E4E5B6D61C7FA81F00064968 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6CD1C7FA81F00064968 /* ofxToggle.cpp */; };
-		E4E5B6DA1C80AF7600064968 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6681C7F9EFB00064968 /* AudioEngine.cpp */; };
 		E4EC234B1C28535B00E06DC5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EC23481C28535B00E06DC5 /* main.cpp */; };
 		E4EC234C1C28535B00E06DC5 /* MainApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EC23491C28535B00E06DC5 /* MainApp.cpp */; };
+		E4EEF6CD1C833AF000F2A323 /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6BC1C833AF000F2A323 /* Engine.cpp */; };
+		E4EEF6CE1C833AF000F2A323 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6BF1C833AF000F2A323 /* Character.cpp */; };
+		E4EEF6CF1C833AF000F2A323 /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C11C833AF000F2A323 /* Function.cpp */; };
+		E4EEF6D01C833AF000F2A323 /* MainFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C31C833AF000F2A323 /* MainFunction.cpp */; };
+		E4EEF6D11C833AF000F2A323 /* Type.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C51C833AF000F2A323 /* Type.cpp */; };
+		E4EEF6D21C833AF000F2A323 /* ModuleType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C81C833AF000F2A323 /* ModuleType.cpp */; };
+		E4EEF6D31C833AF000F2A323 /* NumberType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6CA1C833AF000F2A323 /* NumberType.cpp */; };
+		E4EEF6D61C8344EC00F2A323 /* BufferType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6D41C8344EC00F2A323 /* BufferType.cpp */; };
+		E4EEF6DB1C83483300F2A323 /* AudioBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B66E1C7F9EFB00064968 /* AudioBuffer.cpp */; };
+		E4EEF6DE1C8349F200F2A323 /* ModuleFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6DC1C8349F200F2A323 /* ModuleFunction.cpp */; };
+		E4EEF6E11C834A0400F2A323 /* BufferFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6DF1C834A0400F2A323 /* BufferFunction.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,22 +81,6 @@
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* BassLive 2.0Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BassLive 2.0Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
-		E4E5B6591C7F9EFB00064968 /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
-		E4E5B65A1C7F9EFB00064968 /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
-		E4E5B65B1C7F9EFB00064968 /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Function.cpp; sourceTree = "<group>"; };
-		E4E5B65C1C7F9EFB00064968 /* Function.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Function.hpp; sourceTree = "<group>"; };
-		E4E5B65D1C7F9EFB00064968 /* Identifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Identifier.cpp; sourceTree = "<group>"; };
-		E4E5B65E1C7F9EFB00064968 /* Identifier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Identifier.hpp; sourceTree = "<group>"; };
-		E4E5B65F1C7F9EFB00064968 /* MainFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainFunction.cpp; sourceTree = "<group>"; };
-		E4E5B6601C7F9EFB00064968 /* MainFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainFunction.hpp; sourceTree = "<group>"; };
-		E4E5B6611C7F9EFB00064968 /* Number.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Number.cpp; sourceTree = "<group>"; };
-		E4E5B6621C7F9EFB00064968 /* Number.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Number.hpp; sourceTree = "<group>"; };
-		E4E5B6651C7F9EFB00064968 /* Type.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Type.cpp; sourceTree = "<group>"; };
-		E4E5B6661C7F9EFB00064968 /* Type.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Type.hpp; sourceTree = "<group>"; };
-		E4E5B6681C7F9EFB00064968 /* AudioEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioEngine.cpp; sourceTree = "<group>"; };
-		E4E5B6691C7F9EFB00064968 /* AudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioEngine.h; sourceTree = "<group>"; };
-		E4E5B66B1C7F9EFB00064968 /* Memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Memory.cpp; sourceTree = "<group>"; };
-		E4E5B66C1C7F9EFB00064968 /* Memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Memory.h; sourceTree = "<group>"; };
 		E4E5B66E1C7F9EFB00064968 /* AudioBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioBuffer.cpp; sourceTree = "<group>"; };
 		E4E5B66F1C7F9EFB00064968 /* AudioBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioBuffer.h; sourceTree = "<group>"; };
 		E4E5B6701C7F9EFB00064968 /* AudioModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioModule.cpp; sourceTree = "<group>"; };
@@ -101,8 +88,6 @@
 		E4E5B6721C7F9EFB00064968 /* BasicModules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicModules.cpp; sourceTree = "<group>"; };
 		E4E5B6731C7F9EFB00064968 /* BasicModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicModules.h; sourceTree = "<group>"; };
 		E4E5B6741C7F9EFB00064968 /* Modules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Modules.h; sourceTree = "<group>"; };
-		E4E5B6811C7FA70B00064968 /* Editor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Editor.cpp; sourceTree = "<group>"; };
-		E4E5B6821C7FA70B00064968 /* Editor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Editor.hpp; sourceTree = "<group>"; };
 		E4E5B6881C7FA78C00064968 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E4E5B68A1C7FA78C00064968 /* ofxFpsPlotter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFpsPlotter.cpp; sourceTree = "<group>"; };
 		E4E5B68B1C7FA78C00064968 /* ofxFpsPlotter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFpsPlotter.h; sourceTree = "<group>"; };
@@ -159,6 +144,27 @@
 		E4EC23481C28535B00E06DC5 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E4EC23491C28535B00E06DC5 /* MainApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainApp.cpp; sourceTree = "<group>"; };
 		E4EC234A1C28535B00E06DC5 /* MainApp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainApp.hpp; sourceTree = "<group>"; };
+		E4EEF6BC1C833AF000F2A323 /* Engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
+		E4EEF6BD1C833AF000F2A323 /* Engine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Engine.hpp; sourceTree = "<group>"; };
+		E4EEF6BF1C833AF000F2A323 /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
+		E4EEF6C01C833AF000F2A323 /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
+		E4EEF6C11C833AF000F2A323 /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Function.cpp; sourceTree = "<group>"; };
+		E4EEF6C21C833AF000F2A323 /* Function.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Function.hpp; sourceTree = "<group>"; };
+		E4EEF6C31C833AF000F2A323 /* MainFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MainFunction.cpp; path = ../Syntax/MainFunction.cpp; sourceTree = "<group>"; };
+		E4EEF6C41C833AF000F2A323 /* MainFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MainFunction.hpp; path = ../Syntax/MainFunction.hpp; sourceTree = "<group>"; };
+		E4EEF6C51C833AF000F2A323 /* Type.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Type.cpp; sourceTree = "<group>"; };
+		E4EEF6C61C833AF000F2A323 /* Type.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Type.hpp; sourceTree = "<group>"; };
+		E4EEF6C81C833AF000F2A323 /* ModuleType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModuleType.cpp; sourceTree = "<group>"; };
+		E4EEF6C91C833AF000F2A323 /* ModuleType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ModuleType.hpp; sourceTree = "<group>"; };
+		E4EEF6CA1C833AF000F2A323 /* NumberType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumberType.cpp; sourceTree = "<group>"; };
+		E4EEF6CB1C833AF000F2A323 /* NumberType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NumberType.hpp; sourceTree = "<group>"; };
+		E4EEF6D41C8344EC00F2A323 /* BufferType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferType.cpp; sourceTree = "<group>"; };
+		E4EEF6D51C8344EC00F2A323 /* BufferType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferType.hpp; sourceTree = "<group>"; };
+		E4EEF6DA1C8345B700F2A323 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		E4EEF6DC1C8349F200F2A323 /* ModuleFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModuleFunction.cpp; sourceTree = "<group>"; };
+		E4EEF6DD1C8349F200F2A323 /* ModuleFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ModuleFunction.hpp; sourceTree = "<group>"; };
+		E4EEF6DF1C834A0400F2A323 /* BufferFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferFunction.cpp; sourceTree = "<group>"; };
+		E4EEF6E01C834A0400F2A323 /* BufferFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferFunction.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,52 +220,13 @@
 			isa = PBXGroup;
 			children = (
 				E4EC23471C28535B00E06DC5 /* Main */,
+				E4EEF6B91C833AF000F2A323 /* Engine */,
+				E4EEF6BE1C833AF000F2A323 /* Syntax */,
+				E4EEF6C71C833AF000F2A323 /* Types */,
 				E4E5B66D1C7F9EFB00064968 /* Modules */,
-				E4E5B66A1C7F9EFB00064968 /* Memory */,
-				E4E5B6671C7F9EFB00064968 /* Engines */,
-				E4E5B6581C7F9EFB00064968 /* Editor */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
-		};
-		E4E5B6581C7F9EFB00064968 /* Editor */ = {
-			isa = PBXGroup;
-			children = (
-				E4E5B6591C7F9EFB00064968 /* Character.cpp */,
-				E4E5B65A1C7F9EFB00064968 /* Character.hpp */,
-				E4E5B6651C7F9EFB00064968 /* Type.cpp */,
-				E4E5B6661C7F9EFB00064968 /* Type.hpp */,
-				E4E5B6611C7F9EFB00064968 /* Number.cpp */,
-				E4E5B6621C7F9EFB00064968 /* Number.hpp */,
-				E4E5B65D1C7F9EFB00064968 /* Identifier.cpp */,
-				E4E5B65E1C7F9EFB00064968 /* Identifier.hpp */,
-				E4E5B65B1C7F9EFB00064968 /* Function.cpp */,
-				E4E5B65C1C7F9EFB00064968 /* Function.hpp */,
-				E4E5B65F1C7F9EFB00064968 /* MainFunction.cpp */,
-				E4E5B6601C7F9EFB00064968 /* MainFunction.hpp */,
-				E4E5B6811C7FA70B00064968 /* Editor.cpp */,
-				E4E5B6821C7FA70B00064968 /* Editor.hpp */,
-			);
-			path = Editor;
-			sourceTree = "<group>";
-		};
-		E4E5B6671C7F9EFB00064968 /* Engines */ = {
-			isa = PBXGroup;
-			children = (
-				E4E5B6681C7F9EFB00064968 /* AudioEngine.cpp */,
-				E4E5B6691C7F9EFB00064968 /* AudioEngine.h */,
-			);
-			path = Engines;
-			sourceTree = "<group>";
-		};
-		E4E5B66A1C7F9EFB00064968 /* Memory */ = {
-			isa = PBXGroup;
-			children = (
-				E4E5B66B1C7F9EFB00064968 /* Memory.cpp */,
-				E4E5B66C1C7F9EFB00064968 /* Memory.h */,
-			);
-			path = Memory;
-			sourceTree = "<group>";
 		};
 		E4E5B66D1C7F9EFB00064968 /* Modules */ = {
 			isa = PBXGroup;
@@ -377,6 +344,48 @@
 			name = openFrameworks;
 			sourceTree = "<group>";
 		};
+		E4EEF6B91C833AF000F2A323 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				E4EEF6BC1C833AF000F2A323 /* Engine.cpp */,
+				E4EEF6BD1C833AF000F2A323 /* Engine.hpp */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		E4EEF6BE1C833AF000F2A323 /* Syntax */ = {
+			isa = PBXGroup;
+			children = (
+				E4EEF6BF1C833AF000F2A323 /* Character.cpp */,
+				E4EEF6C01C833AF000F2A323 /* Character.hpp */,
+				E4EEF6C51C833AF000F2A323 /* Type.cpp */,
+				E4EEF6C61C833AF000F2A323 /* Type.hpp */,
+				E4EEF6C11C833AF000F2A323 /* Function.cpp */,
+				E4EEF6C21C833AF000F2A323 /* Function.hpp */,
+			);
+			path = Syntax;
+			sourceTree = "<group>";
+		};
+		E4EEF6C71C833AF000F2A323 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				E4EEF6DA1C8345B700F2A323 /* Types.h */,
+				E4EEF6CA1C833AF000F2A323 /* NumberType.cpp */,
+				E4EEF6CB1C833AF000F2A323 /* NumberType.hpp */,
+				E4EEF6C81C833AF000F2A323 /* ModuleType.cpp */,
+				E4EEF6C91C833AF000F2A323 /* ModuleType.hpp */,
+				E4EEF6D41C8344EC00F2A323 /* BufferType.cpp */,
+				E4EEF6D51C8344EC00F2A323 /* BufferType.hpp */,
+				E4EEF6DC1C8349F200F2A323 /* ModuleFunction.cpp */,
+				E4EEF6DD1C8349F200F2A323 /* ModuleFunction.hpp */,
+				E4EEF6DF1C834A0400F2A323 /* BufferFunction.cpp */,
+				E4EEF6E01C834A0400F2A323 /* BufferFunction.hpp */,
+				E4EEF6C31C833AF000F2A323 /* MainFunction.cpp */,
+				E4EEF6C41C833AF000F2A323 /* MainFunction.hpp */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -464,26 +473,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4E5B6851C7FA70B00064968 /* Editor.cpp in Sources */,
-				E4E5B67B1C7F9EFB00064968 /* Type.cpp in Sources */,
 				E4E5B6B61C7FA78C00064968 /* ofxMinimalToggle.cpp in Sources */,
 				E4E5B6B41C7FA78C00064968 /* ofxMasterSlaveControl.cpp in Sources */,
 				E4E5B6B01C7FA78C00064968 /* ofxGuiPage.cpp in Sources */,
-				E4E5B6DA1C80AF7600064968 /* AudioEngine.cpp in Sources */,
+				E4EEF6CE1C833AF000F2A323 /* Character.cpp in Sources */,
 				E4E5B6B91C7FA78C00064968 /* ofxTabbedPages.cpp in Sources */,
-				E4E5B6781C7F9EFB00064968 /* MainFunction.cpp in Sources */,
+				E4EEF6CD1C833AF000F2A323 /* Engine.cpp in Sources */,
 				E4E5B6B71C7FA78C00064968 /* ofxPanelExtended.cpp in Sources */,
 				E4E5B6AF1C7FA78C00064968 /* ofxGuiMatrix.cpp in Sources */,
-				E4E5B6751C7F9EFB00064968 /* Character.cpp in Sources */,
+				E4EEF6DB1C83483300F2A323 /* AudioBuffer.cpp in Sources */,
 				E4E5B6BA1C7FA78C00064968 /* ofxValuePlotter.cpp in Sources */,
 				E4E5B6AD1C7FA78C00064968 /* ofxGuiBaseDraws.cpp in Sources */,
+				E4EEF6DE1C8349F200F2A323 /* ModuleFunction.cpp in Sources */,
 				E4E5B6D31C7FA81F00064968 /* ofxPanel.cpp in Sources */,
+				E4EEF6E11C834A0400F2A323 /* BufferFunction.cpp in Sources */,
 				E4E5B6AB1C7FA78C00064968 /* README.md in Sources */,
+				E4EEF6D21C833AF000F2A323 /* ModuleType.cpp in Sources */,
+				E4EEF6D11C833AF000F2A323 /* Type.cpp in Sources */,
+				E4EEF6D01C833AF000F2A323 /* MainFunction.cpp in Sources */,
 				E4E5B6D51C7FA81F00064968 /* ofxSliderGroup.cpp in Sources */,
-				E4E5B6771C7F9EFB00064968 /* Identifier.cpp in Sources */,
 				E4E5B6BB1C7FA78C00064968 /* ofxVerticalSlider.cpp in Sources */,
 				E4E5B6B31C7FA78C00064968 /* ofxLabelExtended.cpp in Sources */,
 				E4E5B6D21C7FA81F00064968 /* ofxLabel.cpp in Sources */,
+				E4EEF6D61C8344EC00F2A323 /* BufferType.cpp in Sources */,
 				E4E5B6AE1C7FA78C00064968 /* ofxGuiGroupExtended.cpp in Sources */,
 				E4E5B6D01C7FA81F00064968 /* ofxButton.cpp in Sources */,
 				E4EC234C1C28535B00E06DC5 /* MainApp.cpp in Sources */,
@@ -491,14 +503,14 @@
 				E4E5B6D11C7FA81F00064968 /* ofxGuiGroup.cpp in Sources */,
 				E4E5B6B11C7FA78C00064968 /* ofxGuiSpacer.cpp in Sources */,
 				E4E5B6B21C7FA78C00064968 /* ofxGuiZoomableBaseDraws.cpp in Sources */,
+				E4EEF6D31C833AF000F2A323 /* NumberType.cpp in Sources */,
 				E4E5B6B81C7FA78C00064968 /* ofxRotarySlider.cpp in Sources */,
+				E4EEF6CF1C833AF000F2A323 /* Function.cpp in Sources */,
 				E4E5B6B51C7FA78C00064968 /* ofxMinimalButton.cpp in Sources */,
 				E4E5B6AC1C7FA78C00064968 /* ofxFpsPlotter.cpp in Sources */,
-				E4E5B6761C7F9EFB00064968 /* Function.cpp in Sources */,
 				E4E5B6CF1C7FA81F00064968 /* ofxBaseGui.cpp in Sources */,
 				E4E5B6D61C7FA81F00064968 /* ofxToggle.cpp in Sources */,
 				E4E5B6D41C7FA81F00064968 /* ofxSlider.cpp in Sources */,
-				E4E5B6791C7F9EFB00064968 /* Number.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

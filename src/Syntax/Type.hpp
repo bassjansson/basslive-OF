@@ -10,7 +10,16 @@
 #define Type_hpp
 
 #include "Character.hpp"
-#include "AudioModule.h"
+#include "Modules.h"
+
+
+enum TypeType
+{
+    FUNC_CLOSE = 0,
+    NUMBER,
+    BUFFER,
+    MODULE
+};
 
 
 class Type : public Character
@@ -23,18 +32,33 @@ public:
     //========================================================================
     virtual Character* getEndChar();
     virtual Character* draw (float& x, float& y, bool vertical);
-    virtual Type* process   (sig& output, Clock& clock);
-    virtual void keyPressed (int key);
-    virtual void trigger(){};
+    virtual void flash (const ofColor& color);
     
     //========================================================================
-    string getTypeString();
+    virtual void keyPressed (int key);
+    virtual void trigger() {};
+    
+    //========================================================================
+    virtual Type* process (buf& buffer, sig& output, Clock& clock);
+    
+    //========================================================================
+    string   getTypeString();
+    TypeType typeType;
     
 protected:
     //========================================================================
-    ofColor typeColor;
+    tick typeClock;
+    sig  typeSignal;
+    
+    //========================================================================
+    Function* funcPointer;
+    
+private:
+    //========================================================================
     string  typeString;
-    sig     typeSignal;
+    ofColor typeColor;
+    float   flashFloat;
+    
 };
 
 

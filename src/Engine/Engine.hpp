@@ -10,13 +10,12 @@
 #define __BassLive__Editor__
 
 #include "MainFunction.hpp"
-#include "AudioEngine.h"
 
 #define EDITOR_WIDTH  (ofGetWidth())
 #define EDITOR_HEIGHT (ofGetHeight() - FONT_SIZE * 2)
 
 
-class Editor
+class Engine
 {
 public:
     //========================================================================
@@ -35,15 +34,18 @@ public:
 private:
     //========================================================================
     void newPage();
+    void processClockAndClick();
     
     //========================================================================
-    AudioEngine* audioEngine;
+    bool mouseIsPressed;
     
     //========================================================================
     ofxTabbedPages  tabbedPages;
     vector<MainFunction*> pages;
     
-    bool mouseIsPressed;
+    //========================================================================
+    Clock   clock;
+    sample* click;
 };
 
 

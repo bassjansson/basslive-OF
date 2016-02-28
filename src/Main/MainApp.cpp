@@ -16,7 +16,7 @@ void MainApp::setup()
     ofSetWindowPosition(75, 75);
     ofSetWindowTitle("BassLive 2.0");
     
-    editor.setup();
+    engine.setup();
     
     // TODO: List devices in interface
     soundStream.printDeviceList();
@@ -28,17 +28,17 @@ void MainApp::exit()
 {
     soundStream.close();
     
-    editor.exit();
+    engine.exit();
 }
 
 void MainApp::update()
 {
-    editor.update();
+    engine.update();
 }
 
 void MainApp::draw()
 {
-    editor.draw();
+    engine.draw();
 }
 
 //========================================================================
@@ -49,13 +49,13 @@ void MainApp::audioIn (float* buffer, int size, int channels)
 
 void MainApp::audioOut (float* buffer, int size, int channels)
 {
-    editor.audioOut(buffer, size, channels);
+    engine.audioOut(buffer, size, channels);
 }
 
 //========================================================================
 void MainApp::keyPressed (int key)
 {
-    editor.keyPressed(key);
+    engine.keyPressed(key);
 }
 
 void MainApp::keyReleased (int key)
@@ -76,18 +76,18 @@ void MainApp::mouseDragged (int x, int y, int button)
 
 void MainApp::mousePressed (int x, int y, int button)
 {
-    editor.mousePressed(x, y, button);
+    engine.mousePressed(x, y, button);
 }
 
 void MainApp::mouseReleased (int x, int y, int button)
 {
-    editor.mouseReleased(x, y, button);
+    engine.mouseReleased(x, y, button);
 }
 
 //========================================================================
 void MainApp::windowResized (int w, int h)
 {
-    editor.windowResized();
+    engine.windowResized();
 }
 
 void MainApp::dragEvent (ofDragInfo dragInfo)

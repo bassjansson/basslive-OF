@@ -2,7 +2,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "Editor.hpp"
+#include "Engine.hpp"
 
 
 class MainApp : public ofBaseApp
@@ -35,6 +35,6 @@ public:
     
 private:
     //========================================================================
-    Editor        editor;
+    Engine        engine;
     ofSoundStream soundStream;
 };

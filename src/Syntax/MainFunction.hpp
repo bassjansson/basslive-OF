@@ -9,11 +9,8 @@
 #ifndef MainFunction_hpp
 #define MainFunction_hpp
 
-#include "ofxGuiExtended.h"
-
-#include "Number.hpp"
-#include "Identifier.hpp"
 #include "Function.hpp"
+#include "ofxGuiExtended.h"
 
 #define FRAME_RATE 30
 #define FONT_SIZE  15
@@ -23,7 +20,7 @@ class MainFunction : public Function, public ofxGuiPage
 {
 public:
     //========================================================================
-     MainFunction (string name);
+     MainFunction (const string& id);
     ~MainFunction ();
     
     //========================================================================
@@ -35,8 +32,8 @@ public:
     bool removeTypeIfSelected();
     
     //========================================================================
-    Function*    getFunctionWithID  (string id);
-    AudioModule* getNewModuleWithID (string id) { return NULL; };
+    Function* getModuleFunction (const string& id);
+    Function* getBufferFunction (const string& id);
     
     //========================================================================
     ofTrueTypeFont charFont;

@@ -21,11 +21,15 @@
 
 typedef u_long tick;
 typedef float  tick_f;
-typedef float  sample;
 typedef float  beat;
 
+typedef float sample;
 typedef sample* sig;
 typedef vector<sig> sig_vec;
+
+class   AudioBuffer;
+typedef AudioBuffer* buf;
+typedef vector<buf> buf_vec;
 
 
 struct Clock
@@ -48,7 +52,10 @@ class AudioModule
 {
 public:
     //========================================================================
-    virtual void process (sig_vec& inputs, sig output, Clock clock) {};
+    virtual void process (buf_vec& buffers,
+                          sig_vec& inputs,
+                          sig      output,
+                          Clock    clock) {};
 };
 
 

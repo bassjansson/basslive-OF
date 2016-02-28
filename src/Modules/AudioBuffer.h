@@ -16,22 +16,26 @@ class AudioBuffer : public AudioModule
 {
 public:
     //========================================================================
-     AudioBuffer (string ID);
-    ~AudioBuffer ();
+     AudioBuffer();
+    ~AudioBuffer();
     
     //========================================================================
     tick getSize  ();
     tick getStart ();
-    void   record (tick size);
-    sample   read (tick_f pointer, int channel, Clock& clock);
+    void record   (tick size);
+    sample read   (tick_f pointer, Clock& clock);
     
 private:
     //========================================================================
-    void process (SignalVec& inputs, SignalVec& outputs, Clock clock);
+    virtual void process (buf_vec& buffers,
+                          sig_vec& inputs,
+                          sig      output,
+                          Clock    clock) {};
     
     //========================================================================
+    sig  buffer;
+    tick size;
     tick start;
-    SignalVec buffers;
     enum { OFF, WAIT, ON } recording;
 };
 

@@ -6,17 +6,19 @@
 //
 //
 
-#include "MainFunction.hpp"
+#include "Types.h"
 
 
 //========================================================================
 Character::Character (char c, MainFunction* mf)
 {
-    this->mf   = mf;
-    charType   = CHARACTER;
+    charType = CHARACTER;
+    
+    this->mf = mf;
+    x = y = 0.0f;
+    
     charString = c;
     animation  = 0.0f;
-    x = y      = 0.0f;
 
     if (this == mf)
     {
@@ -58,7 +60,7 @@ Character* Character::draw (float& x, float& y, bool vertical)
         y = this->y;
     }
     
-    if (mf->charSelected->getCharType() != FUNCTION_BODY)
+    if (mf->charSelected->charType != FUNCTION_BODY)
     {
         if (ofGetMousePressed() && mf->charSelected == this)
         {
@@ -119,6 +121,14 @@ Character* Character::draw (float& x, float& y, bool vertical)
                      charHeight * 0.5f + charFont.getDescenderHeight());
  */
 
+void Character::drawCursor()
+{
+    ofSetColor(255);
+    ofDrawRectangle(this->x + mf->charWidth * 0.95f, this->y,
+                    mf->charWidth * 0.1f, mf->charHeight);
+}
+
+//========================================================================
 void Character::mousePressed (float x, float y, int button)
 {
     if (right != mf && button == OF_MOUSE_BUTTON_LEFT)
@@ -144,13 +154,6 @@ void Character::mouseReleased (float x, float y, int button)
     }
 }
 
-void Character::drawCursor()
-{
-    ofSetColor(255);
-    ofDrawRectangle(this->x + mf->charWidth * 0.95f, this->y,
-                    mf->charWidth * 0.1f, mf->charHeight);
-}
-
 //========================================================================
 Character* Character::getCharacter (bool dir)
 {
@@ -169,7 +172,7 @@ Type* Character::getType (bool dir)
         if (c == NULL)
             return NULL;
         
-        if (c->getCharType() != CHARACTER)
+        if (c->charType != CHARACTER)
             return (Type*)c;
         
         if (!dir) c = c->left;
@@ -188,7 +191,7 @@ Function* Character::getFunction (bool dir)
         if (c == NULL)
             return NULL;
         
-        if (c->getCharType() == FUNCTION)
+        if (c->charType == FUNCTION)
             return (Function*)c;
         
         if (!dir) c = c->left;
@@ -197,16 +200,6 @@ Function* Character::getFunction (bool dir)
 }
 
 //========================================================================
-string Character::getCharString()
-{
-    return charString;
-}
-
-CharType Character::getCharType()
-{
-    return charType;
-}
-
 Type* Character::getParentType()
 {
     Character* c = this;
@@ -216,11 +209,16 @@ Type* Character::getParentType()
         if (c == NULL)
             return NULL;
         
-        if (c->getCharType() != CHARACTER)
+        if (c->charType != CHARACTER)
             return (Type*)c;
         
         c = c->left;
     }
+}
+
+string Character::getCharString()
+{
+    return charString;
 }
 
 //========================================================================
@@ -229,7 +227,7 @@ bool Character::removeSelectedChar (bool removeFunctionBodies)
     if (mf->charSelected == this || mf->charSelected == mf)
         return false;
         
-    if (!removeFunctionBodies && mf->charSelected->getCharType() == FUNCTION_BODY)
+    if (!removeFunctionBodies && mf->charSelected->charType == FUNCTION_BODY)
         return false;
     
     Character* c = mf->charSelected;
@@ -239,7 +237,7 @@ bool Character::removeSelectedChar (bool removeFunctionBodies)
     
     mf->charSelected = c->left;
     
-    switch (c->getCharType())
+    switch (c->charType)
     {
         case CHARACTER:
             delete c;
@@ -261,9 +259,9 @@ bool Character::removeSelectedChar (bool removeFunctionBodies)
 void Character::moveSelectedChar (Character* destination)
 {
     if (mf->charSelected->getParentType() == mf ||
-        mf->charSelected->getCharType() == FUNCTION_BODY ||
+        mf->charSelected->charType == FUNCTION_BODY ||
         destination->getParentType() == mf ||
-        (mf->charSelected->getCharType() == CHARACTER &&
+        (mf->charSelected->charType == CHARACTER &&
          destination->getCharString() == ")"))
         return;
     
