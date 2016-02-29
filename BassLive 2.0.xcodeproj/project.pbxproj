@@ -43,9 +43,10 @@
 		E4EEF6D21C833AF000F2A323 /* ModuleType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C81C833AF000F2A323 /* ModuleType.cpp */; };
 		E4EEF6D31C833AF000F2A323 /* NumberType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6CA1C833AF000F2A323 /* NumberType.cpp */; };
 		E4EEF6D61C8344EC00F2A323 /* BufferType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6D41C8344EC00F2A323 /* BufferType.cpp */; };
-		E4EEF6DB1C83483300F2A323 /* AudioBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B66E1C7F9EFB00064968 /* AudioBuffer.cpp */; };
 		E4EEF6DE1C8349F200F2A323 /* ModuleFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6DC1C8349F200F2A323 /* ModuleFunction.cpp */; };
 		E4EEF6E11C834A0400F2A323 /* BufferFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6DF1C834A0400F2A323 /* BufferFunction.cpp */; };
+		E4EEF6E41C83BE5F00F2A323 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6E21C83BE5F00F2A323 /* Module.cpp */; };
+		E4EEF6E51C83DF7C00F2A323 /* BasicModules.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6721C7F9EFB00064968 /* BasicModules.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,12 +82,8 @@
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* BassLive 2.0Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BassLive 2.0Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
-		E4E5B66E1C7F9EFB00064968 /* AudioBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioBuffer.cpp; sourceTree = "<group>"; };
-		E4E5B66F1C7F9EFB00064968 /* AudioBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioBuffer.h; sourceTree = "<group>"; };
-		E4E5B6701C7F9EFB00064968 /* AudioModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioModule.cpp; sourceTree = "<group>"; };
-		E4E5B6711C7F9EFB00064968 /* AudioModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioModule.h; sourceTree = "<group>"; };
 		E4E5B6721C7F9EFB00064968 /* BasicModules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicModules.cpp; sourceTree = "<group>"; };
-		E4E5B6731C7F9EFB00064968 /* BasicModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicModules.h; sourceTree = "<group>"; };
+		E4E5B6731C7F9EFB00064968 /* BasicModules.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BasicModules.hpp; sourceTree = "<group>"; };
 		E4E5B6741C7F9EFB00064968 /* Modules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Modules.h; sourceTree = "<group>"; };
 		E4E5B6881C7FA78C00064968 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E4E5B68A1C7FA78C00064968 /* ofxFpsPlotter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFpsPlotter.cpp; sourceTree = "<group>"; };
@@ -165,6 +162,8 @@
 		E4EEF6DD1C8349F200F2A323 /* ModuleFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ModuleFunction.hpp; sourceTree = "<group>"; };
 		E4EEF6DF1C834A0400F2A323 /* BufferFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferFunction.cpp; sourceTree = "<group>"; };
 		E4EEF6E01C834A0400F2A323 /* BufferFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferFunction.hpp; sourceTree = "<group>"; };
+		E4EEF6E21C83BE5F00F2A323 /* Module.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Module.cpp; sourceTree = "<group>"; };
+		E4EEF6E31C83BE5F00F2A323 /* Module.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Module.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,12 +231,10 @@
 			isa = PBXGroup;
 			children = (
 				E4E5B6741C7F9EFB00064968 /* Modules.h */,
-				E4E5B6701C7F9EFB00064968 /* AudioModule.cpp */,
-				E4E5B6711C7F9EFB00064968 /* AudioModule.h */,
-				E4E5B66E1C7F9EFB00064968 /* AudioBuffer.cpp */,
-				E4E5B66F1C7F9EFB00064968 /* AudioBuffer.h */,
+				E4EEF6E21C83BE5F00F2A323 /* Module.cpp */,
+				E4EEF6E31C83BE5F00F2A323 /* Module.hpp */,
 				E4E5B6721C7F9EFB00064968 /* BasicModules.cpp */,
-				E4E5B6731C7F9EFB00064968 /* BasicModules.h */,
+				E4E5B6731C7F9EFB00064968 /* BasicModules.hpp */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -481,7 +478,6 @@
 				E4EEF6CD1C833AF000F2A323 /* Engine.cpp in Sources */,
 				E4E5B6B71C7FA78C00064968 /* ofxPanelExtended.cpp in Sources */,
 				E4E5B6AF1C7FA78C00064968 /* ofxGuiMatrix.cpp in Sources */,
-				E4EEF6DB1C83483300F2A323 /* AudioBuffer.cpp in Sources */,
 				E4E5B6BA1C7FA78C00064968 /* ofxValuePlotter.cpp in Sources */,
 				E4E5B6AD1C7FA78C00064968 /* ofxGuiBaseDraws.cpp in Sources */,
 				E4EEF6DE1C8349F200F2A323 /* ModuleFunction.cpp in Sources */,
@@ -500,6 +496,7 @@
 				E4E5B6D01C7FA81F00064968 /* ofxButton.cpp in Sources */,
 				E4EC234C1C28535B00E06DC5 /* MainApp.cpp in Sources */,
 				E4EC234B1C28535B00E06DC5 /* main.cpp in Sources */,
+				E4EEF6E51C83DF7C00F2A323 /* BasicModules.cpp in Sources */,
 				E4E5B6D11C7FA81F00064968 /* ofxGuiGroup.cpp in Sources */,
 				E4E5B6B11C7FA78C00064968 /* ofxGuiSpacer.cpp in Sources */,
 				E4E5B6B21C7FA78C00064968 /* ofxGuiZoomableBaseDraws.cpp in Sources */,
@@ -507,6 +504,7 @@
 				E4E5B6B81C7FA78C00064968 /* ofxRotarySlider.cpp in Sources */,
 				E4EEF6CF1C833AF000F2A323 /* Function.cpp in Sources */,
 				E4E5B6B51C7FA78C00064968 /* ofxMinimalButton.cpp in Sources */,
+				E4EEF6E41C83BE5F00F2A323 /* Module.cpp in Sources */,
 				E4E5B6AC1C7FA78C00064968 /* ofxFpsPlotter.cpp in Sources */,
 				E4E5B6CF1C7FA81F00064968 /* ofxBaseGui.cpp in Sources */,
 				E4E5B6D61C7FA81F00064968 /* ofxToggle.cpp in Sources */,

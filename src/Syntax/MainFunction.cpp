@@ -20,10 +20,7 @@ MainFunction::MainFunction (string name) : Function(this)
     charCursorTime = 0;
     
     // Create main
-    new Character('m', mf);
-    new Character('a', mf);
-    new Character('i', mf);
-    new Character('n', mf);
+    new Character('+', mf);
     charSelected = identifier;
     new Function(mf);
 }
@@ -154,38 +151,6 @@ void MainFunction::keyPressed (int key)
 }
 
 //========================================================================
-bool MainFunction::removeTypeIfSelected()
-{
-    if (charSelected->getCharType() != CHARACTER)
-        removeSelectedChar(false);
-    else
-    {
-        if (charSelected->getParentType()->getCharType() == FUNCTION)
-            charSelected = charSelected->getType(RIGHT)
-                           ->getType(RIGHT)->getCharacter(LEFT);
-        else
-            charSelected = charSelected->getType(RIGHT)->getCharacter(LEFT);
-    }
-}
-
-//========================================================================
-Function* MainFunction::getFunctionWithID (string id)
-{
-    Function* f = getFunction(RIGHT);
-    
-    while (true)
-    {
-        if (f == NULL || f == mf)
-            return NULL;
-        
-        if (f->getType(RIGHT)->getTypeString() == id)
-            return f;
-        
-        f = f->getFunction(RIGHT);
-    }
-}
-
-//========================================================================
 void MainFunction::render()
 {
     ofxGuiPage::render();
@@ -213,6 +178,20 @@ void MainFunction::render()
     charCursorTime = (charCursorTime + 1) % FRAME_RATE;
     
     
-    string id = identifier->getTypeString();
+    string id = getIdentifierString();
     if (id != "") setName(id);
+}
+
+bool MainFunction::removeTypeIfSelected()
+{
+    if (charSelected->getCharType() != CHARACTER)
+        removeSelectedChar(false);
+    else
+    {
+        if (charSelected->getParentType()->getCharType() == FUNCTION)
+            charSelected = charSelected->getType(RIGHT)
+            ->getType(RIGHT)->getCharacter(LEFT);
+        else
+            charSelected = charSelected->getType(RIGHT)->getCharacter(LEFT);
+    }
 }

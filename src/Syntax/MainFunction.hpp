@@ -9,14 +9,11 @@
 #ifndef MainFunction_hpp
 #define MainFunction_hpp
 
-#include "Function.hpp"
+#include "ModuleFunction.hpp"
 #include "ofxGuiExtended.h"
 
-#define FRAME_RATE 30
-#define FONT_SIZE  15
 
-
-class MainFunction : public Function, public ofxGuiPage
+class MainFunction : public ModuleFunction, public ofxGuiPage
 {
 public:
     //========================================================================
@@ -29,22 +26,33 @@ public:
     void keyPressed    (int key);
     
     //========================================================================
-    bool removeTypeIfSelected();
+    char getNewModuleID();
+    char getNewBufferID();
     
     //========================================================================
-    Function* getModuleFunction (const string& id);
-    Function* getBufferFunction (const string& id);
+    tick getBeatLength();
+    tick getBarLength();
     
     //========================================================================
     ofTrueTypeFont charFont;
     float          charWidth;
     float          charHeight;
     Character*     charSelected;
-    int            charCursorTime;
     
 protected:
     //========================================================================
     void render();
+    bool removeTypeIfSelected();
+    
+private:
+    //========================================================================
+    int moduleIDCounter;
+    int bufferIDCounter;
+    
+    //========================================================================
+    tick beatLength;
+    tick barLength;
+    tick cursorTime;
 };
 
 

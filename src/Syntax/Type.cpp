@@ -16,15 +16,15 @@ Type::Type (char c, MainFunction* mf)
     charType = TYPE;
     typeType = FUNC_CLOSE;
     
+    functionPointer = NULL;
+    
     typeClock  = -1;
     typeSignal = new sample[BUFFERSIZE];
     for (tick t = 0; t < BUFFERSIZE; t++)
         typeSignal[t] = 0.0f;
     
-    funcPointer = NULL;
-    
     typeString = "";
-    typeColor  = ofColor(255);
+    typeColor  = COLOR_DEFAULT;
     flashFloat = 0.0f;
 }
 
@@ -54,11 +54,12 @@ Character* Type::getEndChar()
     return getType(RIGHT)->getCharacter(LEFT);
 }
 
-Character* Type::draw (float& x, float& y, bool vertical)
+Character* Type::draw (float& x, float& y, bool vertical, bool selection)
 {
     // Draw type character
-    ofSetColor(255);
-    Character* c = Character::draw(x, y, vertical);
+    selection = selection || mf->charSelected == this;
+    ofSetColor(COLOR_DEFAULT);
+    Character* c = Character::draw(x, y, vertical, selection);
     
     
     // Draw type string
@@ -66,17 +67,17 @@ Character* Type::draw (float& x, float& y, bool vertical)
     while (true)
     {
         if (c == NULL)
-            return NULL;
+            break;
         
         if (c->charType != CHARACTER)
         {
             x += mf->charWidth;
-            return c;
+            break;
         }
         
         ofSetColor(typeColor);
         str += c->getCharString();
-        c = c->draw(x, y, HORIZONTAL);
+        c = c->draw(x, y, HORIZONTAL, selection);
     }
     
     
@@ -88,8 +89,12 @@ Character* Type::draw (float& x, float& y, bool vertical)
     
     // Default color if string is changed
     if (str != typeString)
-        typeColor = ofColor(255);
+        typeColor = COLOR_DEFAULT;
     typeString = str;
+    
+    
+    // Return next character
+    return c;
 }
 
 void Type::flash (const ofColor& color)
@@ -116,12 +121,23 @@ void Type::keyPressed (int key)
     }
 }
 
+void Type::trigger()
+{
+    flash(COLOR_DEFAULT);
+}
+
 //========================================================================
 Type* Type::process (buf& buffer, sig& output, Clock& clock)
 {
-    output = typeSignal;
-    
-    if (funcPointer) funcPointer->process(buffer, output, clock);
+    if (functionPointer)
+    {
+        functionPointer->process(buffer, output, clock);
+    }
+    else
+    {
+        buffer = NULL;
+        output = typeSignal;
+    }
     
     return getType(RIGHT);
 }
@@ -130,4 +146,29 @@ Type* Type::process (buf& buffer, sig& output, Clock& clock)
 string Type::getTypeString()
 {
     return typeString;
+}
+
+//========================================================================
+bool Type::updateFunctionPointer()
+{
+    functionPointer = NULL;
+    Function* f = mf;
+    
+    while (true)
+    {
+        if (f == NULL)
+            return false;
+        
+        if (typeType   == f->typeType &&
+            typeString == f->getIdentifierString())
+        {
+            functionPointer = f;
+            return true;
+        }
+        
+        f = f->getFunction(RIGHT);
+        
+        if (f == mf)
+            return false;
+    }
 }

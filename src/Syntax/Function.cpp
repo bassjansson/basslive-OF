@@ -48,11 +48,13 @@ Character* Function::getEndChar()
     return close;
 }
 
-Character* Function::draw (float& x, float& y, bool vertical)
+Character* Function::draw (float& x, float& y, bool vertical, bool selection)
 {
     // Draw function type
-    Character* c = Type::draw(x, y, vertical);
+    selection = selection || mf->charSelected == this;
+    Character* c = Type::draw(x, y, vertical, selection);
     float indent = x;
+    
     
     // Draw function arguments
     for (int i = 0; true; i++)
@@ -63,13 +65,13 @@ Character* Function::draw (float& x, float& y, bool vertical)
         if (c == close)
         {
             x -= mf->charWidth;
-            return c->draw(x, y, HORIZONTAL);
+            return c->draw(x, y, HORIZONTAL, selection);
         }
         
         if (c == identifier)
         {
             x -= mf->charWidth;
-            c = c->draw(x, y, HORIZONTAL);
+            c = c->draw(x, y, HORIZONTAL, selection);
             indent = x;
         }
         else
@@ -79,11 +81,11 @@ Character* Function::draw (float& x, float& y, bool vertical)
                  c->getCharacter(LEFT)->charType == FUNCTION_BODY))
             {
                 x = indent;
-                c = c->draw(x, y, VERTICAL);
+                c = c->draw(x, y, VERTICAL, selection);
             }
             else
             {
-                c = c->draw(x, y, HORIZONTAL);
+                c = c->draw(x, y, HORIZONTAL, selection);
             }
         }
     }

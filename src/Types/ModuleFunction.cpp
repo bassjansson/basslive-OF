@@ -6,8 +6,22 @@
 //
 //
 
-#include "ModuleFunction.hpp"
+#include "Types.h"
 
+
+//========================================================================
+bool ModuleFunction::updateAudioModule()
+{
+    if (module) delete module;
+    
+    if (module_id == "loop") return module = new loop_Module();
+    if (module_id == "+"   ) return module = new add_Module();
+    if (module_id == "-"   ) return module = new sub_Module();
+    if (module_id == "*"   ) return module = new mul_Module();
+    if (module_id == "/"   ) return module = new div_Module();
+    
+    return module;
+}
 
 //========================================================================
 ModuleFunction::ModuleFunction (MainFunction* mf)
@@ -16,31 +30,43 @@ ModuleFunction::ModuleFunction (MainFunction* mf)
            CHAR_FUNC_MOD_CLOSE, mf)
 {
     typeType = MODULE;
-    module   = NULL;
+
+    module    =  NULL;
+    module_id = "NULL";
 }
 
 //========================================================================
 void ModuleFunction::trigger()
 {
-    if (am_id != typeString)
+    // Update module and id
+    if (module_id != getTypeString())
     {
-        am_id = typeString;
+        if (getTypeString() == "")
+        {
+            mf->charSelected = this;
+            new Character('*', mf);
+        }
         
-        if (module) delete module;
+        module_id = getTypeString();
         
-        module = mf->getNewModuleWithID(am_id);
-        
-        if (module) typeColor = ofColor(0, 160, 190);
+        if (updateAudioModule())
+            flash(COLOR_FUNC_MODULE);
     }
     
+    
+    // Trigger children
     Type* t = identifier;
     
     while (true)
     {
-        if (t == NULL || t == close)
+        if (t == NULL)
             break;
         
         t->trigger();
+        
+        if (t == close)
+            break;
+
         t = t->getType(RIGHT);
     }
 }
@@ -48,16 +74,20 @@ void ModuleFunction::trigger()
 //========================================================================
 Type* ModuleFunction::process (buf& buffer, sig& output, Clock& clock)
 {
+    buffer = NULL;
     output = typeSignal;
     
-    if (this->clock != clock.clock)
+    
+    if (typeClock != clock.clock)
     {
-        this->clock = clock.clock;
+        typeClock = clock.clock;
         
         if (module)
         {
-            Type* t = identifier->getType(RIGHT);
             inputs.clear();
+            buffers.clear();
+            
+            Type* t = identifier->getType(RIGHT);
             
             while (true)
             {
@@ -65,11 +95,15 @@ Type* ModuleFunction::process (buf& buffer, sig& output, Clock& clock)
                     break;
                 
                 sig s;
-                t = t->process(s, clock);
-                inputs.push_back(s);
+                buf b;
+                
+                t = t->process(b, s, clock);
+                
+                if (s) inputs.push_back(s);
+                if (b) buffers.push_back(b);
             }
             
-            module->process(inputs, output, clock);
+            module->process(inputs, buffers, output, clock);
         }
         else
         {
@@ -77,6 +111,7 @@ Type* ModuleFunction::process (buf& buffer, sig& output, Clock& clock)
                 output[t] = 0.0f;
         }
     }
+    
     
     return close->getType(RIGHT);
 }

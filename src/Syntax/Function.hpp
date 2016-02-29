@@ -21,7 +21,7 @@ public:
     
     //========================================================================
     virtual Character* getEndChar();
-    virtual Character* draw (float& x, float& y, bool vertical);
+    virtual Character* draw (float& x, float& y, bool vertical, bool selection);
     
     //========================================================================
     string getIdentifierString();

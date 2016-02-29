@@ -11,23 +11,6 @@
 
 #include "ofMain.h"
 
-#define HORIZONTAL 0
-#define VERTICAL   1
-
-#define LEFT  0
-#define RIGHT 1
-#define UP    0
-#define DOWN  1
-
-#define CHAR_TYPE_NUMBER '$'
-#define CHAR_TYPE_MOD_ID ':'
-#define CHAR_TYPE_BUF_ID '@'
-
-#define CHAR_FUNC_MOD_OPEN  '('
-#define CHAR_FUNC_MOD_CLOSE ')'
-#define CHAR_FUNC_BUF_OPEN  '['
-#define CHAR_FUNC_BUF_CLOSE ']'
-
 class Character;
 class Type;
 class Function;
@@ -51,7 +34,7 @@ public:
     
     //========================================================================
     virtual Character* getEndChar();
-    virtual Character* draw (float& x, float& y, bool vertical);
+    virtual Character* draw (float& x, float& y, bool vertical, bool selection);
     virtual void drawCursor();
     
     //========================================================================

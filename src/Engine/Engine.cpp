@@ -7,6 +7,7 @@
 //
 
 #include "Engine.hpp"
+#include "Types.h"
 
 
 //========================================================================
@@ -33,19 +34,19 @@ void Engine::setup()
     newPage();
     
     // Init click and clock
-    clock.clock = 0;
-    clock.size  = BUFFERSIZE;
-    
+    clock.clock      = 0;
     clock.beatLength = SAMPLERATE / 2;
     clock.barLength  = clock.beatLength * 4;
     
-    clock.buffer = new   tick[clock.size];
-    click        = new sample[clock.size];
+    clock.buffer = new   tick[BUFFERSIZE];
+    clock.null   = new sample[BUFFERSIZE];
+    click        = new sample[BUFFERSIZE];
     
-    for (tick t = 0; t < clock.size; t++)
+    for (tick t = 0; t < BUFFERSIZE; t++)
     {
         clock.buffer[t] = t;
-        click[t] = 0.0f;
+        clock.null[t]   = 0.0f;
+        click[t]        = 0.0f;
     }
 }
 
@@ -56,11 +57,13 @@ void Engine::exit()
     pages.clear();
     
     delete[] clock.buffer;
+    delete[] clock.null;
     delete[] click;
 }
 
 void Engine::update()
 {
+    // Temporary bugfix of mouseReleased()
     if (mouseIsPressed && !ofGetMousePressed())
         mouseReleased(ofGetMouseX(), ofGetMouseY(), OF_MOUSE_BUTTON_LEFT);
 }
@@ -84,7 +87,8 @@ void Engine::audioOut (sig output, tick size, int channels)
         
         // Write DAC to output
         sig dac;
-        mf->process(dac, clock);
+        buf dacbuf;
+        mf->process(dacbuf, dac, clock);
         for (int c = 0; c < channels; c++)
             for (tick t = 0; t < size; t++)
                 output[t * channels + c] = dac[t] + click[t];
@@ -132,14 +136,16 @@ void Engine::newPage()
 
 void Engine::processClockAndClick()
 {
+    MainFunction* mf = (MainFunction*)tabbedPages.getActiveTab();
+    
     clock.clock++;
     
-    //    clock.beatLength = (*memory)->getBeatLength();
-    //    clock.barLength  = (*memory)->getBarLength();
+    clock.beatLength = mf->getBeatLength();
+    clock.barLength  = mf->getBarLength();
     
-    tick clockStart = clock[clock.size - 1] + 1;
+    tick clockStart = clock[BUFFERSIZE - 1] + 1;
     
-    for (tick t = 0; t < clock.size; t++)
+    for (tick t = 0; t < BUFFERSIZE; t++)
     {
         clock.buffer[t] = clockStart + t;
         

@@ -43,7 +43,7 @@ Character* Character::getEndChar()
     return this;
 }
 
-Character* Character::draw (float& x, float& y, bool vertical)
+Character* Character::draw (float& x, float& y, bool vertical, bool selection)
 {
     // Init character position
     if (this->x == 0.0f) this->x = x;
@@ -91,6 +91,14 @@ Character* Character::draw (float& x, float& y, bool vertical)
                             mf->charHeight * 0.5f + mf->charFont.getDescenderHeight());
     
     ofPopMatrix();
+    
+    
+    // Draw selection
+    if (selection || mf->charSelected == this)
+    {
+        ofSetColor(COLOR_SELECTION);
+        ofDrawRectangle(x, y, mf->charWidth * 2, mf->charHeight);
+    }
     
     
     // Update animation

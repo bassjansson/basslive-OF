@@ -14,6 +14,8 @@ NumberType::NumberType (MainFunction* mf)
 : Type(CHAR_TYPE_NUMBER, mf)
 {
     typeType = NUMBER;
+    
+    value = 0.0f;
 }
 
 //========================================================================
@@ -25,19 +27,33 @@ void NumberType::keyPressed (int key)
 
 void NumberType::trigger()
 {
+    if (getTypeString() == "")
+    {
+        mf->charSelected = this;
+        new Character('0', mf);
+        new Character('.', mf);
+        new Character('0', mf);
+    }
+    
     char* err;
-    float value = strtof(getTypeString().c_str(), &err);
+    value = strtof(getTypeString().c_str(), &err);
     
     if (*err == 0)
     {
-        flash(ofColor(120, 109, 196));
+        flash(COLOR_TYPE_NUMBER);
     }
     else
     {
-        flash(ofColor(255, 0, 0));
+        flash(COLOR_ERROR);
         value = 0.0f;
     }
     
     for (tick t = 0; t < BUFFERSIZE; t++)
         typeSignal[t] = value;
+}
+
+//========================================================================
+float NumberType::getValue()
+{
+    return value;
 }

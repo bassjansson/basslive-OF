@@ -19,7 +19,18 @@ ModuleType::ModuleType (MainFunction* mf)
 //========================================================================
 void ModuleType::trigger()
 {
-    funcPointer = mf->getModuleFunction(getTypeString());
+    if (getTypeString() == "")
+    {
+        int id = mf->getNewModuleID();
+        
+        mf->charSelected = this;
+        new Character('m', mf);
+        new Character('o', mf);
+        new Character('d', mf);
+        new Character((id / 10) % 10 + 48, mf);
+        new Character((id / 1 ) % 10 + 48, mf);
+    }
     
-    if (funcPointer) flash(ofColor(121, 182, 77));
+    if (updateFunctionPointer())
+        flash(COLOR_TYPE_MOD_ID);
 }

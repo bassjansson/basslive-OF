@@ -26,9 +26,16 @@ public:
     
 private:
     //========================================================================
+    bool updateAudioBuffer();
+    
+    //========================================================================
     AudioBuffer* buffer;
-    buf_vec buffers;
+    NumberType* size;
+    string buffer_id;
+    
+    //========================================================================
     sig_vec inputs;
+    buf_vec buffers;
 };
 
 

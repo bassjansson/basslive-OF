@@ -31,12 +31,12 @@ public:
     
     //========================================================================
     virtual Character* getEndChar();
-    virtual Character* draw (float& x, float& y, bool vertical);
+    virtual Character* draw (float& x, float& y, bool vertical, bool selection);
     virtual void flash (const ofColor& color);
     
     //========================================================================
     virtual void keyPressed (int key);
-    virtual void trigger() {};
+    virtual void trigger();
     
     //========================================================================
     virtual Type* process (buf& buffer, sig& output, Clock& clock);
@@ -47,18 +47,18 @@ public:
     
 protected:
     //========================================================================
-    tick typeClock;
-    sig  typeSignal;
+    bool updateFunctionPointer();
+    Function*  functionPointer;
     
     //========================================================================
-    Function* funcPointer;
+    tick typeClock;
+    sig  typeSignal;
     
 private:
     //========================================================================
     string  typeString;
     ofColor typeColor;
     float   flashFloat;
-    
 };
 
 

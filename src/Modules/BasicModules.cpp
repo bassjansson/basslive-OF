@@ -6,82 +6,100 @@
 //
 //
 
-#include "BasicModules.h"
+#include "Modules.h"
 
 
 //========================================================================
 // loop_Module
 //========================================================================
-loop_Module::loop_Module (string ID) : AudioModule(ID, 3, 1)
+void loop_Module::process (sig_vec& inputs, buf_vec& buffers, sig output, Clock clock)
 {
-    buffer = NULL;
-}
-
-void loop_Module::setBuffer (AudioBuffer* buffer)
-{
-    this->buffer = buffer;
-}
-
-void loop_Module::process (SignalVec& inputs, SignalVec& outputs, Clock clock)
-{
-    if (buffer)
+    if (buffers.size() > 0)
     {
-        for (tick t = 0; t < clock.size; t++)
+        buf buffer = buffers[0];
+        sig beats, bars, starts;
+        beats = bars = starts = clock.null;
+        
+        if (inputs.size() > 0)
         {
-            tick beat  = inputs[0][t] * clock.beatLength;
-            tick bar   = inputs[1][t] * clock.beatLength;
-            tick start = inputs[2][t] * clock.beatLength;
+            beats = inputs[0];
+            
+            if (inputs.size() > 1)
+            {
+                bars = inputs[1];
+                
+                if (inputs.size() > 2)
+                {
+                    starts = inputs[2];
+                }
+            }
+        }
+        
+        for (tick t = 0; t < BUFFERSIZE; t++)
+        {
+            tick beat  = beats[t]  * clock.beatLength;
+            tick bar   = bars[t]   * clock.beatLength;
+            tick start = starts[t] * clock.beatLength;
             
             tick pointer = ((clock[t] - buffer->getStart()) % bar - start) % beat;
             
-            for (int c = 0; c < outputs.size(); c++)
-                outputs[c][t] = buffer->read(pointer, c, clock);
+            output[t] = buffer->read(pointer);
         }
+    }
+    else
+    {
+        for (tick t = 0; t < BUFFERSIZE; t++)
+            output[t] = 0.0f;
     }
 }
 
 
 //========================================================================
 // add_Module
-// mul_Module
 // sub_Module
+// mul_Module
 // div_Module
 //========================================================================
-add_Module::add_Module (string ID) : AudioModule(ID, OPERATOR_MAX_ARGS, 1) {}
-mul_Module::mul_Module (string ID) : AudioModule(ID, OPERATOR_MAX_ARGS, 1) {}
-sub_Module::sub_Module (string ID) : AudioModule(ID, 2, 1) {}
-div_Module::div_Module (string ID) : AudioModule(ID, 2, 1) {}
-
-void add_Module::process (SignalVec& inputs, SignalVec& outputs, Clock clock)
+void add_Module::process (sig_vec& inputs, buf_vec& buffers, sig output, Clock clock)
 {
-    for (tick t = 0; t < clock.size; t++)
+    for (tick t = 0; t < BUFFERSIZE; t++)
     {
-        outputs[0][t] = 0.0f;
+        output[t] = 0.0f;
         
         for (int c = 0; c < inputs.size(); c++)
-            outputs[0][t] += inputs[c][t];
+            output[t] += inputs[c][t];
     }
 }
 
-void mul_Module::process (SignalVec& inputs, SignalVec& outputs, Clock clock)
+void sub_Module::process (sig_vec& inputs, buf_vec& buffers, sig output, Clock clock)
 {
-    for (tick t = 0; t < clock.size; t++)
+    for (tick t = 0; t < BUFFERSIZE; t++)
     {
-        outputs[0][t] = 1.0f;
+        output[t] = 0.0f;
         
         for (int c = 0; c < inputs.size(); c++)
-            outputs[0][t] *= inputs[c][t];
+            output[t] -= inputs[c][t];
     }
 }
 
-void sub_Module::process (SignalVec& inputs, SignalVec& outputs, Clock clock)
+void mul_Module::process (sig_vec& inputs, buf_vec& buffers, sig output, Clock clock)
 {
-    for (tick t = 0; t < clock.size; t++)
-        outputs[0][t] = inputs[0][t] - inputs[1][t];
+    for (tick t = 0; t < BUFFERSIZE; t++)
+    {
+        output[t] = 1.0f;
+        
+        for (int c = 0; c < inputs.size(); c++)
+            output[t] *= inputs[c][t];
+    }
 }
 
-void div_Module::process (SignalVec& inputs, SignalVec& outputs, Clock clock)
+void div_Module::process (sig_vec& inputs, buf_vec& buffers, sig output, Clock clock)
 {
-    for (tick t = 0; t < clock.size; t++)
-        outputs[0][t] = inputs[0][t] / inputs[1][t];
+    for (tick t = 0; t < BUFFERSIZE; t++)
+    {
+        output[t] = 1.0f;
+        
+        for (int c = 0; c < inputs.size(); c++)
+            output[t] /= inputs[c][t];
+    }
 }

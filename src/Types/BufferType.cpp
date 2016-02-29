@@ -19,7 +19,18 @@ BufferType::BufferType (MainFunction* mf)
 //========================================================================
 void BufferType::trigger()
 {
-    funcPointer = mf->getBufferFunction(getTypeString());
+    if (getTypeString() == "")
+    {
+        int id = mf->getNewBufferID();
+        
+        mf->charSelected = this;
+        new Character('b', mf);
+        new Character('u', mf);
+        new Character('f', mf);
+        new Character((id / 10) % 10 + 48, mf);
+        new Character((id / 1 ) % 10 + 48, mf);
+    }
     
-    if (funcPointer) flash(ofColor(121, 182, 77));
+    if (updateFunctionPointer())
+        flash(COLOR_TYPE_BUF_ID);
 }
