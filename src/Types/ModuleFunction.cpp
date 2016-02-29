@@ -12,7 +12,7 @@
 //========================================================================
 bool ModuleFunction::updateAudioModule()
 {
-    if (module) delete module;
+    if (module != NULL) delete module;
     
     if (module_id == "loop") return module = new loop_Module();
     if (module_id == "+"   ) return module = new add_Module();
@@ -45,6 +45,8 @@ void ModuleFunction::trigger()
         {
             mf->charSelected = this;
             new Character('*', mf);
+            
+            setTypeString("*");
         }
         
         module_id = getTypeString();

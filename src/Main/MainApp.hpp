@@ -2,6 +2,8 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Types.h"
+#include "Modules.h"
 #include "Engine.hpp"
 
 

@@ -15,9 +15,4 @@
 #define SAMPLERATE 48000
 #define BUFFERSIZE 256
 
-#define CHANNEL_INPUT  0
-#define CHANNEL_CLICK  5
-#define CHANNEL_OUTPUT 6
-#define CHANNEL_SIZE   16
-
 #endif

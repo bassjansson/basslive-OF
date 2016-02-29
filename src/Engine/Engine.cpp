@@ -76,6 +76,20 @@ void Engine::draw()
 }
 
 //========================================================================
+void Engine::audioIn (sig input, tick size, int channels)
+{
+    MainFunction* mf = (MainFunction*)tabbedPages.getActiveTab();
+    
+    if (mf)
+    {
+        // Write input to ADC
+        sig adc = mf->getADC(0);
+        
+        for (tick t = 0; t < size; t++)
+            adc[t] = input[t * channels + 0];
+    }
+}
+
 void Engine::audioOut (sig output, tick size, int channels)
 {    
     MainFunction* mf = (MainFunction*)tabbedPages.getActiveTab();

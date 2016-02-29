@@ -44,7 +44,7 @@ void MainApp::draw()
 //========================================================================
 void MainApp::audioIn (float* buffer, int size, int channels)
 {
-    //editor.audioIn(buffer, size, channels);
+    engine.audioIn(buffer, size, channels);
 }
 
 void MainApp::audioOut (float* buffer, int size, int channels)

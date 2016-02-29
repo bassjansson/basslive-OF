@@ -17,6 +17,7 @@ enum TypeType
 {
     FUNC_CLOSE = 0,
     NUMBER,
+    INPUT,
     BUFFER,
     MODULE
 };
@@ -42,7 +43,8 @@ public:
     virtual Type* process (buf& buffer, sig& output, Clock& clock);
     
     //========================================================================
-    string   getTypeString();
+    void     setTypeString (const string& str);
+    string   getTypeString ();
     TypeType typeType;
     
 protected:

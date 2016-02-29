@@ -10,23 +10,36 @@
 
 
 //========================================================================
-MainFunction::MainFunction (string name) : Function(this)
+MainFunction::MainFunction (const string& name)
+: ModuleFunction(this)
 {
     ofxGuiPage::setup(name);
     
     charFont.load("fonts/Menlo-Bold.ttf", FONT_SIZE * 2);
-    charWidth = charFont.stringWidth("X");
+    charWidth  = charFont.stringWidth("X");
     charHeight = charFont.stringHeight("Xgj{|");
-    charCursorTime = 0;
     
-    // Create main
+    moduleIDCounter = 0;
+    bufferIDCounter = 0;
+    
+    cursorTime = 0;
+    beatLength = SAMPLERATE / 2;
+    barLength  = beatLength * 4;
+    
+    adc = new sample[BUFFERSIZE];
+    for (tick t = 0; t < BUFFERSIZE; t++)
+        adc[t] = 0.0f;
+    
+    // Create main mixer
     new Character('+', mf);
     charSelected = identifier;
-    new Function(mf);
+    new ModuleFunction(mf);
 }
 
 MainFunction::~MainFunction()
 {
+    delete[] adc;
+    
     // TODO: delete all characters
 }
 
@@ -43,7 +56,7 @@ void MainFunction::mouseReleased (float x, float y, int button)
 
 void MainFunction::keyPressed (int key)
 {
-    charCursorTime = 0;
+    cursorTime = 0;
     
     
     // Add and remove characters
@@ -54,16 +67,22 @@ void MainFunction::keyPressed (int key)
         {
             switch (key)
             {
-                case 'f': removeTypeIfSelected(); new Function(mf); break;
-                case 'i': removeTypeIfSelected(); new Identifier(mf); break;
-                case 'n': removeTypeIfSelected(); new Number(mf); break;
+                case 'n': removeTypeIfSelected(); new NumberType(mf); break;
+                case 'i': removeTypeIfSelected(); new InputType(mf); break;
+                case 'm': removeTypeIfSelected(); new ModuleType(mf); break;
+                case 'b': removeTypeIfSelected(); new BufferType(mf); break;
+                    
+                case 'f': removeTypeIfSelected(); new ModuleFunction(mf); break;
+                case 'g': removeTypeIfSelected(); new BufferFunction(mf); break;
                     
                 case 'o':
-                    charSelected = identifier;
-                    new Function(mf);
+                    charSelected = identifier->getEndChar();
+                    new ModuleFunction(mf);
                     break;
                     
                 case OF_KEY_RETURN:
+                    if (ofGetKeyPressed(OF_KEY_SHIFT))
+                        charSelected = this;
                     charSelected->getParentType()->trigger();
                     break;
             }
@@ -74,17 +93,21 @@ void MainFunction::keyPressed (int key)
             
             switch (key)
             {
+                case CHAR_TYPE_NUMBER: removeTypeIfSelected(); new NumberType(mf); break;
+                case CHAR_TYPE_INPUT:  removeTypeIfSelected(); new InputType(mf); break;
+                case CHAR_TYPE_MOD_ID: removeTypeIfSelected(); new ModuleType(mf); break;
+                case CHAR_TYPE_BUF_ID: removeTypeIfSelected(); new BufferType(mf); break;
+                    
                 case OF_KEY_RETURN:
-                case '(': removeTypeIfSelected(); new Function(mf); break;
-                case '$': removeTypeIfSelected(); new Identifier(mf); break;
-                case '#': removeTypeIfSelected(); new Number(mf); break;
+                case CHAR_FUNC_MOD_OPEN: removeTypeIfSelected(); new ModuleFunction(mf); break;
+                case CHAR_FUNC_BUF_OPEN: removeTypeIfSelected(); new BufferFunction(mf); break;
                     
                 case ' ':
                     removeTypeIfSelected();
                     if (ofGetKeyPressed(OF_KEY_SHIFT))
-                        new Identifier(mf);
+                        new ModuleType(mf);
                     else
-                        new Number(mf);
+                        new NumberType(mf);
                     break;
                     
                 case OF_KEY_BACKSPACE:
@@ -151,44 +174,63 @@ void MainFunction::keyPressed (int key)
 }
 
 //========================================================================
+int MainFunction::getNewModuleID()
+{
+    return ++moduleIDCounter;
+}
+
+int MainFunction::getNewBufferID()
+{
+    return ++bufferIDCounter;
+}
+
+//========================================================================
+tick MainFunction::getBeatLength()
+{
+    return beatLength;
+}
+
+tick MainFunction::getBarLength()
+{
+    return barLength;
+}
+
+//========================================================================
+sig MainFunction::getADC (int channel)
+{
+    if (channel == 0)
+        return adc;
+    else
+        return NULL;
+}
+
+//========================================================================
 void MainFunction::render()
 {
-    ofxGuiPage::render();
-    
-    
-    ofPushMatrix();
-    
-    float x = 0;
-    float y = 0;
-    
-    Function::draw(x, y, HORIZONTAL);
-    
-    if (charCursorTime < FRAME_RATE / 2)
-        charSelected->drawCursor();
-    
-    float xScale = (ofGetWidth()  - FONT_SIZE * 4) / x;
-    float yScale = (ofGetHeight() - FONT_SIZE * 6) / y;
-    
-    ofScale(xScale, yScale);
-    ofTranslate(FONT_SIZE * 2, FONT_SIZE * 4);
-    
-    ofPopMatrix();
-    
-    
-    charCursorTime = (charCursorTime + 1) % FRAME_RATE;
-    
-    
+    // TODO not working
     string id = getIdentifierString();
     if (id != "") setName(id);
+    
+    ofxGuiPage::render();
+    
+    float x = FONT_SIZE * 2;
+    float y = FONT_SIZE * 4;
+    
+    Function::draw(x, y, VERTICAL, false);
+    
+    if (cursorTime < FRAME_RATE / 2)
+        charSelected->drawCursor();
+    
+    cursorTime = (cursorTime + 1) % FRAME_RATE;
 }
 
 bool MainFunction::removeTypeIfSelected()
 {
-    if (charSelected->getCharType() != CHARACTER)
+    if (charSelected->charType != CHARACTER)
         removeSelectedChar(false);
     else
     {
-        if (charSelected->getParentType()->getCharType() == FUNCTION)
+        if (charSelected->getParentType()->charType == FUNCTION)
             charSelected = charSelected->getType(RIGHT)
             ->getType(RIGHT)->getCharacter(LEFT);
         else

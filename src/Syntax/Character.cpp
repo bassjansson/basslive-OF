@@ -97,7 +97,7 @@ Character* Character::draw (float& x, float& y, bool vertical, bool selection)
     if (selection || mf->charSelected == this)
     {
         ofSetColor(COLOR_SELECTION);
-        ofDrawRectangle(x, y, mf->charWidth * 2, mf->charHeight);
+        ofDrawRectangle(this->x, this->y, mf->charWidth, mf->charHeight);
     }
     
     

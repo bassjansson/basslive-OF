@@ -25,6 +25,7 @@ public:
     void draw();
     
     //========================================================================
+    void audioIn       (sig input,  tick size, int channels);
     void audioOut      (sig output, tick size, int channels);
     void mousePressed  (float x, float y, int button);
     void mouseReleased (float x, float y, int button);

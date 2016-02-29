@@ -1,60 +1,65 @@
 //
-//  Memory.h
-//  BassLive
+//  MainFunction.hpp
+//  BassLive 2.0
 //
-//  Created by Bass Jansson on 16/11/15.
+//  Created by Bass Jansson on 18/02/16.
 //
 //
 
-#ifndef __BassLive__Memory__
-#define __BassLive__Memory__
+#ifndef MainFunction_hpp
+#define MainFunction_hpp
 
-#include "Modules.h"
+#include "ModuleFunction.hpp"
+#include "ofxGuiExtended.h"
 
 
-class Memory
+class MainFunction : public ModuleFunction, public ofxGuiPage
 {
 public:
     //========================================================================
-     Memory();
-    ~Memory();
+     MainFunction (const string& id);
+    ~MainFunction ();
     
     //========================================================================
-    AudioModule* getADC();
-    AudioModule* getDAC();
+    void mousePressed  (float x, float y, int button);
+    void mouseReleased (float x, float y, int button);
+    void keyPressed    (int key);
     
     //========================================================================
-    AudioModule* getAudioModule (string ID);
-    void         addAudioModule (AudioModule* module);
-    
-    //========================================================================
-    AudioBuffer* getAudioBuffer (string ID);
-    void         addAudioBuffer (AudioBuffer* buffer);
-    void         processBuffers (Clock& clock);
-    
-    //========================================================================
-    void setBeatsPerMinute (beat bpm);
-    void setBeatsPerBar    (beat bpb);
+    int getNewModuleID();
+    int getNewBufferID();
     
     //========================================================================
     tick getBeatLength();
     tick getBarLength();
     
     //========================================================================
-    string getNewSID();
+    sig getADC (int channel);
+    
+    //========================================================================
+    ofTrueTypeFont charFont;
+    float          charWidth;
+    float          charHeight;
+    Character*     charSelected;
+    
+protected:
+    //========================================================================
+    void render();
+    bool removeTypeIfSelected();
     
 private:
     //========================================================================
-    vector<AudioModule*> modules;
-    vector<AudioBuffer*> buffers;
+    int moduleIDCounter;
+    int bufferIDCounter;
     
     //========================================================================
+    tick cursorTime;
     tick beatLength;
     tick barLength;
     
     //========================================================================
-    u_long sidCount;
+    sig adc;
 };
 
 
-#endif /* defined(__BassLive__Memory__) */
+#endif /* MainFunction_hpp */

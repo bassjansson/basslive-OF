@@ -12,7 +12,7 @@
 //========================================================================
 bool BufferFunction::updateAudioBuffer()
 {
-    if (buffer) delete buffer;
+    if (buffer != NULL) delete buffer;
     
     if (buffer_id == "buf") return buffer = new AudioBuffer();
     
@@ -44,6 +44,8 @@ void BufferFunction::trigger()
             new Character('b', mf);
             new Character('u', mf);
             new Character('f', mf);
+            
+            setTypeString("buf");
         }
         
         buffer_id = getTypeString();

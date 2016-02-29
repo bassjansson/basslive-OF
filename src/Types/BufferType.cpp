@@ -21,14 +21,21 @@ void BufferType::trigger()
 {
     if (getTypeString() == "")
     {
-        int id = mf->getNewBufferID();
+        int  id  = mf->getNewBufferID();
+        char id1 = (id / 10) % 10 + 48;
+        char id2 = (id / 1 ) % 10 + 48;
         
         mf->charSelected = this;
         new Character('b', mf);
         new Character('u', mf);
         new Character('f', mf);
-        new Character((id / 10) % 10 + 48, mf);
-        new Character((id / 1 ) % 10 + 48, mf);
+        new Character(id1, mf);
+        new Character(id2, mf);
+        
+        string str = "buf";
+        str += id1;
+        str += id2;
+        setTypeString(str);
     }
     
     if (updateFunctionPointer())

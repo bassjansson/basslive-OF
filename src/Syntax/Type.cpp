@@ -58,7 +58,8 @@ Character* Type::draw (float& x, float& y, bool vertical, bool selection)
 {
     // Draw type character
     selection = selection || mf->charSelected == this;
-    ofSetColor(COLOR_DEFAULT);
+    if (charType == TYPE) ofSetColor(typeColor);
+    else                  ofSetColor(COLOR_DEFAULT);
     Character* c = Character::draw(x, y, vertical, selection);
     
     
@@ -82,7 +83,7 @@ Character* Type::draw (float& x, float& y, bool vertical, bool selection)
     
     
     // Draw type flash
-    ofSetColor(typeColor.r, typeColor.g, typeColor.b, flashFloat * 127);
+    ofSetColor(typeColor.r, typeColor.g, typeColor.b, flashFloat * 191);
     ofDrawRectangle(this->x, this->y, x - this->x, mf->charHeight);
     flashFloat *= 0.5f;
     
@@ -114,7 +115,9 @@ void Type::keyPressed (int key)
                 new Character(key, mf);
         }
         else if ((key > 64 && key < 91) ||
-                 (key > 96 && key < 123))
+                 (key > 96 && key < 123) ||
+                 key == '+' || key == '-' ||
+                 key == '*' || key == '/')
         {
             new Character(key, mf);
         }
@@ -143,6 +146,11 @@ Type* Type::process (buf& buffer, sig& output, Clock& clock)
 }
 
 //========================================================================
+void Type::setTypeString (const string& str)
+{
+    typeString = str;
+}
+
 string Type::getTypeString()
 {
     return typeString;

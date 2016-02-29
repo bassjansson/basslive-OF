@@ -33,6 +33,8 @@ void NumberType::trigger()
         new Character('0', mf);
         new Character('.', mf);
         new Character('0', mf);
+        
+        setTypeString("0.0");
     }
     
     char* err;

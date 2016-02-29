@@ -38,7 +38,6 @@
 		E4EEF6CD1C833AF000F2A323 /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6BC1C833AF000F2A323 /* Engine.cpp */; };
 		E4EEF6CE1C833AF000F2A323 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6BF1C833AF000F2A323 /* Character.cpp */; };
 		E4EEF6CF1C833AF000F2A323 /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C11C833AF000F2A323 /* Function.cpp */; };
-		E4EEF6D01C833AF000F2A323 /* MainFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C31C833AF000F2A323 /* MainFunction.cpp */; };
 		E4EEF6D11C833AF000F2A323 /* Type.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C51C833AF000F2A323 /* Type.cpp */; };
 		E4EEF6D21C833AF000F2A323 /* ModuleType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C81C833AF000F2A323 /* ModuleType.cpp */; };
 		E4EEF6D31C833AF000F2A323 /* NumberType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6CA1C833AF000F2A323 /* NumberType.cpp */; };
@@ -47,6 +46,8 @@
 		E4EEF6E11C834A0400F2A323 /* BufferFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6DF1C834A0400F2A323 /* BufferFunction.cpp */; };
 		E4EEF6E41C83BE5F00F2A323 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6E21C83BE5F00F2A323 /* Module.cpp */; };
 		E4EEF6E51C83DF7C00F2A323 /* BasicModules.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6721C7F9EFB00064968 /* BasicModules.cpp */; };
+		E4EEF6E81C83FB4700F2A323 /* MainFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6E61C83FB4700F2A323 /* MainFunction.cpp */; };
+		E4EEF6EB1C847B5A00F2A323 /* InputType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6E91C847B5A00F2A323 /* InputType.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,8 +148,6 @@
 		E4EEF6C01C833AF000F2A323 /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
 		E4EEF6C11C833AF000F2A323 /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Function.cpp; sourceTree = "<group>"; };
 		E4EEF6C21C833AF000F2A323 /* Function.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Function.hpp; sourceTree = "<group>"; };
-		E4EEF6C31C833AF000F2A323 /* MainFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MainFunction.cpp; path = ../Syntax/MainFunction.cpp; sourceTree = "<group>"; };
-		E4EEF6C41C833AF000F2A323 /* MainFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MainFunction.hpp; path = ../Syntax/MainFunction.hpp; sourceTree = "<group>"; };
 		E4EEF6C51C833AF000F2A323 /* Type.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Type.cpp; sourceTree = "<group>"; };
 		E4EEF6C61C833AF000F2A323 /* Type.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Type.hpp; sourceTree = "<group>"; };
 		E4EEF6C81C833AF000F2A323 /* ModuleType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModuleType.cpp; sourceTree = "<group>"; };
@@ -164,6 +163,10 @@
 		E4EEF6E01C834A0400F2A323 /* BufferFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferFunction.hpp; sourceTree = "<group>"; };
 		E4EEF6E21C83BE5F00F2A323 /* Module.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Module.cpp; sourceTree = "<group>"; };
 		E4EEF6E31C83BE5F00F2A323 /* Module.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Module.hpp; sourceTree = "<group>"; };
+		E4EEF6E61C83FB4700F2A323 /* MainFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainFunction.cpp; sourceTree = "<group>"; };
+		E4EEF6E71C83FB4700F2A323 /* MainFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainFunction.hpp; sourceTree = "<group>"; };
+		E4EEF6E91C847B5A00F2A323 /* InputType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputType.cpp; sourceTree = "<group>"; };
+		E4EEF6EA1C847B5A00F2A323 /* InputType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputType.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -369,6 +372,8 @@
 				E4EEF6DA1C8345B700F2A323 /* Types.h */,
 				E4EEF6CA1C833AF000F2A323 /* NumberType.cpp */,
 				E4EEF6CB1C833AF000F2A323 /* NumberType.hpp */,
+				E4EEF6E91C847B5A00F2A323 /* InputType.cpp */,
+				E4EEF6EA1C847B5A00F2A323 /* InputType.hpp */,
 				E4EEF6C81C833AF000F2A323 /* ModuleType.cpp */,
 				E4EEF6C91C833AF000F2A323 /* ModuleType.hpp */,
 				E4EEF6D41C8344EC00F2A323 /* BufferType.cpp */,
@@ -377,8 +382,8 @@
 				E4EEF6DD1C8349F200F2A323 /* ModuleFunction.hpp */,
 				E4EEF6DF1C834A0400F2A323 /* BufferFunction.cpp */,
 				E4EEF6E01C834A0400F2A323 /* BufferFunction.hpp */,
-				E4EEF6C31C833AF000F2A323 /* MainFunction.cpp */,
-				E4EEF6C41C833AF000F2A323 /* MainFunction.hpp */,
+				E4EEF6E61C83FB4700F2A323 /* MainFunction.cpp */,
+				E4EEF6E71C83FB4700F2A323 /* MainFunction.hpp */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -478,7 +483,9 @@
 				E4EEF6CD1C833AF000F2A323 /* Engine.cpp in Sources */,
 				E4E5B6B71C7FA78C00064968 /* ofxPanelExtended.cpp in Sources */,
 				E4E5B6AF1C7FA78C00064968 /* ofxGuiMatrix.cpp in Sources */,
+				E4EEF6EB1C847B5A00F2A323 /* InputType.cpp in Sources */,
 				E4E5B6BA1C7FA78C00064968 /* ofxValuePlotter.cpp in Sources */,
+				E4EEF6E81C83FB4700F2A323 /* MainFunction.cpp in Sources */,
 				E4E5B6AD1C7FA78C00064968 /* ofxGuiBaseDraws.cpp in Sources */,
 				E4EEF6DE1C8349F200F2A323 /* ModuleFunction.cpp in Sources */,
 				E4E5B6D31C7FA81F00064968 /* ofxPanel.cpp in Sources */,
@@ -486,7 +493,6 @@
 				E4E5B6AB1C7FA78C00064968 /* README.md in Sources */,
 				E4EEF6D21C833AF000F2A323 /* ModuleType.cpp in Sources */,
 				E4EEF6D11C833AF000F2A323 /* Type.cpp in Sources */,
-				E4EEF6D01C833AF000F2A323 /* MainFunction.cpp in Sources */,
 				E4E5B6D51C7FA81F00064968 /* ofxSliderGroup.cpp in Sources */,
 				E4E5B6BB1C7FA78C00064968 /* ofxVerticalSlider.cpp in Sources */,
 				E4E5B6B31C7FA78C00064968 /* ofxLabelExtended.cpp in Sources */,
