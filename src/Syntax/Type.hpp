@@ -15,7 +15,7 @@
 
 enum TypeType
 {
-    NO_TYPE = 0,
+    CLOSE = 0,
     NUMBER,
     INPUT,
     MODULE,
@@ -30,7 +30,7 @@ public:
     Type (char c);
     
     //========================================================================
-    virtual void draw  (float& x, float& y, bool vertical, bool selection);
+    virtual void draw  (float& x, float& y, bool vertical, bool selection, bool floating);
     virtual void flash (const ofColor& color);
     
     //========================================================================

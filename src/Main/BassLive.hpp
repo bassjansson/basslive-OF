@@ -1,13 +1,18 @@
+//
+//  BassLive.hpp
+//  BassLive 2.0
+//
+//  Created by Bass Jansson on 16/11/15.
+//
+//
 
-#pragma once
+#ifndef BassLive_hpp
+#define BassLive_hpp
 
-#include "ofMain.h"
 #include "Syntax.h"
-#include "Modules.h"
-#include "Engine.hpp"
 
 
-class MainApp : public ofBaseApp
+class BassLive : public ofBaseApp
 {
 public:
     //========================================================================
@@ -17,8 +22,8 @@ public:
     void draw();
     
     //========================================================================
-    void audioIn  (float* buffer, int size, int channels);
-    void audioOut (float* buffer, int size, int channels);
+    void audioIn  (float* input,  int size, int channels);
+    void audioOut (float* output, int size, int channels);
 		
     //========================================================================
     void keyPressed  (int key);
@@ -37,6 +42,10 @@ public:
     
 private:
     //========================================================================
-    Engine        engine;
-    ofSoundStream soundStream;
+    Memory*       memory;
+    MainFunction* main;
+    ofSoundStream stream;
 };
+
+
+#endif /* BassLive_hpp */

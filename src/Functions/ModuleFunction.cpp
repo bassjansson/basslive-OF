@@ -15,8 +15,9 @@ ModuleFunction::ModuleFunction() : Function(CHAR_FUNC_MOD_OPEN,
 {
     typeType = MODULE;
     
-    add(identifier = new ModuleType());
+    identifier = new ModuleType();
     identifier->charType = BODY;
+    add(identifier);
 }
 
 //========================================================================

@@ -13,6 +13,19 @@
 
 
 //========================================================================
+// click_Module
+//========================================================================
+class click_Module : public AudioModule
+{
+public:
+    click_Module (const string& ID);
+    
+private:
+    virtual void process (Clock& clock);
+};
+
+
+//========================================================================
 // operator_Module
 //========================================================================
 class operator_Module : public AudioModule
@@ -24,19 +37,6 @@ private:
     virtual void process (Clock& clock);
     
     char op;
-};
-
-
-//========================================================================
-// click_Module
-//========================================================================
-class click_Module : public AudioModule
-{
-public:
-    click_Module (const string& ID);
-    
-private:
-    virtual void process (Clock& clock);
 };
 
 

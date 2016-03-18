@@ -17,11 +17,28 @@ MainFunction::MainFunction (Memory* memory) : Function(CHAR_FUNC_MAIN_OPEN,
     typeType = MODULE;
     
     charFont.load("fonts/Menlo-Bold.ttf", FONT_SIZE);
-    charWidth  = charFont.stringWidth("X");
-    charHeight = charFont.stringHeight("Xgj{|");
+    charWidth    = charFont.stringWidth("X");
+    charHeight   = charFont.stringHeight("Xgj{|");
+    charSelected = this;
     
     this->memory = memory;
     this->cursorTime = 0;
+    
+                  add(new Character('B'));
+    charSelected->add(new Character('a'));
+    charSelected->add(new Character('s'));
+    charSelected->add(new Character('s'));
+    charSelected->add(new Character('L'));
+    charSelected->add(new Character('i'));
+    charSelected->add(new Character('v'));
+    charSelected->add(new Character('e'));
+    
+    flash(COLOR_FUNC_MAIN);
+}
+
+MainFunction::~MainFunction()
+{
+    remove(true);
 }
 
 //========================================================================
@@ -43,10 +60,10 @@ sig* MainFunction::compile (Memory* memory, bool record)
 //========================================================================
 void MainFunction::draw()
 {
-    float x = ofGetWidth()  * 0.5f - charWidth;
+    float x = ofGetWidth()  * 0.5f - charWidth * 6.0f;
     float y = ofGetHeight() * 0.5f - charHeight;
     
-    Function::draw(x, y, VERTICAL, false);
+    Function::draw(x, y, VERTICAL, false, true);
     
     if (cursorTime < FRAME_RATE / 2)
         charSelected->drawCursor();
@@ -88,7 +105,11 @@ void MainFunction::keyPressed (int key)
         }
         else
         {
-            charSelected->getParentType()->keyPressed(key);
+            Type* parent = charSelected->getParentType();
+            if (parent->charType == MAIN)
+                Function::keyPressed(key);
+            else
+                parent->keyPressed(key);
             
             switch (key)
             {

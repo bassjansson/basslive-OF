@@ -33,7 +33,7 @@ public:
     Character (char c);
     
     //========================================================================
-    virtual void draw (float& x, float& y, bool vertical, bool selection);
+    virtual void draw (float& x, float& y, bool vertical, bool selection, bool floating);
     virtual void drawCursor();
     
     //========================================================================

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
-		E4C880EA1C92FAFB00A5C7B6 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C880E81C92FAFB00A5C7B6 /* Memory.cpp */; };
 		E4C8813E1C9B3CE500A5C7B6 /* BufferType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C881361C9B3CE500A5C7B6 /* BufferType.cpp */; };
 		E4C8813F1C9B3CE500A5C7B6 /* InputType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C881381C9B3CE500A5C7B6 /* InputType.cpp */; };
 		E4C881401C9B3CE500A5C7B6 /* ModuleType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C8813A1C9B3CE500A5C7B6 /* ModuleType.cpp */; };
@@ -16,9 +15,9 @@
 		E4C881491C9B3CF000A5C7B6 /* BufferFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C881431C9B3CF000A5C7B6 /* BufferFunction.cpp */; };
 		E4C8814A1C9B3CF000A5C7B6 /* MainFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C881451C9B3CF000A5C7B6 /* MainFunction.cpp */; };
 		E4C8814B1C9B3CF000A5C7B6 /* ModuleFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C881471C9B3CF000A5C7B6 /* ModuleFunction.cpp */; };
+		E4C881511C9BD71D00A5C7B6 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C8814E1C9BD71D00A5C7B6 /* Memory.cpp */; };
 		E4EC234B1C28535B00E06DC5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EC23481C28535B00E06DC5 /* main.cpp */; };
-		E4EC234C1C28535B00E06DC5 /* MainApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EC23491C28535B00E06DC5 /* MainApp.cpp */; };
-		E4EEF6CD1C833AF000F2A323 /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6BC1C833AF000F2A323 /* Engine.cpp */; };
+		E4EC234C1C28535B00E06DC5 /* BassLive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EC23491C28535B00E06DC5 /* BassLive.cpp */; };
 		E4EEF6CE1C833AF000F2A323 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6BF1C833AF000F2A323 /* Character.cpp */; };
 		E4EEF6CF1C833AF000F2A323 /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C11C833AF000F2A323 /* Function.cpp */; };
 		E4EEF6D11C833AF000F2A323 /* Type.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C51C833AF000F2A323 /* Type.cpp */; };
@@ -59,8 +58,6 @@
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* BassLive 2.0Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BassLive 2.0Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
-		E4C880E81C92FAFB00A5C7B6 /* Memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Memory.cpp; sourceTree = "<group>"; };
-		E4C880E91C92FAFB00A5C7B6 /* Memory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Memory.hpp; sourceTree = "<group>"; };
 		E4C880F11C96F14F00A5C7B6 /* Syntax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Syntax.h; sourceTree = "<group>"; };
 		E4C881361C9B3CE500A5C7B6 /* BufferType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferType.cpp; sourceTree = "<group>"; };
 		E4C881371C9B3CE500A5C7B6 /* BufferType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferType.hpp; sourceTree = "<group>"; };
@@ -76,16 +73,16 @@
 		E4C881461C9B3CF000A5C7B6 /* MainFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainFunction.hpp; sourceTree = "<group>"; };
 		E4C881471C9B3CF000A5C7B6 /* ModuleFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModuleFunction.cpp; sourceTree = "<group>"; };
 		E4C881481C9B3CF000A5C7B6 /* ModuleFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ModuleFunction.hpp; sourceTree = "<group>"; };
+		E4C8814E1C9BD71D00A5C7B6 /* Memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Memory.cpp; sourceTree = "<group>"; };
+		E4C8814F1C9BD71D00A5C7B6 /* Memory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Memory.hpp; sourceTree = "<group>"; };
 		E4E5B6721C7F9EFB00064968 /* BasicModules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicModules.cpp; sourceTree = "<group>"; };
 		E4E5B6731C7F9EFB00064968 /* BasicModules.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BasicModules.hpp; sourceTree = "<group>"; };
 		E4E5B6741C7F9EFB00064968 /* Modules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Modules.h; sourceTree = "<group>"; };
 		E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		E4EC23481C28535B00E06DC5 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		E4EC23491C28535B00E06DC5 /* MainApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainApp.cpp; sourceTree = "<group>"; };
-		E4EC234A1C28535B00E06DC5 /* MainApp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainApp.hpp; sourceTree = "<group>"; };
-		E4EEF6BC1C833AF000F2A323 /* Engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
-		E4EEF6BD1C833AF000F2A323 /* Engine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Engine.hpp; sourceTree = "<group>"; };
+		E4EC23491C28535B00E06DC5 /* BassLive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BassLive.cpp; sourceTree = "<group>"; };
+		E4EC234A1C28535B00E06DC5 /* BassLive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BassLive.hpp; sourceTree = "<group>"; };
 		E4EEF6BF1C833AF000F2A323 /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
 		E4EEF6C01C833AF000F2A323 /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
 		E4EEF6C11C833AF000F2A323 /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Function.cpp; sourceTree = "<group>"; };
@@ -147,7 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				E4EC23471C28535B00E06DC5 /* Main */,
-				E4EEF6B91C833AF000F2A323 /* Engine */,
+				E4C8814C1C9BD71D00A5C7B6 /* Memory */,
 				E4E5B66D1C7F9EFB00064968 /* Modules */,
 				E4EEF6BE1C833AF000F2A323 /* Syntax */,
 				E4C881351C9B3CE500A5C7B6 /* Types */,
@@ -184,6 +181,15 @@
 			path = Functions;
 			sourceTree = "<group>";
 		};
+		E4C8814C1C9BD71D00A5C7B6 /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				E4C8814E1C9BD71D00A5C7B6 /* Memory.cpp */,
+				E4C8814F1C9BD71D00A5C7B6 /* Memory.hpp */,
+			);
+			path = Memory;
+			sourceTree = "<group>";
+		};
 		E4E5B66D1C7F9EFB00064968 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,8 +206,8 @@
 			isa = PBXGroup;
 			children = (
 				E4EC23481C28535B00E06DC5 /* main.cpp */,
-				E4EC23491C28535B00E06DC5 /* MainApp.cpp */,
-				E4EC234A1C28535B00E06DC5 /* MainApp.hpp */,
+				E4EC23491C28535B00E06DC5 /* BassLive.cpp */,
+				E4EC234A1C28535B00E06DC5 /* BassLive.hpp */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -213,17 +219,6 @@
 				E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */,
 			);
 			name = openFrameworks;
-			sourceTree = "<group>";
-		};
-		E4EEF6B91C833AF000F2A323 /* Engine */ = {
-			isa = PBXGroup;
-			children = (
-				E4C880E81C92FAFB00A5C7B6 /* Memory.cpp */,
-				E4C880E91C92FAFB00A5C7B6 /* Memory.hpp */,
-				E4EEF6BC1C833AF000F2A323 /* Engine.cpp */,
-				E4EEF6BD1C833AF000F2A323 /* Engine.hpp */,
-			);
-			path = Engine;
 			sourceTree = "<group>";
 		};
 		E4EEF6BE1C833AF000F2A323 /* Syntax */ = {
@@ -328,11 +323,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4EEF6CE1C833AF000F2A323 /* Character.cpp in Sources */,
-				E4C880EA1C92FAFB00A5C7B6 /* Memory.cpp in Sources */,
-				E4EEF6CD1C833AF000F2A323 /* Engine.cpp in Sources */,
 				E4EEF6D11C833AF000F2A323 /* Type.cpp in Sources */,
-				E4EC234C1C28535B00E06DC5 /* MainApp.cpp in Sources */,
+				E4EC234C1C28535B00E06DC5 /* BassLive.cpp in Sources */,
 				E4EC234B1C28535B00E06DC5 /* main.cpp in Sources */,
+				E4C881511C9BD71D00A5C7B6 /* Memory.cpp in Sources */,
 				E4C8814A1C9B3CF000A5C7B6 /* MainFunction.cpp in Sources */,
 				E4EEF6E51C83DF7C00F2A323 /* BasicModules.cpp in Sources */,
 				E4C881401C9B3CE500A5C7B6 /* ModuleType.cpp in Sources */,

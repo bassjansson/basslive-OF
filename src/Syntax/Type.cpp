@@ -13,7 +13,7 @@
 Type::Type (char c) : Character(c)
 {
     charType = TYPE;
-    typeType = NO_TYPE;
+    typeType = CLOSE;
     
     typeString = "";
     typeColor  = COLOR_DEFAULT;
@@ -21,36 +21,49 @@ Type::Type (char c) : Character(c)
 }
 
 //========================================================================
-void Type::draw (float& x, float& y, bool vertical, bool selection)
+void Type::draw (float& x, float& y, bool vertical, bool selection, bool floating)
 {
     // Draw type character
     selection = selection || charSelected == this;
-    if (charType == TYPE) ofSetColor(typeColor);
-    else                  ofSetColor(COLOR_DEFAULT);
-    Character::draw(x, y, vertical, selection);
+    
+    if (charType == TYPE ||
+        charType == MAIN ||
+        getRightChar()->charType == MAIN)
+        ofSetColor(typeColor);
+    else
+        ofSetColor(COLOR_DEFAULT);
+    
+    Character::draw(x, y, vertical, selection, floating);
     
     
     // Draw type string
     string str = "";
+    
     for (Character* c = getRightChar();
-         c != getEndChar()->getRightChar();
+         c->charType == CHAR;
          c = c->getRightChar())
     {
-        str += c->getCharString();
         ofSetColor(typeColor);
-        c->draw(x, y, HORIZONTAL, selection);
+        c->draw(x, y, HORIZONTAL, selection, false);
+        
+        str += c->getCharString();
     }
     
     
     // Draw type flash
-    ofSetColor(typeColor.r, typeColor.g, typeColor.b, flashFloat * 191);
-    ofDrawRectangle(this->x, this->y, x - this->x, charHeight);
-    flashFloat *= 0.9f;
+    if (flashFloat > 0.001f)
+    {
+        ofSetColor(typeColor.r, typeColor.g, typeColor.b, flashFloat * 191);
+        ofDrawRectangle(this->x, this->y, x - this->x + charWidth, charHeight);
+        
+        flashFloat *= 0.95f;
+    }
     
     
     // Default color if string is changed
-    if (str != typeString)
+    if (str != typeString && charType != MAIN)
         typeColor = COLOR_DEFAULT;
+    
     typeString = str;
 }
 
@@ -63,17 +76,20 @@ void Type::flash (const ofColor& color)
 //========================================================================
 void Type::keyPressed (int key)
 {
-    if (key > 47 && key < 58)
+    if (typeType != CLOSE)
     {
-        if (charSelected != this)
+        if (key > 47 && key < 58)
+        {
+            if (charSelected != this)
+                charSelected->add(new Character(key));
+        }
+        else if ((key > 64 && key < 91) ||
+                 (key > 96 && key < 123) ||
+                 key == '+' || key == '-' ||
+                 key == '*' || key == '/')
+        {
             charSelected->add(new Character(key));
-    }
-    else if ((key > 64 && key < 91) ||
-             (key > 96 && key < 123) ||
-             key == '+' || key == '-' ||
-             key == '*' || key == '/')
-    {
-        charSelected->add(new Character(key));
+        }
     }
 }
 

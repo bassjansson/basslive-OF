@@ -22,7 +22,7 @@ Character::Character (char c)
     
     x = y = 0.0f;
     
-    begin = end = left = right = parent = this;
+    begin = end = left = right = this;
     
     charString = c;
     animation  = 0.0f;
@@ -32,31 +32,33 @@ Character::Character (char c)
 }
 
 //========================================================================
-void Character::draw (float& x, float& y, bool vertical, bool selection)
+void Character::draw (float& x, float& y, bool vertical, bool selection, bool floating)
 {
     // Init character position
-    if (this->x == 0.0f) this->x = x;
-    if (this->y == 0.0f) this->y = y;
+    if (this->x == 0.0f) this->x = x + charWidth;
+    if (this->y == 0.0f) this->y = y + charHeight * int(vertical);
     
     
     // Update input position
-    x += charWidth;
-    y += charHeight * int(vertical);
-    
-    if (parent->charType == MAIN)
+    if (floating)
     {
         x = this->x;
         y = this->y;
     }
+    else
+    {
+        x += charWidth;
+        y += charHeight * int(vertical);
+    }
     
-    if (charSelected->charType != BODY && ofGetMousePressed())
+    if (ofGetMousePressed() && charSelected->charType != BODY)
     {
         if (charSelected == this)
         {
             x = ofGetMouseX() - charWidth  / 2;
             y = ofGetMouseY() - charHeight / 2;
         }
-        else if (charSelected->end->right == this)
+        else if (charSelected->end->right == this && !floating)
         {
             x = charSelected->left->x + charWidth;
             y = charSelected->left->y + charHeight * int(vertical);
@@ -71,7 +73,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection)
     float factor2 = (1.0f - factor1);
     float factor3 = animation * animation * 0.3f + 0.7f;
     
-    if (charType == CHAR) factor3 *= 0.8f;
+    if (charType == CHAR) factor3 *= 0.9f;
     
     ofTranslate(this->x * factor2 + ofGetWidth()  * 0.5f * factor1,
                 this->y * factor2 + ofGetHeight() * 0.5f * factor1);
@@ -129,30 +131,39 @@ void Character::drawCursor()
 //========================================================================
 void Character::mousePressed (float x, float y, int button)
 {
-    if (right->charType != MAIN && button == OF_MOUSE_BUTTON_LEFT)
+    if (button == OF_MOUSE_BUTTON_LEFT)
     {
         if ((x >= this->x &&
              x <  this->x + charWidth) &&
             (y >= this->y &&
              y <  this->y + charHeight))
+        {
             charSelected = this;
-        else
+        }
+        else if (right->charType != MAIN)
+        {
             right->mousePressed(x, y, button);
+        }
     }
 }
 
 void Character::mouseReleased (float x, float y, int button)
 {
-    if (right->charType != MAIN && button == OF_MOUSE_BUTTON_LEFT)
+    if (button == OF_MOUSE_BUTTON_LEFT)
     {
         if (charSelected != this &&
+            charSelected->charType != MAIN &&
             (x >= this->x + charWidth * 0.5f &&
              x <  this->x + charWidth * 1.5f) &&
             (y >= this->y &&
              y <  this->y + charHeight))
+        {
             add(charSelected);
-        else
+        }
+        else if (right->charType != MAIN)
+        {
             right->mouseReleased(x, y, button);
+        }
     }
 }
 
@@ -195,7 +206,7 @@ void Character::add (Character* c)
             if (charType == MAIN)
                 destination = end->left;
             else
-                destination = left;
+                destination = end;
         }
     }
     
@@ -248,7 +259,8 @@ void Character::remove (bool force)
     
     
     // Delete this
-    delete this;
+    if (charType != MAIN)
+        delete this;
 }
 
 //========================================================================
@@ -257,9 +269,9 @@ Type* Character::getType (bool dir)
     Character* c;
     
     if (!dir)
-        for (c = left; c->charType != CHAR; c = c->left);
+        for (c = left; c->charType == CHAR; c = c->left);
     else
-        for (c = right; c->charType != CHAR; c = c->right);
+        for (c = right; c->charType == CHAR; c = c->right);
     
     return (Type*)c;
 }
@@ -296,7 +308,7 @@ Type* Character::getParentType()
 {
     Character* c;
     
-    for (c = this; c->charType != CHAR; c = c->left);
+    for (c = this; c->charType == CHAR; c = c->left);
     
     return (Type*)c;
 }

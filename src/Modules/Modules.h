@@ -16,6 +16,5 @@
 #define BUFFERSIZE 256
 
 #define MAX_NUM_INPUTS 20
-#define ADC_NUM_INPUTS 2
 
 #endif /* Modules_h */

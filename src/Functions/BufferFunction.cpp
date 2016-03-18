@@ -15,8 +15,9 @@ BufferFunction::BufferFunction() : Function(CHAR_FUNC_BUF_OPEN,
 {
     typeType = BUFFER;
     
-    add(identifier = new BufferType());
+    identifier = new BufferType();
     identifier->charType = BODY;
+    add(identifier);
 }
 
 //========================================================================

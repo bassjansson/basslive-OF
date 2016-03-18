@@ -16,31 +16,39 @@ class Memory
 {
 public:
     //========================================================================
-     Memory();
-    ~Memory();
+     Memory (int inputChannels);
+    ~Memory ();
+    
+    //========================================================================
+    void audioIn  (float* input,  int size, int channels);
+    void audioOut (float* output, int size, int channels);
+    
+    //========================================================================
+    Clock& getClock();
     
     //========================================================================
     AudioSignal* getADC (int channel);
     AudioModule* getDAC ();
     
     //========================================================================
-    AudioModule* addModule (const string& module, const string& ID);
-    AudioBuffer* addBuffer (const string& buffer, const string& ID);
-    
-    //========================================================================
     AudioModule* getModule (const string& ID);
     AudioBuffer* getBuffer (const string& ID);
     
     //========================================================================
-    int getNewID();
+    AudioModule* addModule (const string& module, const string& ID);
+    AudioBuffer* addBuffer (const string& buffer, const string& ID);
     
     //========================================================================
-    Clock& getClock();
+    int getNewID();
     
+private:
     //========================================================================
     void processClockAndClick();
     
-private:
+    //========================================================================
+    Clock clock;
+    sig   click;
+    
     //========================================================================
     sig_vec      adc;
     AudioModule* dac;
@@ -51,10 +59,6 @@ private:
     
     //========================================================================
     int idCount;
-    
-    //========================================================================
-    Clock   clock;
-    sample* click;
 };
 
 

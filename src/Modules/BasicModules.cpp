@@ -10,6 +10,24 @@
 
 
 //========================================================================
+// click_Module
+//========================================================================
+click_Module::click_Module (const string& ID) : AudioModule(ID, 2)
+{
+    
+}
+
+void click_Module::process (Clock& clock)
+{
+    for (tick t = 0; t < clock.size; t++)
+    {
+        clock.beatLength[t] = 60.0f / inputs[0][t].L * SAMPLERATE;
+        clock.barLength[t]  = inputs[1][t].L * clock.beatLength[t];
+    }
+}
+
+
+//========================================================================
 // operator_Module
 //========================================================================
 operator_Module::operator_Module (const string& ID, char op) : AudioModule(ID, MAX_NUM_INPUTS)
@@ -75,24 +93,6 @@ void operator_Module::process (Clock& clock)
             
         default:
             break;
-    }
-}
-
-
-//========================================================================
-// click_Module
-//========================================================================
-click_Module::click_Module (const string& ID) : AudioModule(ID, 2)
-{
-    
-}
-
-void click_Module::process (Clock& clock)
-{
-    for (tick t = 0; t < clock.size; t++)
-    {
-        clock.beatLength[t] = 60.0f / inputs[0][t].L * SAMPLERATE;
-        clock.barLength[t]  = inputs[1][t].L * clock.beatLength[t];
     }
 }
 

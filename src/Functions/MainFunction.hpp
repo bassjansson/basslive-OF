@@ -16,7 +16,8 @@ class MainFunction : public Function
 {
 public:
     //========================================================================
-    MainFunction (Memory* memory);
+     MainFunction (Memory* memory);
+    ~MainFunction ();
     
     //========================================================================
     sig* compile (Memory* memory, bool record);

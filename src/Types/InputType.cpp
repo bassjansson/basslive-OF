@@ -31,12 +31,12 @@ sig* InputType::compile (Memory* memory, bool record)
     }
     
     char* err;
-    int channel = strtof(getTypeString().c_str(), &err);
+    sig* adc = memory->getADC(int(strtof(getTypeString().c_str(), &err)));
     
-    if (*err == 0)
+    if (!*err && adc)
     {
         flash(COLOR_TYPE_INPUT);
-        return memory->getADC(channel);
+        return adc;
     }
     else
     {
