@@ -14,15 +14,15 @@
 class Character;
 class Type;
 class Function;
-class MainFunction;
 
 
 enum CharType
 {
-    CHARACTER = 0,
+    CHAR = 0,
     TYPE,
-    FUNCTION,
-    FUNCTION_BODY
+    FUNC,
+    BODY,
+    MAIN
 };
 
 
@@ -30,11 +30,10 @@ class Character
 {
 public:
     //========================================================================
-    Character (char c, MainFunction* mf);
+    Character (char c);
     
     //========================================================================
-    virtual Character* getEndChar();
-    virtual Character* draw (float& x, float& y, bool vertical, bool selection);
+    virtual void draw (float& x, float& y, bool vertical, bool selection);
     virtual void drawCursor();
     
     //========================================================================
@@ -42,32 +41,42 @@ public:
     virtual void mouseReleased (float x, float y, int button);
     
     //========================================================================
-    Character* getCharacter (bool dir);
-    Type*      getType      (bool dir);
-    Function*  getFunction  (bool dir);
+    void add (Character* c);
+    void remove (bool force);
     
     //========================================================================
-    Type*    getParentType();
-    string   getCharString();
+    Type*     getType     (bool dir);
+    Function* getFunction (bool dir);
+    
+    //========================================================================
+    Character* getEndChar();
+    Character* getLeftChar();
+    Character* getRightChar();
+    Type*      getParentType();
+    
+    //========================================================================
+    string& getCharString();
+    
+    //========================================================================
     CharType charType;
+    
+    //========================================================================
+    static ofTrueTypeFont charFont;
+    static float          charWidth;
+    static float          charHeight;
+    static Character*     charSelected;
     
 protected:
     //========================================================================
-    bool removeSelectedChar (bool removeFunctionBodies);
-    void   moveSelectedChar (Character* destination);
-    
-    //========================================================================
-    MainFunction* mf;
     float x, y;
     
 private:
     //========================================================================
-    string charString;
-    float  animation;
+    Character *begin, *end, *left, *right;
     
     //========================================================================
-    Character* left;
-    Character* right;
+    string charString;
+    float  animation;
 };
 
 

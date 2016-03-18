@@ -16,18 +16,11 @@ class InputType : public Type
 {
 public:
     //========================================================================
-    InputType (MainFunction* mf);
+    InputType();
     
     //========================================================================
     virtual void keyPressed (int key);
-    virtual void trigger();
-    
-    //========================================================================
-    virtual Type* process (buf& buffer, sig& output, Clock& clock);
-    
-private:
-    //========================================================================
-    int channel;
+    virtual sig* compile (Memory* memory, bool record);
 };
 
 

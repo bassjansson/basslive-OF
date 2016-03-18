@@ -6,93 +6,59 @@
 //
 //
 
-#include "Types.h"
+#include "Syntax.h"
 
 
 //========================================================================
-Function::Function (char open, char type, char close, MainFunction* mf)
-: Type(open, mf)
+Function::Function (char open, char close) : Type(open)
 {
-    charType = FUNCTION;
+    charType = FUNC;
     
-    
-    if (type == CHAR_TYPE_MOD_ID)
-        identifier = new ModuleType(mf);
-    else if (type == CHAR_TYPE_BUF_ID)
-        identifier = new BufferType(mf);
-    else
-        identifier = new Type(type, mf);
-
-    this->close = new Type(close, mf);
-    
-    
-    identifier->charType  = FUNCTION_BODY;
-    this->close->charType = FUNCTION_BODY;
-    
-    
-    mf->charSelected = this;
-}
-
-Function::~Function()
-{
-    mf->charSelected = identifier;
-    removeSelectedChar(true);
-    
-    mf->charSelected = close;
-    removeSelectedChar(true);
+    identifier = NULL;
+    add(this->close = new Type(close));
+    this->close->charType = BODY;
 }
 
 //========================================================================
-Character* Function::getEndChar()
-{
-    return close;
-}
-
-Character* Function::draw (float& x, float& y, bool vertical, bool selection)
+void Function::draw (float& x, float& y, bool vertical, bool selection)
 {
     // Draw function type
-    selection = selection || mf->charSelected == this;
-    Character* c = Type::draw(x, y, vertical, selection);
+    selection = selection || charSelected == this;
+    Type::draw(x, y, vertical, selection);
+    Character* c = identifier;
+    if (c == NULL) c = getType(RIGHT);
     float indent = x;
     
     
     // Draw function arguments
     for (int i = 0; true; i++)
     {
-        if (c == NULL)
-            return NULL;
-        
-        if (c == close)
-        {
-            x -= mf->charWidth;
-            return c->draw(x, y, HORIZONTAL, selection);
-        }
-        
         if (c == identifier)
         {
-            x -= mf->charWidth;
-            c = c->draw(x, y, HORIZONTAL, selection);
-            indent = x;
+            c->draw(x, y, HORIZONTAL, selection);
+            indent = x + charWidth;
+        }
+        else if (c == close)
+        {
+            c->draw(x, y, HORIZONTAL, selection);
+            break;
         }
         else
         {
             if ((i > 1) &&
-                (c->charType == FUNCTION ||
-                 c->getCharacter(LEFT)->charType == FUNCTION_BODY))
+                (c->charType == FUNC ||
+                 c->getLeftChar()->charType == BODY))
             {
                 x = indent;
-                c = c->draw(x, y, VERTICAL, selection);
+                c->draw(x, y, VERTICAL, selection);
             }
             else
             {
-                c = c->draw(x, y, HORIZONTAL, selection);
+                x += charWidth;
+                c->draw(x, y, HORIZONTAL, selection);
             }
         }
+        
+        c = c->getEndChar()->getRightChar();
     }
-}
-
-//========================================================================
-string Function::getIdentifierString()
-{
-    return identifier->getTypeString();
 }

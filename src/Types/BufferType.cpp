@@ -6,38 +6,28 @@
 //
 //
 
-#include "Types.h"
+#include "Syntax.h"
 
 
 //========================================================================
-BufferType::BufferType (MainFunction* mf)
-: Type(CHAR_TYPE_BUF_ID, mf)
+BufferType::BufferType() : Type(CHAR_TYPE_BUF_ID)
 {
     typeType = BUFFER;
 }
 
 //========================================================================
-void BufferType::trigger()
+sig* BufferType::compile (Memory* memory, bool record)
 {
-    if (getTypeString() == "")
-    {
-        int  id  = mf->getNewBufferID();
-        char id1 = (id / 10) % 10 + 48;
-        char id2 = (id / 1 ) % 10 + 48;
-        
-        mf->charSelected = this;
-        new Character('b', mf);
-        new Character('u', mf);
-        new Character('f', mf);
-        new Character(id1, mf);
-        new Character(id2, mf);
-        
-        string str = "buf";
-        str += id1;
-        str += id2;
-        setTypeString(str);
-    }
+    AudioBuffer* buffer = memory->getBuffer(getTypeString());
     
-    if (updateFunctionPointer())
+    if (buffer)
+    {
         flash(COLOR_TYPE_BUF_ID);
+        return buffer->getOutput();
+    }
+    else
+    {
+        flash(COLOR_ERROR);
+        return NULL;
+    }
 }

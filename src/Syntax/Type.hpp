@@ -10,16 +10,16 @@
 #define Type_hpp
 
 #include "Character.hpp"
-#include "Modules.h"
+#include "Memory.hpp"
 
 
 enum TypeType
 {
-    FUNC_CLOSE = 0,
+    NO_TYPE = 0,
     NUMBER,
     INPUT,
-    BUFFER,
-    MODULE
+    MODULE,
+    BUFFER
 };
 
 
@@ -27,34 +27,22 @@ class Type : public Character
 {
 public:
     //========================================================================
-     Type (char c, MainFunction* mf);
-    ~Type ();
+    Type (char c);
     
     //========================================================================
-    virtual Character* getEndChar();
-    virtual Character* draw (float& x, float& y, bool vertical, bool selection);
+    virtual void draw  (float& x, float& y, bool vertical, bool selection);
     virtual void flash (const ofColor& color);
     
     //========================================================================
     virtual void keyPressed (int key);
-    virtual void trigger();
+    virtual sig* compile (Memory* memory, bool record);
     
     //========================================================================
-    virtual Type* process (buf& buffer, sig& output, Clock& clock);
+    void    setTypeString (const string& str);
+    string& getTypeString ();
     
     //========================================================================
-    void     setTypeString (const string& str);
-    string   getTypeString ();
     TypeType typeType;
-    
-protected:
-    //========================================================================
-    bool updateFunctionPointer();
-    Function*  functionPointer;
-    
-    //========================================================================
-    tick typeClock;
-    sig  typeSignal;
     
 private:
     //========================================================================

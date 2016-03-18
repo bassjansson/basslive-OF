@@ -6,56 +6,41 @@
 //
 //
 
-#include "Types.h"
+#include "Syntax.h"
 
 
 //========================================================================
-InputType::InputType (MainFunction* mf)
-: Type(CHAR_TYPE_INPUT, mf)
+InputType::InputType() : Type(CHAR_TYPE_INPUT)
 {
     typeType = INPUT;
-    
-    channel = -1;
 }
 
 //========================================================================
 void InputType::keyPressed (int key)
 {
     if (key > 47 && key < 58)
-        new Character(key, mf);
+        charSelected->add(new Character(key));
 }
 
-void InputType::trigger()
+sig* InputType::compile (Memory* memory, bool record)
 {
     if (getTypeString() == "")
     {
-        mf->charSelected = this;
-        new Character('0', mf);
-        
+        add(new Character('0'));
         setTypeString("0");
     }
     
     char* err;
-    channel = strtof(getTypeString().c_str(), &err);
+    int channel = strtof(getTypeString().c_str(), &err);
     
     if (*err == 0)
     {
         flash(COLOR_TYPE_INPUT);
+        return memory->getADC(channel);
     }
     else
     {
         flash(COLOR_ERROR);
-        channel = -1;
+        return NULL;
     }
-}
-
-//========================================================================
-Type* InputType::process (buf& buffer, sig& output, Clock& clock)
-{
-    buffer = NULL;
-    output = mf->getADC(channel);
-    
-    if (output == NULL) output = typeSignal;
-    
-    return getType(RIGHT);
 }

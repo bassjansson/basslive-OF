@@ -16,18 +16,18 @@ class NumberType : public Type
 {
 public:
     //========================================================================
-    NumberType (MainFunction* mf);
+    NumberType();
     
     //========================================================================
     virtual void keyPressed (int key);
-    virtual void trigger();
+    virtual sig* compile (Memory* memory, bool record);
     
     //========================================================================
     float getValue();
     
 private:
     //========================================================================
-    float value;
+    sig value;
 };
 
 

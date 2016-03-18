@@ -10,86 +10,161 @@
 
 
 //========================================================================
-AudioBuffer::AudioBuffer()
+// AudioSignal
+//========================================================================
+AudioSignal::AudioSignal (AudioModule* module)
 {
+    value  = sample();
     buffer = NULL;
-    size   = 0;
-    start  = 0;
+    b_size = 0;
     
-    recording = OFF;
+    this->module = module;
 }
 
-AudioBuffer::~AudioBuffer()
+AudioSignal::AudioSignal (sample value)
 {
-    if (buffer) delete[] buffer;
+    this->value = value;
+    
+    buffer = NULL;
+    b_size = 0;
+    module = NULL;
 }
 
 //========================================================================
-tick AudioBuffer::getSize()
+tick AudioSignal::size()
 {
-    return size;
+    return b_size;
 }
 
-tick AudioBuffer::getStart()
+tick AudioSignal::start()
 {
-    return start;
+    return b_start;
 }
 
+void AudioSignal::start (tick start)
+{
+    b_start = start;
+}
+
+void AudioSignal::allocate (tick size)
+{
+    if (buffer) delete[] buffer;
+    
+    b_size = size;
+    buffer = new sample[b_size];
+    
+    for (tick t = 0; t < b_size; t++)
+        buffer[t] = sample();
+}
+
+void AudioSignal::deallocate()
+{
+    if (buffer) delete[] buffer;
+    
+    b_size = 0;
+}
+
+//========================================================================
+void AudioSignal::processModule (Clock& clock)
+{
+    if (module) module->processModule(clock);
+}
+
+
+//========================================================================
+// AudioModule
+//========================================================================
+AudioModule::AudioModule (const string& ID, int channels) : output(this)
+{
+    for (tick t = 0; t < channels; t++)
+        inputs.push_back(AudioSignal(sample()));
+    
+    output.allocate(BUFFERSIZE);
+    
+    AM_ID = ID;
+    clock = -1;
+}
+
+AudioModule::~AudioModule()
+{
+    inputs.clear();
+    output.deallocate();
+}
+
+//========================================================================
+void AudioModule::setInput (sig* input, int channel)
+{
+    if (channel >= 0 && channel < inputs.size())
+    {
+        if (input == NULL)
+            inputs[channel] = AudioSignal(sample());
+        else
+            inputs[channel] = *input;
+    }
+}
+
+sig* AudioModule::getOutput()
+{
+    return &output;
+}
+
+string& AudioModule::getID()
+{
+    return AM_ID;
+}
+
+//========================================================================
+void AudioModule::processModule (Clock& clock)
+{
+    if (this->clock != clock.clock)
+    {
+        this->clock = clock.clock;
+        
+        for (tick t = 0; t < inputs.size(); t++)
+            inputs[t].processModule(clock);
+        
+        process(clock);
+    }
+}
+
+
+//========================================================================
+// AudioBuffer
+//========================================================================
+AudioBuffer::AudioBuffer (const string& ID) : AudioModule(ID, 1)
+{
+    recording = OFF;
+}
+
+//========================================================================
 void AudioBuffer::record (tick size)
 {
-    buffer = new sample[size];
-    for (tick t = 0; t < size; t++)
-        buffer[t] = 0.0f;
-    
-    this->size = size;
+    output.allocate(size);
     
     recording = WAIT;
 }
 
-sample AudioBuffer::read (tick_f pointer)
-{
-    if (recording != ON)
-    {
-        if (pointer >= 0.0f && pointer < size - 1)
-        {
-            tick pointer_i = tick(pointer);
-            sample diff = pointer - pointer_i;
-            
-            return (   (1.0f - diff) * buffer[pointer_i + 0]
-                    +  (       diff) * buffer[pointer_i + 1]);
-        }
-    }
-    
-    return 0.0f;
-}
-
 //========================================================================
-void AudioBuffer::process (sig_vec& inputs, buf_vec& buffers, sig output, Clock clock)
+void AudioBuffer::process (Clock& clock)
 {
-    sig input;
-    if (inputs.size() > 0)
-        input = inputs[0];
-    else
-        input = clock.null;
-    
-        
-    for (tick t = 0; t < BUFFERSIZE; t++)
+    for (tick t = 0; t < clock.size; t++)
     {
         if (recording == WAIT)
         {
-            if (clock[t] % clock.barLength < SAMPLERATE / 1000)
+            if (clock[t] % clock.barLength[t] < BUFFERSIZE)
             {
-                start = clock[t] - BUFFERSIZE; // TODO
+                output.start(clock[t]);
+                
                 recording = ON;
             }
         }
         
         if (recording == ON)
         {
-            tick pointer = clock[t] - start;
+            tick pointer = clock[t] - output.start();
             
-            if (pointer < size)
-                buffer[pointer] = input[t];
+            if (pointer < output.size())
+                output[pointer] = inputs[0][t];
             else
                 recording = OFF;
         }

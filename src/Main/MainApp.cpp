@@ -20,7 +20,7 @@ void MainApp::setup()
     
     // TODO: List devices in interface
     soundStream.printDeviceList();
-    soundStream.setDeviceID(7);
+    soundStream.setDeviceID(6);
     soundStream.setup(this, 2, 2, SAMPLERATE, BUFFERSIZE, 4);
 }
 
@@ -87,7 +87,7 @@ void MainApp::mouseReleased (int x, int y, int button)
 //========================================================================
 void MainApp::windowResized (int w, int h)
 {
-    engine.windowResized();
+    
 }
 
 void MainApp::dragEvent (ofDragInfo dragInfo)

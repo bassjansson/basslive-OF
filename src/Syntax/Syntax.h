@@ -1,13 +1,13 @@
 //
-//  Types.h
+//  Syntax.h
 //  BassLive 2.0
 //
 //  Created by Bass Jansson on 28/02/16.
 //
 //
 
-#ifndef Types_h
-#define Types_h
+#ifndef Syntax_h
+#define Syntax_h
 
 #include "Character.hpp"
 #include "Type.hpp"
@@ -31,17 +31,19 @@
 #define DOWN  1
 
 #define FRAME_RATE 30
-#define FONT_SIZE  15
+#define FONT_SIZE  35
 
 #define CHAR_TYPE_NUMBER '$'
-#define CHAR_TYPE_INPUT  '>'
+#define CHAR_TYPE_INPUT  '~'
 #define CHAR_TYPE_MOD_ID ':'
 #define CHAR_TYPE_BUF_ID '@'
 
-#define CHAR_FUNC_MOD_OPEN  '('
-#define CHAR_FUNC_MOD_CLOSE ')'
-#define CHAR_FUNC_BUF_OPEN  '['
-#define CHAR_FUNC_BUF_CLOSE ']'
+#define CHAR_FUNC_MOD_OPEN   '('
+#define CHAR_FUNC_MOD_CLOSE  ')'
+#define CHAR_FUNC_BUF_OPEN   '['
+#define CHAR_FUNC_BUF_CLOSE  ']'
+#define CHAR_FUNC_MAIN_OPEN  '<'
+#define CHAR_FUNC_MAIN_CLOSE '>'
 
 #define COLOR_DEFAULT     ofColor(255)
 #define COLOR_ERROR       ofColor(219, 44,  56 )
@@ -52,5 +54,6 @@
 #define COLOR_TYPE_BUF_ID ofColor(131, 192, 87 )
 #define COLOR_FUNC_MODULE ofColor(0  , 160, 190)
 #define COLOR_FUNC_BUFFER ofColor(178, 24 , 137)
+#define COLOR_FUNC_MAIN   ofColor(120, 109, 196)
 
-#endif /* Types_h */
+#endif /* Syntax_h */

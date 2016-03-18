@@ -1,44 +1,39 @@
 //
-//  Number.cpp
+//  NumberType.cpp
 //  BassLive 2.0
 //
 //  Created by Bass Jansson on 17/02/16.
 //
 //
 
-#include "Types.h"
+#include "Syntax.h"
 
 
 //========================================================================
-NumberType::NumberType (MainFunction* mf)
-: Type(CHAR_TYPE_NUMBER, mf)
+NumberType::NumberType() : Type(CHAR_TYPE_NUMBER), value(sample())
 {
     typeType = NUMBER;
-    
-    value = 0.0f;
 }
 
 //========================================================================
 void NumberType::keyPressed (int key)
 {
     if ((key > 47 && key < 58) || key == 46)
-        new Character(key, mf);
+        charSelected->add(new Character(key));
 }
 
-void NumberType::trigger()
+sig* NumberType::compile (Memory* memory, bool record)
 {
     if (getTypeString() == "")
     {
-        mf->charSelected = this;
-        new Character('0', mf);
-        new Character('.', mf);
-        new Character('0', mf);
-        
+                      add(new Character('0'));
+        charSelected->add(new Character('.'));
+        charSelected->add(new Character('0'));
         setTypeString("0.0");
     }
     
     char* err;
-    value = strtof(getTypeString().c_str(), &err);
+    value[0].L = value[0].R = strtof(getTypeString().c_str(), &err);
     
     if (*err == 0)
     {
@@ -47,15 +42,14 @@ void NumberType::trigger()
     else
     {
         flash(COLOR_ERROR);
-        value = 0.0f;
+        value[0] = sample();
     }
     
-    for (tick t = 0; t < BUFFERSIZE; t++)
-        typeSignal[t] = value;
+    return &value;
 }
 
 //========================================================================
 float NumberType::getValue()
 {
-    return value;
+    return value[0].L;
 }

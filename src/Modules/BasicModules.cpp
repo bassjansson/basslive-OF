@@ -1,6 +1,6 @@
 //
 //  BasicModules.cpp
-//  BassLive
+//  BassLive 2.0
 //
 //  Created by Bass Jansson on 16/11/15.
 //
@@ -10,96 +10,118 @@
 
 
 //========================================================================
-// loop_Module
+// operator_Module
 //========================================================================
-void loop_Module::process (sig_vec& inputs, buf_vec& buffers, sig output, Clock clock)
+operator_Module::operator_Module (const string& ID, char op) : AudioModule(ID, MAX_NUM_INPUTS)
 {
-    if (buffers.size() > 0)
+    this->op = op;
+}
+    
+void operator_Module::process (Clock& clock)
+{
+    switch (op)
     {
-        buf buffer = buffers[0];
-        sig beats, bars, starts;
-        beats = bars = starts = clock.null;
-        
-        if (inputs.size() > 0)
-        {
-            beats = inputs[0];
-            
-            if (inputs.size() > 1)
+        case '+':
+            for (tick t = 0; t < clock.size; t++)
             {
-                bars = inputs[1];
+                output[t] = inputs[0][t];
                 
-                if (inputs.size() > 2)
+                for (int c = 1; c < inputs.size(); c++)
                 {
-                    starts = inputs[2];
+                    output[t].L += inputs[c][t].L;
+                    output[t].R += inputs[c][t].R;
                 }
             }
-        }
+            break;
+            
+        case '-':
+            for (tick t = 0; t < clock.size; t++)
+            {
+                output[t] = inputs[0][t];
+                
+                for (int c = 1; c < inputs.size(); c++)
+                {
+                    output[t].L -= inputs[c][t].L;
+                    output[t].R -= inputs[c][t].R;
+                }
+            }
+            break;
+            
+        case '*':
+            for (tick t = 0; t < clock.size; t++)
+            {
+                output[t] = inputs[0][t];
+                
+                for (int c = 1; c < inputs.size(); c++)
+                {
+                    output[t].L *= inputs[c][t].L;
+                    output[t].R *= inputs[c][t].R;
+                }
+            }
+            break;
+            
+        case '/':
+            for (tick t = 0; t < clock.size; t++)
+            {
+                output[t] = inputs[0][t];
+                
+                for (int c = 1; c < inputs.size(); c++)
+                {
+                    output[t].L /= inputs[c][t].L;
+                    output[t].R /= inputs[c][t].R;
+                }
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
+//========================================================================
+// click_Module
+//========================================================================
+click_Module::click_Module (const string& ID) : AudioModule(ID, 2)
+{
+    
+}
+
+void click_Module::process (Clock& clock)
+{
+    for (tick t = 0; t < clock.size; t++)
+    {
+        clock.beatLength[t] = 60.0f / inputs[0][t].L * SAMPLERATE;
+        clock.barLength[t]  = inputs[1][t].L * clock.beatLength[t];
+    }
+}
+
+
+//========================================================================
+// loop_Module
+//========================================================================
+loop_Module::loop_Module (const string& ID) : AudioModule(ID, 4)
+{
+    
+}
+
+void loop_Module::process (Clock& clock)
+{
+    for (tick t = 0; t < clock.size; t++)
+    {
+        tick beat  = inputs[1][t].L * clock.beatLength[t] + 1;
+        tick bar   = inputs[2][t].L * clock.beatLength[t] + 1;
+        tick start = inputs[3][t].L * clock.beatLength[t];
         
-        for (tick t = 0; t < BUFFERSIZE; t++)
+        tick pointer = ((clock[t] - inputs[0].start()) % bar - start) % beat;
+        
+        if (pointer < inputs[0].size())
         {
-            tick beat  = beats[t]  * clock.beatLength;
-            tick bar   = bars[t]   * clock.beatLength;
-            tick start = starts[t] * clock.beatLength;
-            
-            tick pointer = ((clock[t] - buffer->getStart()) % bar - start) % beat;
-            
-            output[t] = buffer->read(pointer);
+            output[t] = inputs[0][pointer];
         }
-    }
-    else
-    {
-        for (tick t = 0; t < BUFFERSIZE; t++)
-            output[t] = 0.0f;
-    }
-}
-
-
-//========================================================================
-// add_Module
-// sub_Module
-// mul_Module
-// div_Module
-//========================================================================
-void add_Module::process (sig_vec& inputs, buf_vec& buffers, sig output, Clock clock)
-{
-    for (tick t = 0; t < BUFFERSIZE; t++)
-    {
-        output[t] = 0.0f;
-        
-        for (int c = 0; c < inputs.size(); c++)
-            output[t] += inputs[c][t];
-    }
-}
-
-void sub_Module::process (sig_vec& inputs, buf_vec& buffers, sig output, Clock clock)
-{
-    for (tick t = 0; t < BUFFERSIZE; t++)
-    {
-        output[t] = 0.0f;
-        
-        for (int c = 0; c < inputs.size(); c++)
-            output[t] -= inputs[c][t];
-    }
-}
-
-void mul_Module::process (sig_vec& inputs, buf_vec& buffers, sig output, Clock clock)
-{
-    for (tick t = 0; t < BUFFERSIZE; t++)
-    {
-        output[t] = 1.0f;
-        
-        for (int c = 0; c < inputs.size(); c++)
-            output[t] *= inputs[c][t];
-    }
-}
-
-void div_Module::process (sig_vec& inputs, buf_vec& buffers, sig output, Clock clock)
-{
-    for (tick t = 0; t < BUFFERSIZE; t++)
-    {
-        output[t] = 1.0f;
-        
-        for (int c = 0; c < inputs.size(); c++)
-            output[t] /= inputs[c][t];
+        else
+        {
+            output[t] = sample();
+        }
     }
 }

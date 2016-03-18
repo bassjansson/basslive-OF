@@ -6,38 +6,28 @@
 //
 //
 
-#include "Types.h"
+#include "Syntax.h"
 
 
 //========================================================================
-ModuleType::ModuleType (MainFunction* mf)
-: Type(CHAR_TYPE_MOD_ID, mf)
+ModuleType::ModuleType() : Type(CHAR_TYPE_MOD_ID)
 {
     typeType = MODULE;
 }
 
 //========================================================================
-void ModuleType::trigger()
+sig* ModuleType::compile (Memory* memory, bool record)
 {
-    if (getTypeString() == "")
-    {
-        int  id  = mf->getNewModuleID();
-        char id1 = (id / 10) % 10 + 48;
-        char id2 = (id / 1 ) % 10 + 48;
-        
-        mf->charSelected = this;
-        new Character('m', mf);
-        new Character('o', mf);
-        new Character('d', mf);
-        new Character(id1, mf);
-        new Character(id2, mf);
-        
-        string str = "mod";
-        str += id1;
-        str += id2;
-        setTypeString(str);
-    }
+    AudioModule* module = memory->getModule(getTypeString());
     
-    if (updateFunctionPointer())
+    if (module)
+    {
         flash(COLOR_TYPE_MOD_ID);
+        return module->getOutput();
+    }
+    else
+    {
+        flash(COLOR_ERROR);
+        return NULL;
+    }
 }

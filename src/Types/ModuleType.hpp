@@ -16,10 +16,10 @@ class ModuleType : public Type
 {
 public:
     //========================================================================
-    ModuleType (MainFunction* mf);
-    
+    ModuleType();
+
     //========================================================================
-    virtual void trigger();
+    virtual sig* compile (Memory* memory, bool record);
 };
 
 

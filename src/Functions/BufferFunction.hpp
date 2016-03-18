@@ -1,26 +1,26 @@
 //
-//  BufferType.hpp
+//  BufferFunction.hpp
 //  BassLive 2.0
 //
 //  Created by Bass Jansson on 28/02/16.
 //
 //
 
-#ifndef BufferType_hpp
-#define BufferType_hpp
+#ifndef BufferFunction_hpp
+#define BufferFunction_hpp
 
-#include "Type.hpp"
+#include "Function.hpp"
 
 
-class BufferType : public Type
+class BufferFunction : public Function
 {
 public:
     //========================================================================
-    BufferType();
+    BufferFunction();
     
     //========================================================================
     virtual sig* compile (Memory* memory, bool record);
 };
 
 
-#endif /* BufferType_hpp */
+#endif /* BufferFunction_hpp */

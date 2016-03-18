@@ -1,13 +1,12 @@
 //
-//  Editor.cpp
-//  BassLive
+//  Engine.cpp
+//  BassLive 2.0
 //
 //  Created by Bass Jansson on 07/12/15.
 //
 //
 
 #include "Engine.hpp"
-#include "Types.h"
 
 
 //========================================================================
@@ -15,49 +14,31 @@ void Engine::setup()
 {
     mouseIsPressed = false;
     
-    tabbedPages.setup();
+    // Init clock and click
+    clock.clock = 0;
+    clock.size  = BUFFERSIZE;
     
-    tabbedPages.setDefaultBackgroundColor(ofColor(10, 12, 20));
-    tabbedPages.setDefaultBorderColor(ofColor(30, 32, 40));
-    tabbedPages.setDefaultHeaderBackgroundColor(ofColor(50, 52, 60));
-    tabbedPages.setDefaultFillColor(ofColor(70, 72, 80));
-    tabbedPages.setDefaultTextColor(ofColor(100, 156, 240));
+    clock.clockTime  = new tick[clock.size];
+    clock.beatLength = new tick[clock.size];
+    clock.barLength  = new tick[clock.size];
     
-    tabbedPages.loadFont("fonts/Menlo-Bold.ttf", FONT_SIZE);
-    tabbedPages.setShowHeader(false);
-    tabbedPages.setTabWidth(FONT_SIZE * 6);
-    tabbedPages.setTabHeight(FONT_SIZE * 2);
-    tabbedPages.setDefaultWidth(FONT_SIZE * 12);
-    tabbedPages.setDefaultHeight(FONT_SIZE * 2);
-    tabbedPages.setShape(0, 0, EDITOR_WIDTH, EDITOR_HEIGHT + FONT_SIZE * 2);
+    click = new sample[clock.size];
     
-    newPage();
-    
-    // Init click and clock
-    clock.clock      = 0;
-    clock.beatLength = SAMPLERATE / 2;
-    clock.barLength  = clock.beatLength * 4;
-    
-    clock.buffer = new   tick[BUFFERSIZE];
-    clock.null   = new sample[BUFFERSIZE];
-    click        = new sample[BUFFERSIZE];
-    
-    for (tick t = 0; t < BUFFERSIZE; t++)
+    for (tick t = 0; t < clock.size; t++)
     {
-        clock.buffer[t] = t;
-        clock.null[t]   = 0.0f;
-        click[t]        = 0.0f;
+        clock.clockTime[t]  = t;
+        clock.beatLength[t] = SAMPLERATE / 2;
+        clock.barLength[t]  = SAMPLERATE * 2;
+        
+        click[t] = sample();
     }
 }
 
 void Engine::exit()
 {
-    for (int i = 0; i < pages.size(); i++)
-        delete pages[i];
-    pages.clear();
-    
-    delete[] clock.buffer;
-    delete[] clock.null;
+    delete[] clock.clockTime;
+    delete[] clock.beatLength;
+    delete[] clock.barLength;
     delete[] click;
 }
 
@@ -76,7 +57,7 @@ void Engine::draw()
 }
 
 //========================================================================
-void Engine::audioIn (sig input, tick size, int channels)
+void Engine::audioIn (float* input, int size, int channels)
 {
     MainFunction* mf = (MainFunction*)tabbedPages.getActiveTab();
     
@@ -86,11 +67,14 @@ void Engine::audioIn (sig input, tick size, int channels)
         sig adc = mf->getADC(0);
         
         for (tick t = 0; t < size; t++)
-            adc[t] = input[t * channels + 0];
+        {
+            adc[t].L = input[t * channels + 0];
+            adc[t].R = input[t * channels + 0];
+        }
     }
 }
 
-void Engine::audioOut (sig output, tick size, int channels)
+void Engine::audioOut (float* output, int size, int channels)
 {    
     MainFunction* mf = (MainFunction*)tabbedPages.getActiveTab();
     
@@ -102,10 +86,17 @@ void Engine::audioOut (sig output, tick size, int channels)
         // Write DAC to output
         sig dac;
         buf dacbuf;
-        mf->process(dacbuf, dac, clock);
-        for (int c = 0; c < channels; c++)
-            for (tick t = 0; t < size; t++)
-                output[t * channels + c] = dac[t] + click[t];
+        
+        mf->process(&dacbuf, &dac, clock);
+        
+        for (tick t = 0; t < size; t++)
+        {
+            output[t * channels + 0] = dac[t].L + click[t].L;
+            output[t * channels + 1] = dac[t].R + click[t].R;
+            
+//            output[t * channels + 2] = click[t].L;
+//            output[t * channels + 3] = click[t].R;
+        }
     }
 }
 
@@ -150,28 +141,24 @@ void Engine::newPage()
 
 void Engine::processClockAndClick()
 {
-    MainFunction* mf = (MainFunction*)tabbedPages.getActiveTab();
-    
     clock.clock++;
     
-    clock.beatLength = mf->getBeatLength();
-    clock.barLength  = mf->getBarLength();
+    tick clockStart = clock[clock.size - 1] + 1;
     
-    tick clockStart = clock[BUFFERSIZE - 1] + 1;
-    
-    for (tick t = 0; t < BUFFERSIZE; t++)
+    for (tick t = 0; t < clock.size; t++)
     {
-        clock.buffer[t] = clockStart + t;
+        clock.clockTime[t] = clockStart + t;
         
-        sample freq = clock[t] % clock.barLength / clock.beatLength;
+        float freq = clock[t] % clock.barLength[t] / clock.beatLength[t];
         if (freq < 1.0f) freq = 1000.0f;
         else freq = 500.0f;
         
-        sample osc = sinf(clock[t] * freq / SAMPLERATE * TWO_PI);
+        float osc = sinf(clock[t] * freq / SAMPLERATE * TWO_PI);
         
-        sample amp = 1.0f - sample(clock[t] % clock.beatLength) / SAMPLERATE * 100.0f;
+        float amp = 1.0f - float(clock[t] % clock.beatLength[t]) / SAMPLERATE * 100.0f;
         if (amp < 0.0f) amp = 0.0f;
         
-        click[t] = osc * amp * 0.5f;
+        click[t].L = osc * amp * 0.5f;
+        click[t].R = osc * amp * 0.5f;
     }
 }

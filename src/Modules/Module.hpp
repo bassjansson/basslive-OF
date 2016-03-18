@@ -13,29 +13,68 @@
 
 typedef u_long tick;
 typedef float  tick_f;
+typedef float  beat;
 
-typedef float sample;
-typedef sample* sig;
+struct sample
+{
+    float L, R;
+    sample() { L = R = 0.0f; };
+};
+
+class AudioSignal;
+class AudioModule;
+class AudioBuffer;
+
+typedef AudioSignal sig;
 typedef vector<sig> sig_vec;
-
-class   AudioBuffer;
-typedef AudioBuffer* buf;
-typedef vector<buf> buf_vec;
 
 
 struct Clock
 {
     //========================================================================
-    tick  clock;
-    tick* buffer;
-    sig   null;
+    tick clock;
+    tick size;
     
     //========================================================================
-    tick beatLength;
-    tick barLength;
+    tick* clockTime;
+    tick* beatLength;
+    tick* barLength;
     
     //========================================================================
-    const tick& operator[] (tick pointer) const { return buffer[pointer]; };
+    const tick& operator[] (tick pointer) const { return clockTime[pointer]; };
+};
+
+
+class AudioSignal
+{
+public:
+    //========================================================================
+    AudioSignal (AudioModule* module);
+    AudioSignal (sample value);
+    
+    //========================================================================
+    tick       size ();
+    tick      start ();
+    void      start (tick start);
+    void   allocate (tick size);
+    void deallocate ();
+    
+    //========================================================================
+    void processModule (Clock& clock);
+    
+    //========================================================================
+          sample& operator[] (tick pointer)
+    { if (buffer) return buffer[pointer]; else return value; };
+    const sample& operator[] (tick pointer) const
+    { if (buffer) return buffer[pointer]; else return value; };
+    
+private:
+    //========================================================================
+    sample       value;
+    sample*      buffer;
+    tick         b_size;
+    tick         b_start;
+    AudioModule* module;
 };
 
 
@@ -43,10 +82,29 @@ class AudioModule
 {
 public:
     //========================================================================
-    virtual void process (sig_vec& inputs,
-                          buf_vec& buffers,
-                          sig      output,
-                          Clock    clock) {};
+     AudioModule (const string& ID, int channels);
+    ~AudioModule ();
+    
+    //========================================================================
+    void    setInput  (sig* input, int channel);
+    sig*    getOutput ();
+    string& getID     ();
+    
+    //========================================================================
+    void processModule (Clock& clock);
+    
+protected:
+    //========================================================================
+    sig_vec inputs;
+    sig     output;
+    
+private:
+    //========================================================================
+    virtual void process (Clock& clock) {};
+    
+    //========================================================================
+    string AM_ID;
+    tick   clock;
 };
 
 
@@ -54,26 +112,16 @@ class AudioBuffer : public AudioModule
 {
 public:
     //========================================================================
-     AudioBuffer();
-    ~AudioBuffer();
+    AudioBuffer (const string& ID);
     
     //========================================================================
-    tick getSize  ();
-    tick getStart ();
-    void record   (tick size);
-    sample read   (tick_f pointer);
-    
-    //========================================================================
-    virtual void process (sig_vec& inputs,
-                          buf_vec& buffers,
-                          sig      output,
-                          Clock    clock);
+    virtual void record (tick size);
     
 private:
     //========================================================================
-    sig  buffer;
-    tick size;
-    tick start;
+    virtual void process (Clock& clock);
+    
+    //========================================================================
     enum { OFF, WAIT, ON } recording;
 };
 

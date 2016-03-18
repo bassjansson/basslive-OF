@@ -1,18 +1,15 @@
 //
-//  Editor.hpp
-//  BassLive
+//  Engine.hpp
+//  BassLive 2.0
 //
 //  Created by Bass Jansson on 07/12/15.
 //
 //
 
-#ifndef __BassLive__Editor__
-#define __BassLive__Editor__
+#ifndef Engine_hpp
+#define Engine_hpp
 
 #include "MainFunction.hpp"
-
-#define EDITOR_WIDTH  (ofGetWidth())
-#define EDITOR_HEIGHT (ofGetHeight() - FONT_SIZE * 2)
 
 
 class Engine
@@ -25,29 +22,21 @@ public:
     void draw();
     
     //========================================================================
-    void audioIn       (sig input,  tick size, int channels);
-    void audioOut      (sig output, tick size, int channels);
+    void audioIn  (float* input,  int size, int channels);
+    void audioOut (float* output, int size, int channels);
+    
+    //========================================================================
+    void keyPressed (int key);
+    
+    //========================================================================
     void mousePressed  (float x, float y, int button);
     void mouseReleased (float x, float y, int button);
-    void keyPressed    (int key);
-    void windowResized ();
     
 private:
     //========================================================================
-    void newPage();
-    void processClockAndClick();
-    
-    //========================================================================
-    bool mouseIsPressed;
-    
-    //========================================================================
-    ofxTabbedPages  tabbedPages;
-    vector<MainFunction*> pages;
-    
-    //========================================================================
-    Clock   clock;
-    sample* click;
+    Memory* memory;
+    MainFunction* main;
 };
 
 
-#endif /* defined(__BassLive__Editor__) */
+#endif /* Engine_hpp */

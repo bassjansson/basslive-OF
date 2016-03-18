@@ -16,15 +16,10 @@ class Function : public Type
 {
 public:
     //========================================================================
-     Function (char open, char type, char close, MainFunction* mf);
-    ~Function ();
+    Function (char open, char close);
     
     //========================================================================
-    virtual Character* getEndChar();
-    virtual Character* draw (float& x, float& y, bool vertical, bool selection);
-    
-    //========================================================================
-    string getIdentifierString();
+    virtual void draw (float& x, float& y, bool vertical, bool selection);
     
 protected:
     //========================================================================
