@@ -147,7 +147,7 @@ void Memory::audioOut (float* output, int size, int channels)
             {
                 output[t * channels + 0] = dac_sig[t].L;
                 output[t * channels + 1] = dac_sig[t].R;
-                output[t * channels + 2] = click[t].L;
+                output[t * channels + 2] = dac_sig[t].L + click[t].L;
             }
             break;
             
@@ -156,8 +156,8 @@ void Memory::audioOut (float* output, int size, int channels)
             {
                 output[t * channels + 0] = dac_sig[t].L;
                 output[t * channels + 1] = dac_sig[t].R;
-                output[t * channels + 2] = click[t].L;
-                output[t * channels + 3] = click[t].R;
+                output[t * channels + 2] = dac_sig[t].L + click[t].L;
+                output[t * channels + 3] = dac_sig[t].R + click[t].R;
             }
             break;
     }

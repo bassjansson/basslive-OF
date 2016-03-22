@@ -15,6 +15,8 @@ float          Character::charHeight = 0.0f;
 CharVector     Character::charVector;
 Character*     Character::charSelected;
 
+float Character::RMS = 0.0f;
+
 
 //========================================================================
 Character::Character (char c)
@@ -187,7 +189,8 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     
     // Draw fractal
-    drawFractal(this->x + charWidth / 2.0f, this->y + charHeight / 2.0f, 200.0f);
+    if (charType == TYPE || charType == FUNC || charType == MAIN)
+        drawFractal();
     
     
     // Update animation
@@ -215,27 +218,31 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
  charHeight * 0.5f + charFont.getDescenderHeight());
  */
 
-void Character::drawFractal (float x, float y, float length)
+void Character::drawFractal()
 {
-    if (right->charType != MAIN && length > 10.0f)
+    float alpha  = (charString.c_str()[0] % 64) / 64.0f * TWO_PI;
+    float length = sqrtf(powf(x - ofGetWidth()  * 0.5f, 2.0f) +
+                         powf(y - ofGetHeight() * 0.5f, 2.0f)) * (RMS * 3.0f + 0.5f);
+    
+    float counterX = cosf(alpha) * length + ofGetWidth()  * 0.5f;
+    float counterY = sinf(alpha) * length + ofGetHeight() * 0.5f;
+    
+    ofColor color = getParentType()->typeColor;
+    
+    for (Character* c = begin; c->right->charType != MAIN; c = c->getType(RIGHT))
     {
-        float alpha = charString.c_str()[0] % 64 / 64.0f * TWO_PI;
+        float counterCX = -c->x + ofGetWidth();
+        float counterCY = -c->y + ofGetHeight();
         
-        float newX = x + cosf(alpha) * length;
-        float newY = y - sinf(alpha) * length;
+        length = sqrtf(powf(counterCX - counterX, 2.0f) +
+                       powf(counterCY - counterY, 2.0f)) / ofGetWidth();
         
-        ofColor c = getParentType()->typeColor;
-        float factor = powf(1.0f - length * 0.005f, 1.0f);
-        ofSetColor(c.r * factor, c.g * factor, c.b, factor * 127);
-        ofSetLineWidth(1.0f);
-        ofDrawLine(x, y, newX, newY);
+        float factor = powf(1.0f - length, 4.0f);
         
-        newX += cosf(alpha) * 1.0f;
-        newY -= sinf(alpha) * 1.0f;
-        
-        length *= 0.9f; //sqrtf(powf(x - this->x, 2.0f) + powf(y - this->y, 2.0f));
-        
-        right->drawFractal(newX, newY, length);
+        ofSetColor(color.r, color.g, color.b, 100 * factor);
+        ofSetLineWidth(6.0f);
+        ofDrawLine(counterX,  counterY,
+                   counterCX, counterCY);
     }
 }
 

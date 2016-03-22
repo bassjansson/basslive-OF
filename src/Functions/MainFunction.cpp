@@ -49,6 +49,17 @@ void MainFunction::draw()
     
     Function::draw(x, y, HORIZONTAL, false, false);
     
+    sig output = *memory->getDAC()->getOutput();
+    
+    float newRMS = 0.0f;
+    
+    for (tick t = 0; t < output.size(); t++)
+         newRMS += powf(output[t].L, 2.0f);
+    
+    newRMS = sqrtf(newRMS / output.size());
+    
+    RMS = 0.8f * RMS + 0.2f * newRMS;
+    
     if (cursorTime < FRAME_RATE / 2)
         charSelected->drawCursor();
     

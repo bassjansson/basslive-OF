@@ -13,7 +13,7 @@
 #include "BasicModules.hpp"
 
 #define SAMPLERATE 48000
-#define BUFFERSIZE 256
+#define BUFFERSIZE 512
 
 #define MAX_NUM_INPUTS 20
 

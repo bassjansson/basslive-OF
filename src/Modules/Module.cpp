@@ -151,7 +151,7 @@ void AudioBuffer::process (Clock& clock)
     {
         if (recording == WAIT)
         {
-            if ((clock[t] + BUFFERSIZE) % clock.barLength[t] < BUFFERSIZE)
+            if ((clock[t] + 2 * BUFFERSIZE) % clock.barLength[t] < BUFFERSIZE)
             {
                 output.start(clock[t]);
                 

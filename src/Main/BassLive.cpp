@@ -8,8 +8,8 @@
 
 #include "BassLive.hpp"
 
-#define INPUT_CHANNELS  2
-#define OUTPUT_CHANNELS 2
+#define INPUT_CHANNELS  18
+#define OUTPUT_CHANNELS 6
 
 
 //========================================================================
@@ -31,7 +31,7 @@ void BassLive::setup()
     
     // TODO: List devices in interface
     stream.printDeviceList();
-    stream.setDeviceID(6);
+    stream.setDeviceID(2);
     stream.setup(this, OUTPUT_CHANNELS, INPUT_CHANNELS, SAMPLERATE, BUFFERSIZE, 4);
 }
 

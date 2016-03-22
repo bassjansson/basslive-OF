@@ -41,7 +41,7 @@ public:
     
     //========================================================================
     virtual void draw (float& x, float& y, bool vertical, bool selection, bool floating);
-    virtual void drawFractal (float x, float y, float length);
+    virtual void drawFractal();
     virtual void drawCursor();
     virtual Character* end();
     
@@ -56,6 +56,8 @@ public:
     static float          charHeight;
     static CharVector     charVector;
     static Character*     charSelected;
+    
+    static float RMS;
     
     //========================================================================
     Character *begin, *left, *right;
