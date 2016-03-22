@@ -24,14 +24,14 @@ void InputType::keyPressed (int key)
 
 sig* InputType::compile (Memory* memory, bool record)
 {
-    if (getTypeString() == "")
+    if (typeString == "")
     {
         add(new Character('0'));
-        setTypeString("0");
+        typeString = "0";
     }
     
     char* err;
-    sig* adc = memory->getADC(int(strtof(getTypeString().c_str(), &err)));
+    sig* adc = memory->getADC(int(strtof(typeString.c_str(), &err)));
     
     if (!*err && adc)
     {

@@ -19,7 +19,7 @@ MainFunction::MainFunction (Memory* memory) : Function(CHAR_FUNC_MAIN_OPEN,
     charFont.load("fonts/Menlo-Bold.ttf", FONT_SIZE);
     charWidth    = charFont.stringWidth("X");
     charHeight   = charFont.stringHeight("Xgj{|");
-    charSelected = this;
+    charSelected = begin;
     
     this->memory = memory;
     this->cursorTime = 0;
@@ -42,28 +42,12 @@ MainFunction::~MainFunction()
 }
 
 //========================================================================
-sig* MainFunction::compile (Memory* memory, bool record)
-{
-    int channel = 0;
-    
-    for (Type* t = getType(RIGHT);
-         t != close;
-         t = t->getEndChar()->getType(RIGHT))
-    {
-        memory->getDAC()->setInput(t->compile(memory, record), channel);
-        channel++;
-    }
-    
-    flash(COLOR_FUNC_MAIN);
-}
-
-//========================================================================
 void MainFunction::draw()
 {
     float x = ofGetWidth()  * 0.5f - charWidth * 6.0f;
     float y = ofGetHeight() * 0.5f - charHeight;
     
-    Function::draw(x, y, VERTICAL, false, true);
+    Function::draw(x, y, VERTICAL, false, false);
     
     if (cursorTime < FRAME_RATE / 2)
         charSelected->drawCursor();
@@ -79,26 +63,23 @@ void MainFunction::keyPressed (int key)
     
     
     // Add and remove characters
-    if (charSelected != close)
+    if (charSelected != end())
     {
         if (ofGetKeyPressed(OF_KEY_COMMAND))
         {
             switch (key)
             {
-                case 'n': charSelected->add(new NumberType()); break;
-                case 'i': charSelected->add(new InputType());  break;
-                case 'm': charSelected->add(new ModuleType()); break;
-                case 'b': charSelected->add(new BufferType()); break;
+                case 'f': add(new NumberType()); break;
+                case 'i': add(new  InputType()); break;
+                case 'm': add(new ModuleType()); break;
                     
-                case 'f': charSelected->add(new ModuleFunction()); break;
-                case 'g': charSelected->add(new BufferFunction()); break;
-                    
-                case 'o': add(new ModuleFunction()); break;
+                case 'n': add(new ModuleFunction()); break;
+                case 'b': add(new BufferFunction()); break;
                     
                 case 'r':
                 case OF_KEY_RETURN:
                     if (ofGetKeyPressed(OF_KEY_SHIFT))
-                        charSelected = this;
+                        charSelected = begin;
                     charSelected->getParentType()->compile(memory, key == 'r');
                     break;
             }
@@ -106,7 +87,7 @@ void MainFunction::keyPressed (int key)
         else
         {
             Type* parent = charSelected->getParentType();
-            if (parent->charType == MAIN)
+            if (parent == this)
                 Function::keyPressed(key);
             else
                 parent->keyPressed(key);
@@ -114,7 +95,7 @@ void MainFunction::keyPressed (int key)
             switch (key)
             {
                 case CHAR_TYPE_NUMBER: charSelected->add(new NumberType()); break;
-                case CHAR_TYPE_INPUT:  charSelected->add(new InputType());  break;
+                case CHAR_TYPE_INPUT : charSelected->add(new  InputType()); break;
                 case CHAR_TYPE_MOD_ID: charSelected->add(new ModuleType()); break;
                 case CHAR_TYPE_BUF_ID: charSelected->add(new BufferType()); break;
                     
@@ -138,7 +119,7 @@ void MainFunction::keyPressed (int key)
                 case OF_KEY_BACKSPACE:
                     if (ofGetKeyPressed(OF_KEY_SHIFT))
                         charSelected = charSelected->getParentType();
-                    charSelected->remove(false);
+                    charSelected->remove();
                     break;
             }
         }
@@ -167,7 +148,7 @@ void MainFunction::keyPressed (int key)
                 break;
                 
             case OF_KEY_DOWN:
-                charSelected = charSelected->getEndChar()->getRightChar();
+                charSelected = charSelected->end();
                 break;
         }
     }
@@ -180,11 +161,11 @@ void MainFunction::keyPressed (int key)
                 break;
                 
             case OF_KEY_LEFT:
-                charSelected = charSelected->getLeftChar();
+                charSelected = charSelected->left;
                 break;
                 
             case OF_KEY_RIGHT:
-                charSelected = charSelected->getRightChar();
+                charSelected = charSelected->right;
                 break;
                 
             case OF_KEY_UP:
@@ -194,6 +175,58 @@ void MainFunction::keyPressed (int key)
             case OF_KEY_DOWN:
                 charSelected = charSelected->getFunction(DOWN);
                 break;
+        }
+    }
+}
+
+sig* MainFunction::compile (Memory* memory, bool record)
+{
+    int channel = 0;
+    
+    for (Character* c = getType(RIGHT);
+         c != end();
+         c = c->end()->right)
+    {
+        Type* t = (Type*)c;
+        
+        memory->getDAC()->setInput(t->compile(memory, record), channel);
+        channel++;
+    }
+    
+    flash(COLOR_FUNC_MAIN);
+}
+
+//========================================================================
+void MainFunction::mousePressed (float x, float y, int button)
+{
+    if (button == OF_MOUSE_BUTTON_LEFT)
+    {
+        for (Character* c = begin; c != end(); c = c->right)
+        {
+            if ((x >= c->x && x < c->x + charWidth) &&
+                (y >= c->y && y < c->y + charHeight))
+            {
+                charSelected = c;
+                break;
+            }
+        }
+    }
+}
+
+void MainFunction::mouseReleased (float x, float y, int button)
+{
+    if (button == OF_MOUSE_BUTTON_LEFT)
+    {
+        for (Character* c = begin; c != end(); c = c->right)
+        {
+            if ((x >= c->x + charWidth * 0.5f &&
+                 x <  c->x + charWidth * 1.5f) &&
+                (y >= c->y &&
+                 y <  c->y + charHeight))
+            {
+                c->add(charSelected, false);
+                break;
+            }
         }
     }
 }

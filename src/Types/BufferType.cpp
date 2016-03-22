@@ -18,7 +18,7 @@ BufferType::BufferType() : Type(CHAR_TYPE_BUF_ID)
 //========================================================================
 sig* BufferType::compile (Memory* memory, bool record)
 {
-    AudioBuffer* buffer = memory->getBuffer(getTypeString());
+    AudioBuffer* buffer = memory->getBuffer(typeString);
     
     if (buffer)
     {

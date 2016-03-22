@@ -20,13 +20,15 @@ public:
     ~MainFunction ();
     
     //========================================================================
-    sig* compile (Memory* memory, bool record);
-    
-    //========================================================================
     void draw();
     
     //========================================================================
     void keyPressed (int key);
+    sig* compile (Memory* memory, bool record);
+    
+    //========================================================================
+    void mousePressed  (float x, float y, int button);
+    void mouseReleased (float x, float y, int button);
     
 private:
     //========================================================================

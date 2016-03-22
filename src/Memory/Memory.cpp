@@ -106,7 +106,7 @@ void Memory::audioIn (float* input, int size, int channels)
     // Write input to ADC
     for (int c = 0; c < adc.size() && c < channels; c++)
         for (tick t = 0; t < clock.size && t < size; t++)
-            adc[c][t].L = adc[c][t].R = input[t * channels + c];
+            adc[c][t].L = adc[c][t].R = input[t * channels + c] * 0.5f;
 }
 
 void Memory::audioOut (float* output, int size, int channels)
@@ -114,36 +114,52 @@ void Memory::audioOut (float* output, int size, int channels)
     // Process clock and click
     processClockAndClick();
     
+    
     // Process DAC
     dac->processModule(clock);
+    
     
     // Write DAC to output
     sig dac_sig = *dac->getOutput();
     
-    for (int c = 0; c < 4 && c < channels; c++)
+    switch (channels)
     {
-        switch (c)
-        {
-            case 0:
-                for (tick t = 0; t < clock.size && t < size; t++)
-                    output[t * channels + c] = dac_sig[t].L;
-                break;
-                
-            case 1:
-                for (tick t = 0; t < clock.size && t < size; t++)
-                    output[t * channels + c] = dac_sig[t].R;
-                break;
-                
-            case 2:
-                for (tick t = 0; t < clock.size && t < size; t++)
-                    output[t * channels + c] = click[t].L;
-                break;
-                
-            case 3:
-                for (tick t = 0; t < clock.size && t < size; t++)
-                    output[t * channels + c] = click[t].R;
-                break;
-        }
+        case 0:
+            break;
+            
+        case 1:
+            for (tick t = 0; t < clock.size && t < size; t++)
+            {
+                output[t * channels + 0] = dac_sig[t].L + click[t].L;
+            }
+            break;
+            
+        case 2:
+            for (tick t = 0; t < clock.size && t < size; t++)
+            {
+                output[t * channels + 0] = dac_sig[t].L + click[t].L;
+                output[t * channels + 1] = dac_sig[t].R + click[t].R;
+            }
+            break;
+            
+        case 3:
+            for (tick t = 0; t < clock.size && t < size; t++)
+            {
+                output[t * channels + 0] = dac_sig[t].L;
+                output[t * channels + 1] = dac_sig[t].R;
+                output[t * channels + 2] = click[t].L;
+            }
+            break;
+            
+        default:
+            for (tick t = 0; t < clock.size && t < size; t++)
+            {
+                output[t * channels + 0] = dac_sig[t].L;
+                output[t * channels + 1] = dac_sig[t].R;
+                output[t * channels + 2] = click[t].L;
+                output[t * channels + 3] = click[t].R;
+            }
+            break;
     }
 }
 

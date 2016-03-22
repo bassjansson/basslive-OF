@@ -16,7 +16,7 @@ BufferFunction::BufferFunction() : Function(CHAR_FUNC_BUF_OPEN,
     typeType = BUFFER;
     
     identifier = new BufferType();
-    identifier->charType = BODY;
+    identifier->charType = IDEN;
     add(identifier);
 }
 
@@ -24,43 +24,46 @@ BufferFunction::BufferFunction() : Function(CHAR_FUNC_BUF_OPEN,
 sig* BufferFunction::compile (Memory* memory, bool record)
 {
     // Fill strings if empty
-    if (getTypeString() == "")
+    if (typeString == "")
     {
                       add(new Character('b'));
         charSelected->add(new Character('u'));
         charSelected->add(new Character('f'));
-        setTypeString("buf");
+        typeString = "buf";
     }
     
-    if (identifier->getTypeString() == "")
+    if (identifier->typeString == "")
     {
         string str = "b" + ofToString(memory->getNewID());
         
-        for (int i = 0; i < strlen(str.c_str()); i++)
-            identifier->getEndChar()->add(new Character(str.c_str()[i]));
+        charSelected = identifier;
         
-        identifier->setTypeString(str);
+        for (int i = 0; i < strlen(str.c_str()); i++)
+            charSelected->add(new Character(str.c_str()[i]));
+        
+        identifier->typeString = str;
     }
     
     
     // Get or add module
-    AudioBuffer* buffer = memory->getBuffer(identifier->getTypeString());
+    AudioBuffer* buffer = memory->getBuffer(identifier->typeString);
     
     if (buffer == NULL)
-        buffer = memory->addBuffer(getTypeString(), identifier->getTypeString());
+        buffer = memory->addBuffer(typeString, identifier->typeString);
     
     
     // Set inputs of module
-    NumberType* size = NULL;
-    
     if (buffer)
     {
         int channel = 0;
+        NumberType* size = NULL;
         
-        for (Type* t = identifier->getType(RIGHT);
-             t != close;
-             t = t->getEndChar()->getType(RIGHT))
+        for (Character* c = identifier->getType(RIGHT);
+             c != end();
+             c = c->end()->right)
         {
+            Type* t = (Type*)c;
+            
             if (size == NULL && t->typeType == NUMBER)
             {
                 size = (NumberType*)t;
@@ -74,11 +77,11 @@ sig* BufferFunction::compile (Memory* memory, bool record)
         
         if (size == NULL)
         {
-            identifier->getEndChar()->add(size = new NumberType());
+            identifier->end()->add(size = new NumberType());
             charSelected->add(new Character('4'));
             charSelected->add(new Character('.'));
             charSelected->add(new Character('0'));
-            size->setTypeString("4.0");
+            size->typeString = "4.0";
         }
         
         size->compile(memory, record);

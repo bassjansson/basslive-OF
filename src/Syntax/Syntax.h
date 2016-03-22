@@ -46,14 +46,14 @@
 #define CHAR_FUNC_MAIN_CLOSE '>'
 
 #define COLOR_DEFAULT     ofColor(255)
-#define COLOR_ERROR       ofColor(219, 44,  56 )
-#define COLOR_SELECTION   ofColor(101, 101, 77 , 127)
+#define COLOR_ERROR       ofColor(219,  44,  56)
+#define COLOR_SELECTION   ofColor(101, 101,  77, 100)
 #define COLOR_TYPE_NUMBER ofColor(120, 109, 196)
-#define COLOR_TYPE_INPUT  ofColor(0  , 160, 190)
-#define COLOR_TYPE_MOD_ID ofColor(131, 192, 87 )
-#define COLOR_TYPE_BUF_ID ofColor(131, 192, 87 )
-#define COLOR_FUNC_MODULE ofColor(0  , 160, 190)
-#define COLOR_FUNC_BUFFER ofColor(178, 24 , 137)
+#define COLOR_TYPE_INPUT  ofColor(  0, 160, 190)
+#define COLOR_TYPE_MOD_ID ofColor(131, 192,  87)
+#define COLOR_TYPE_BUF_ID ofColor(131, 192,  87)
+#define COLOR_FUNC_MODULE ofColor(  0, 160, 190)
+#define COLOR_FUNC_BUFFER ofColor(178,  24, 137)
 #define COLOR_FUNC_MAIN   ofColor(120, 109, 196)
 
 #endif /* Syntax_h */

@@ -16,7 +16,7 @@ ModuleFunction::ModuleFunction() : Function(CHAR_FUNC_MOD_OPEN,
     typeType = MODULE;
     
     identifier = new ModuleType();
-    identifier->charType = BODY;
+    identifier->charType = IDEN;
     add(identifier);
 }
 
@@ -24,28 +24,30 @@ ModuleFunction::ModuleFunction() : Function(CHAR_FUNC_MOD_OPEN,
 sig* ModuleFunction::compile (Memory* memory, bool record)
 {
     // Fill strings if empty
-    if (getTypeString() == "")
+    if (typeString == "")
     {
         add(new Character('*'));
-        setTypeString("*");
+        typeString = "*";
     }
     
-    if (identifier->getTypeString() == "")
+    if (identifier->typeString == "")
     {
         string str = "m" + ofToString(memory->getNewID());
         
-        for (int i = 0; i < strlen(str.c_str()); i++)
-            identifier->getEndChar()->add(new Character(str.c_str()[i]));
+        charSelected = identifier;
         
-        identifier->setTypeString(str);
+        for (int i = 0; i < strlen(str.c_str()); i++)
+            charSelected->add(new Character(str.c_str()[i]));
+        
+        identifier->typeString = str;
     }
     
     
     // Get or add module
-    AudioModule* module = memory->getModule(identifier->getTypeString());
+    AudioModule* module = memory->getModule(identifier->typeString);
     
     if (module == NULL)
-        module = memory->addModule(getTypeString(), identifier->getTypeString());
+        module = memory->addModule(typeString, identifier->typeString);
     
     
     // Set inputs of module
@@ -53,10 +55,12 @@ sig* ModuleFunction::compile (Memory* memory, bool record)
     {
         int channel = 0;
         
-        for (Type* t = identifier->getType(RIGHT);
-             t != close;
-             t = t->getEndChar()->getType(RIGHT))
+        for (Character* c = identifier->getType(RIGHT);
+             c != end();
+             c = c->end()->right)
         {
+            Type* t = (Type*)c;
+            
             module->setInput(t->compile(memory, record), channel);
             channel++;
         }

@@ -19,12 +19,16 @@ public:
     Function (char open, char close);
     
     //========================================================================
-    virtual void draw  (float& x, float& y, bool vertical, bool selection, bool floating);
+    virtual void draw (float& x, float& y, bool vertical, bool selection, bool floating);
     virtual void flash (const ofColor& color);
+    virtual Character* end();
     
 protected:
     //========================================================================
     Type* identifier;
+    
+private:
+    //========================================================================
     Type* close;
 };
 

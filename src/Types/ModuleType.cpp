@@ -18,7 +18,7 @@ ModuleType::ModuleType() : Type(CHAR_TYPE_MOD_ID)
 //========================================================================
 sig* ModuleType::compile (Memory* memory, bool record)
 {
-    AudioModule* module = memory->getModule(getTypeString());
+    AudioModule* module = memory->getModule(typeString);
     
     if (module)
     {

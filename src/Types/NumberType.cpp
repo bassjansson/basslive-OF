@@ -24,16 +24,16 @@ void NumberType::keyPressed (int key)
 
 sig* NumberType::compile (Memory* memory, bool record)
 {
-    if (getTypeString() == "")
+    if (typeString == "")
     {
                       add(new Character('0'));
         charSelected->add(new Character('.'));
         charSelected->add(new Character('0'));
-        setTypeString("0.0");
+        typeString = "0.0";
     }
     
     char* err;
-    value[0].L = value[0].R = strtof(getTypeString().c_str(), &err);
+    value[0].L = value[0].R = strtof(typeString.c_str(), &err);
     
     if (*err == 0)
     {

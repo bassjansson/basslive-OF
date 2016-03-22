@@ -13,22 +13,22 @@
 Type::Type (char c) : Character(c)
 {
     charType = TYPE;
-    typeType = CLOSE;
     
+    typeType = NO_TYPE;
+    typeColor = COLOR_DEFAULT;
     typeString = "";
-    typeColor  = COLOR_DEFAULT;
-    flashFloat = 0.0f;
+    
+    flashValue = 0.0f;
 }
 
 //========================================================================
 void Type::draw (float& x, float& y, bool vertical, bool selection, bool floating)
 {
     // Draw type character
-    selection = selection || charSelected == this;
+    selection = selection || charSelected == begin;
     
     if (charType == TYPE ||
-        charType == MAIN ||
-        getRightChar()->charType == MAIN)
+        charType == MAIN || right->charType == MAIN)
         ofSetColor(typeColor);
     else
         ofSetColor(COLOR_DEFAULT);
@@ -39,24 +39,22 @@ void Type::draw (float& x, float& y, bool vertical, bool selection, bool floatin
     // Draw type string
     string str = "";
     
-    for (Character* c = getRightChar();
-         c->charType == CHAR;
-         c = c->getRightChar())
+    for (Character* c = right; c->charType == CHAR; c = c->right)
     {
         ofSetColor(typeColor);
         c->draw(x, y, HORIZONTAL, selection, false);
         
-        str += c->getCharString();
+        str += c->charString;
     }
     
     
     // Draw type flash
-    if (flashFloat > 0.001f)
+    if (flashValue > 0.001f)
     {
-        ofSetColor(typeColor.r, typeColor.g, typeColor.b, flashFloat * 191);
+        ofSetColor(typeColor.r, typeColor.g, typeColor.b, flashValue * 191);
         ofDrawRectangle(this->x, this->y, x - this->x + charWidth, charHeight);
         
-        flashFloat *= 0.95f;
+        flashValue *= 0.9f;
     }
     
     
@@ -70,17 +68,22 @@ void Type::draw (float& x, float& y, bool vertical, bool selection, bool floatin
 void Type::flash (const ofColor& color)
 {
     typeColor  = color;
-    flashFloat = 1.0f;
+    flashValue = 1.0f;
+}
+
+Character* Type::end()
+{
+    return getType(RIGHT)->left;
 }
 
 //========================================================================
 void Type::keyPressed (int key)
 {
-    if (typeType != CLOSE)
+    if (typeType != NO_TYPE)
     {
         if (key > 47 && key < 58)
         {
-            if (charSelected != this)
+            if (charSelected != begin)
                 charSelected->add(new Character(key));
         }
         else if ((key > 64 && key < 91) ||
@@ -98,15 +101,4 @@ sig* Type::compile (Memory* memory, bool record)
     flash(COLOR_DEFAULT);
     
     return NULL;
-}
-
-//========================================================================
-void Type::setTypeString (const string& str)
-{
-    typeString = str;
-}
-
-string& Type::getTypeString()
-{
-    return typeString;
 }

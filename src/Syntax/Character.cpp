@@ -10,25 +10,112 @@
 
 
 ofTrueTypeFont Character::charFont;
-float          Character::charWidth    = 0.0f;
-float          Character::charHeight   = 0.0f;
-Character*     Character::charSelected = NULL;
+float          Character::charWidth  = 0.0f;
+float          Character::charHeight = 0.0f;
+CharVector     Character::charVector;
+Character*     Character::charSelected;
 
 
 //========================================================================
 Character::Character (char c)
 {
+    charVector.push_back(this);
+    
+    begin = left = right = this;
     charType = CHAR;
+    charString = c;
     
     x = y = 0.0f;
     
-    begin = end = left = right = this;
-    
-    charString = c;
-    animation  = 0.0f;
+    animation = 0.0f;
     
     if (charSelected == NULL)
-        charSelected = this;
+        charSelected = begin;
+}
+
+//========================================================================
+void Character::add (Character* c, bool force)
+{
+    if (force || (c->charType != IDEN  &&
+                  c->charType != CLOSE &&
+                  c->charType != MAIN))
+    {
+        // Get destination
+        Character* destination = begin;
+        
+        if (c->charType != CHAR &&
+            c->charType != IDEN &&
+            c->charType != CLOSE)
+        {
+            Type* parent = getParentType();
+            
+            if (parent->charType == MAIN)
+                destination = parent->end()->left;
+            else
+                destination = parent->end();
+        }
+        
+        
+        // Move c to destination
+        if (c != destination)
+        {
+            // Get end of c
+            Character* c__end = c->end();
+            
+            
+            // Attach old neighbours
+            c->begin->left->right = c__end->right;
+            c__end->right->left   = c->begin->left;
+            
+            
+            // Set new left and right
+            c->begin->left = destination->begin;
+            c__end->right  = destination->right;
+            
+            
+            // Update new neighbours
+            c->begin->left->right = c->begin;
+            c__end->right->left   = c__end;
+            
+            
+            // Select c
+            charSelected = c;
+        }
+    }
+}
+
+void Character::remove (bool force)
+{
+    if (force || (charType != IDEN  &&
+                  charType != CLOSE &&
+                  charType != MAIN))
+    {
+        // Get end
+        Character* c_end = end();
+        
+        
+        // Attach old neighbours
+        begin->left->right = c_end->right;
+        c_end->right->left = begin->left;
+        
+        
+        // Select left char
+        charSelected = begin->left;
+        
+        
+        // Delete from end to begin
+        Character* c = c_end;
+        while (c != begin)
+        {
+            c = c->left;
+            delete c->right;
+        }
+        
+        
+        // Delete this character
+        if (charType != MAIN)
+            delete begin;
+    }
 }
 
 //========================================================================
@@ -36,7 +123,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
 {
     // Init character position
     if (this->x == 0.0f) this->x = x + charWidth;
-    if (this->y == 0.0f) this->y = y + charHeight * int(vertical);
+    if (this->y == 0.0f) this->y = y + charHeight;
     
     
     // Update input position
@@ -51,17 +138,17 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
         y += charHeight * int(vertical);
     }
     
-    if (ofGetMousePressed() && charSelected->charType != BODY)
+    if (ofGetMousePressed())
     {
-        if (charSelected == this)
+        if (charSelected == begin)
         {
             x = ofGetMouseX() - charWidth  / 2;
             y = ofGetMouseY() - charHeight / 2;
         }
-        else if (charSelected->end->right == this && !floating)
+        else if (!floating && charSelected->end()->right == begin)
         {
-            x = charSelected->left->x + charWidth;
-            y = charSelected->left->y + charHeight * int(vertical);
+            x = charSelected->left->x + charWidth * 2;
+            y = charSelected->left->y;
         }
     }
     
@@ -73,7 +160,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     float factor2 = (1.0f - factor1);
     float factor3 = animation * animation * 0.3f + 0.7f;
     
-    if (charType == CHAR) factor3 *= 0.9f;
+    if (charType != CHAR) factor3 *= 1.1f;
     
     ofTranslate(this->x * factor2 + ofGetWidth()  * 0.5f * factor1,
                 this->y * factor2 + ofGetHeight() * 0.5f * factor1);
@@ -93,6 +180,11 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
         ofSetColor(COLOR_SELECTION);
         ofDrawRectangle(this->x, this->y, charWidth, charHeight);
     }
+    
+    
+    // Draw fractal
+    //drawFractal(charString.c_str()[0] % 64 / 64.0f * TWO_PI,
+    //            this->x + charWidth / 2.0f, this->y + charHeight / 2.0f, 200.0f);
     
     
     // Update animation
@@ -120,6 +212,29 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
  charHeight * 0.5f + charFont.getDescenderHeight());
  */
 
+//void Character::drawFractal (float alpha, float x, float y, float length)
+//{
+//    if (right->charType != MAIN && length > 10.0f)
+//    {
+//        alpha += charString.c_str()[0] % 64 / 64.0f * TWO_PI;
+//        
+//        float newX = x + cosf(alpha) * length;
+//        float newY = y - sinf(alpha) * length;
+//        
+//        ofColor c = getParentType()->typeColor;
+//        float factor = powf(1.0f - length * 0.005f, 1.0f);
+//        ofSetColor(c.r * factor, c.g * factor, c.b, factor * 127);
+//        ofSetLineWidth(1.0f);
+//        ofDrawLine(x, y, newX, newY);
+//        
+//        newX += cosf(alpha) * 1.0f;
+//        newY -= sinf(alpha) * 1.0f;
+//        
+//        length *= 0.9f; //sqrtf(powf(x - this->x, 2.0f) + powf(y - this->y, 2.0f));
+//        
+//        right->drawFractal(alpha, newX, newY, length);
+//    }
+//}
 
 void Character::drawCursor()
 {
@@ -128,142 +243,21 @@ void Character::drawCursor()
                     charWidth * 0.1f, charHeight);
 }
 
-//========================================================================
-void Character::mousePressed (float x, float y, int button)
+Character* Character::end()
 {
-    if (button == OF_MOUSE_BUTTON_LEFT)
-    {
-        if ((x >= this->x &&
-             x <  this->x + charWidth) &&
-            (y >= this->y &&
-             y <  this->y + charHeight))
-        {
-            charSelected = this;
-        }
-        else if (right->charType != MAIN)
-        {
-            right->mousePressed(x, y, button);
-        }
-    }
-}
-
-void Character::mouseReleased (float x, float y, int button)
-{
-    if (button == OF_MOUSE_BUTTON_LEFT)
-    {
-        if (charSelected != this &&
-            charSelected->charType != MAIN &&
-            (x >= this->x + charWidth * 0.5f &&
-             x <  this->x + charWidth * 1.5f) &&
-            (y >= this->y &&
-             y <  this->y + charHeight))
-        {
-            add(charSelected);
-        }
-        else if (right->charType != MAIN)
-        {
-            right->mouseReleased(x, y, button);
-        }
-    }
+    return begin;
 }
 
 //========================================================================
-void Character::add (Character* c)
+Type* Character::getParentType()
 {
-    // Get destination and update ends
-    Character* destination;
+    Character* c;
     
-    if (charType == CHAR)
-    {
-        Character* parent = getParentType();
-        
-        if (c->charType == CHAR)
-        {
-            if (parent->end == this)
-                parent->end = c;
-            
-            destination = this;
-        }
-        else
-        {
-            if (parent->charType == MAIN)
-                destination = parent->end->left;
-            else
-                destination = parent->end;
-        }
-    }
-    else
-    {
-        if (c->charType == CHAR || c->charType == BODY)
-        {
-            if (end == this)
-                end = c;
-            
-            destination = this;
-        }
-        else
-        {
-            if (charType == MAIN)
-                destination = end->left;
-            else
-                destination = end;
-        }
-    }
+    for (c = begin; c->charType == CHAR; c = c->left);
     
-    
-    // Attach old neighbours
-    c->begin->left->right = c->end->right;
-    c->end->right->left   = c->begin->left;
-    
-    
-    // Set new left and right
-    c->begin->left = destination;
-    c->end->right  = destination->right;
-    
-    
-    // Update new neighbours
-    c->begin->left->right = c->begin;
-    c->end->right->left   = c->end;
-    
-    
-    // Select new char
-    charSelected = c;
+    return (Type*)c;
 }
 
-void Character::remove (bool force)
-{
-    // Not removable
-    if (!force && (charType == MAIN || charType == BODY))
-        return;
-    
-    
-    // Attach old neighbours
-    begin->left->right = end->right;
-    end->right->left   = begin->left;
-    
-    
-    // Select left char
-    charSelected = begin->left;
-    
-    
-    // Delete from end to begin
-    while (true)
-    {
-        if (end == begin)
-            break;
-        
-        Character* c = end;
-        end = end->left;
-        delete c;
-    }
-    
-    
-    // Delete this
-    if (charType != MAIN)
-        delete this;
-}
-
-//========================================================================
 Type* Character::getType (bool dir)
 {
     Character* c;
@@ -286,35 +280,4 @@ Function* Character::getFunction (bool dir)
         for (c = right; c->charType != FUNC; c = c->right);
     
     return (Function*)c;
-}
-
-//========================================================================
-Character* Character::getEndChar()
-{
-    return end;
-}
-
-Character* Character::getLeftChar()
-{
-    return left;
-}
-
-Character* Character::getRightChar()
-{
-    return right;
-}
-
-Type* Character::getParentType()
-{
-    Character* c;
-    
-    for (c = this; c->charType == CHAR; c = c->left);
-    
-    return (Type*)c;
-}
-
-//========================================================================
-string& Character::getCharString()
-{
-    return charString;
 }

@@ -15,13 +15,16 @@ class Character;
 class Type;
 class Function;
 
+typedef vector<Character*> CharVector;
+
 
 enum CharType
 {
     CHAR = 0,
     TYPE,
     FUNC,
-    BODY,
+    IDEN,
+    CLOSE,
     MAIN
 };
 
@@ -33,50 +36,38 @@ public:
     Character (char c);
     
     //========================================================================
+    void add (Character* c, bool force = true);
+    void remove (bool force = false);
+    
+    //========================================================================
     virtual void draw (float& x, float& y, bool vertical, bool selection, bool floating);
+    //virtual void drawFractal (float alpha, float x, float y, float length);
     virtual void drawCursor();
+    virtual Character* end();
     
     //========================================================================
-    virtual void mousePressed  (float x, float y, int button);
-    virtual void mouseReleased (float x, float y, int button);
-    
-    //========================================================================
-    void add (Character* c);
-    void remove (bool force);
-    
-    //========================================================================
-    Type*     getType     (bool dir);
-    Function* getFunction (bool dir);
-    
-    //========================================================================
-    Character* getEndChar();
-    Character* getLeftChar();
-    Character* getRightChar();
-    Type*      getParentType();
-    
-    //========================================================================
-    string& getCharString();
-    
-    //========================================================================
-    CharType charType;
+    Type*     getParentType ();
+    Type*     getType       (bool dir);
+    Function* getFunction   (bool dir);
     
     //========================================================================
     static ofTrueTypeFont charFont;
     static float          charWidth;
     static float          charHeight;
+    static CharVector     charVector;
     static Character*     charSelected;
     
-protected:
+    //========================================================================
+    Character *begin, *left, *right;
+    CharType charType;
+    string charString;
+    
     //========================================================================
     float x, y;
     
 private:
     //========================================================================
-    Character *begin, *end, *left, *right;
-    
-    //========================================================================
-    string charString;
-    float  animation;
+    float animation;
 };
 
 

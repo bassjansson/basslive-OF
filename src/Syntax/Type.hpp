@@ -15,7 +15,7 @@
 
 enum TypeType
 {
-    CLOSE = 0,
+    NO_TYPE = 0,
     NUMBER,
     INPUT,
     MODULE,
@@ -30,25 +30,22 @@ public:
     Type (char c);
     
     //========================================================================
-    virtual void draw  (float& x, float& y, bool vertical, bool selection, bool floating);
+    virtual void draw (float& x, float& y, bool vertical, bool selection, bool floating);
     virtual void flash (const ofColor& color);
+    virtual Character* end();
     
     //========================================================================
     virtual void keyPressed (int key);
     virtual sig* compile (Memory* memory, bool record);
     
     //========================================================================
-    void    setTypeString (const string& str);
-    string& getTypeString ();
-    
-    //========================================================================
     TypeType typeType;
+    ofColor typeColor;
+    string typeString;
     
 private:
     //========================================================================
-    string  typeString;
-    ofColor typeColor;
-    float   flashFloat;
+    float flashValue;
 };
 
 
