@@ -47,7 +47,7 @@ void Function::draw (float& x, float& y, bool vertical, bool selection, bool flo
         if (c == end())
         {
             c->draw(x, y, HORIZONTAL, selection, false);
-            break;
+            return;
         }
         
         bool v = i > 0 && (c->charType == FUNC || c->left->charType == CLOSE);
@@ -55,7 +55,7 @@ void Function::draw (float& x, float& y, bool vertical, bool selection, bool flo
         if (v) x  = indent;
         else   x += charWidth;
         
-        c->draw(x, y, v, selection, false);//charType == MAIN);
+        c->draw(x, y, v, selection, charType == MAIN);
         c = c->end()->right;
     }
 }

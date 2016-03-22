@@ -102,26 +102,27 @@ void operator_Module::process (Clock& clock)
 //========================================================================
 loop_Module::loop_Module (const string& ID) : AudioModule(ID, 4)
 {
-    
+    pointer = 0;
 }
 
 void loop_Module::process (Clock& clock)
 {
     for (tick t = 0; t < clock.size; t++)
     {
-        tick beat  = inputs[1][t].L * clock.beatLength[t] + 1;
-        tick bar   = inputs[2][t].L * clock.beatLength[t] + 1;
-        tick start = inputs[3][t].L * clock.beatLength[t];
+        tick beat  = tick(inputs[1][t].L * clock.beatLength[t]) + 1;
+        tick bar   = tick(inputs[2][t].L * clock.beatLength[t]) + 1;
+        tick start = tick(inputs[3][t].L * clock.beatLength[t]);
         
-        tick pointer = ((clock[t] - inputs[0].start()) % bar - start) % beat;
+        tick newPointer = ((clock[t] - inputs[0].start()) % bar - start) % beat;
+        
+        if (newPointer - pointer > 1)
+            pointer = tick(pointer * 0.9f) + tick(newPointer * 0.1f);
+        else
+            pointer = newPointer;
         
         if (pointer < inputs[0].size())
-        {
             output[t] = inputs[0][pointer];
-        }
         else
-        {
             output[t] = sample();
-        }
     }
 }

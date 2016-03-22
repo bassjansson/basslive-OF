@@ -61,6 +61,7 @@ sig* ModuleFunction::compile (Memory* memory, bool record)
         {
             Type* t = (Type*)c;
             
+            // TODO: set remaining inputs to zero
             module->setInput(t->compile(memory, record), channel);
             channel++;
         }

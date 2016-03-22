@@ -151,7 +151,7 @@ void AudioBuffer::process (Clock& clock)
     {
         if (recording == WAIT)
         {
-            if (clock[t] % clock.barLength[t] < BUFFERSIZE)
+            if ((clock[t] + BUFFERSIZE) % clock.barLength[t] < BUFFERSIZE)
             {
                 output.start(clock[t]);
                 
@@ -161,12 +161,30 @@ void AudioBuffer::process (Clock& clock)
         
         if (recording == ON)
         {
+            // Get pointer
             tick pointer = clock[t] - output.start();
             
+            
+            // Get envelope
+            float envelope = 1.0f;
+            
+            if (pointer < FADE_SIZE)
+                envelope = sqrtf(pointer / FADE_SIZE);
+            
+            if (output.size() - pointer < FADE_SIZE)
+                envelope = sqrtf((output.size() - pointer) / FADE_SIZE);
+                
+                
+            // Write input to output
             if (pointer < output.size())
-                output[pointer] = inputs[0][t];
+            {
+                output[pointer].L = inputs[0][t].L * envelope;
+                output[pointer].R = inputs[0][t].R * envelope;
+            }
             else
+            {
                 recording = OFF;
+            }
         }
     }
 }

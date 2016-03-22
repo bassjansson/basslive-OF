@@ -41,7 +41,7 @@ public:
     
     //========================================================================
     virtual void draw (float& x, float& y, bool vertical, bool selection, bool floating);
-    //virtual void drawFractal (float alpha, float x, float y, float length);
+    virtual void drawFractal (float x, float y, float length);
     virtual void drawCursor();
     virtual Character* end();
     

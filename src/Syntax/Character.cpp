@@ -36,50 +36,53 @@ Character::Character (char c)
 //========================================================================
 void Character::add (Character* c, bool force)
 {
-    if (force || (c->charType != IDEN  &&
-                  c->charType != CLOSE &&
-                  c->charType != MAIN))
+    if (c != begin)
     {
-        // Get destination
-        Character* destination = begin;
-        
-        if (c->charType != CHAR &&
-            c->charType != IDEN &&
-            c->charType != CLOSE)
+        if (force || (c->charType != IDEN  &&
+                      c->charType != CLOSE &&
+                      c->charType != MAIN))
         {
-            Type* parent = getParentType();
+            // Get destination
+            Character* destination = begin;
             
-            if (parent->charType == MAIN)
-                destination = parent->end()->left;
-            else
-                destination = parent->end();
-        }
-        
-        
-        // Move c to destination
-        if (c != destination)
-        {
-            // Get end of c
-            Character* c__end = c->end();
-            
-            
-            // Attach old neighbours
-            c->begin->left->right = c__end->right;
-            c__end->right->left   = c->begin->left;
+            if (c->charType != CHAR &&
+                c->charType != IDEN &&
+                c->charType != CLOSE)
+            {
+                Type* parent = getParentType();
+                
+                if (parent->charType == MAIN)
+                    destination = parent->end()->left;
+                else
+                    destination = parent->end();
+            }
             
             
-            // Set new left and right
-            c->begin->left = destination->begin;
-            c__end->right  = destination->right;
-            
-            
-            // Update new neighbours
-            c->begin->left->right = c->begin;
-            c__end->right->left   = c__end;
-            
-            
-            // Select c
-            charSelected = c;
+            // Move c to destination
+            if (c != destination)
+            {
+                // Get end of c
+                Character* c__end = c->end();
+                
+                
+                // Attach old neighbours
+                c->begin->left->right = c__end->right;
+                c__end->right->left   = c->begin->left;
+                
+                
+                // Set new left and right
+                c->begin->left = destination->begin;
+                c__end->right  = destination->right;
+                
+                
+                // Update new neighbours
+                c->begin->left->right = c->begin;
+                c__end->right->left   = c__end;
+                
+                
+                // Select c
+                charSelected = c;
+            }
         }
     }
 }
@@ -123,7 +126,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
 {
     // Init character position
     if (this->x == 0.0f) this->x = x + charWidth;
-    if (this->y == 0.0f) this->y = y + charHeight;
+    if (this->y == 0.0f) this->y = y + charHeight * int(vertical);
     
     
     // Update input position
@@ -142,13 +145,16 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     {
         if (charSelected == begin)
         {
-            x = ofGetMouseX() - charWidth  / 2;
-            y = ofGetMouseY() - charHeight / 2;
+            x = this->x = ofGetMouseX() - charWidth  / 2;
+            y = this->y = ofGetMouseY() - charHeight / 2;
         }
         else if (!floating && charSelected->end()->right == begin)
         {
-            x = charSelected->left->x + charWidth * 2;
+            x = charSelected->left->x;
             y = charSelected->left->y;
+            
+            x += charWidth;
+            y += charHeight * int(vertical);
         }
     }
     
@@ -159,8 +165,6 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     float factor1 = powf(1.0f - animation, 4.0f);
     float factor2 = (1.0f - factor1);
     float factor3 = animation * animation * 0.3f + 0.7f;
-    
-    if (charType != CHAR) factor3 *= 1.1f;
     
     ofTranslate(this->x * factor2 + ofGetWidth()  * 0.5f * factor1,
                 this->y * factor2 + ofGetHeight() * 0.5f * factor1);
@@ -178,13 +182,12 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     if (selection)
     {
         ofSetColor(COLOR_SELECTION);
-        ofDrawRectangle(this->x, this->y, charWidth, charHeight);
+        ofDrawRectangle(this->x - charWidth, this->y, charWidth * 3, charHeight);
     }
     
     
     // Draw fractal
-    //drawFractal(charString.c_str()[0] % 64 / 64.0f * TWO_PI,
-    //            this->x + charWidth / 2.0f, this->y + charHeight / 2.0f, 200.0f);
+    drawFractal(this->x + charWidth / 2.0f, this->y + charHeight / 2.0f, 200.0f);
     
     
     // Update animation
@@ -212,29 +215,29 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
  charHeight * 0.5f + charFont.getDescenderHeight());
  */
 
-//void Character::drawFractal (float alpha, float x, float y, float length)
-//{
-//    if (right->charType != MAIN && length > 10.0f)
-//    {
-//        alpha += charString.c_str()[0] % 64 / 64.0f * TWO_PI;
-//        
-//        float newX = x + cosf(alpha) * length;
-//        float newY = y - sinf(alpha) * length;
-//        
-//        ofColor c = getParentType()->typeColor;
-//        float factor = powf(1.0f - length * 0.005f, 1.0f);
-//        ofSetColor(c.r * factor, c.g * factor, c.b, factor * 127);
-//        ofSetLineWidth(1.0f);
-//        ofDrawLine(x, y, newX, newY);
-//        
-//        newX += cosf(alpha) * 1.0f;
-//        newY -= sinf(alpha) * 1.0f;
-//        
-//        length *= 0.9f; //sqrtf(powf(x - this->x, 2.0f) + powf(y - this->y, 2.0f));
-//        
-//        right->drawFractal(alpha, newX, newY, length);
-//    }
-//}
+void Character::drawFractal (float x, float y, float length)
+{
+    if (right->charType != MAIN && length > 10.0f)
+    {
+        float alpha = charString.c_str()[0] % 64 / 64.0f * TWO_PI;
+        
+        float newX = x + cosf(alpha) * length;
+        float newY = y - sinf(alpha) * length;
+        
+        ofColor c = getParentType()->typeColor;
+        float factor = powf(1.0f - length * 0.005f, 1.0f);
+        ofSetColor(c.r * factor, c.g * factor, c.b, factor * 127);
+        ofSetLineWidth(1.0f);
+        ofDrawLine(x, y, newX, newY);
+        
+        newX += cosf(alpha) * 1.0f;
+        newY -= sinf(alpha) * 1.0f;
+        
+        length *= 0.9f; //sqrtf(powf(x - this->x, 2.0f) + powf(y - this->y, 2.0f));
+        
+        right->drawFractal(newX, newY, length);
+    }
+}
 
 void Character::drawCursor()
 {

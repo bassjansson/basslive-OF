@@ -70,6 +70,7 @@ sig* BufferFunction::compile (Memory* memory, bool record)
             }
             else
             {
+                // TODO: set remaining inputs to zero
                 buffer->setInput(t->compile(memory, record), channel);
                 channel++;
             }

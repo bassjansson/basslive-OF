@@ -44,10 +44,10 @@ MainFunction::~MainFunction()
 //========================================================================
 void MainFunction::draw()
 {
-    float x = ofGetWidth()  * 0.5f - charWidth * 6.0f;
-    float y = ofGetHeight() * 0.5f - charHeight;
+    float x = charWidth;
+    float y = charHeight;
     
-    Function::draw(x, y, VERTICAL, false, false);
+    Function::draw(x, y, HORIZONTAL, false, false);
     
     if (cursorTime < FRAME_RATE / 2)
         charSelected->drawCursor();
@@ -136,11 +136,11 @@ void MainFunction::keyPressed (int key)
                 break;
                 
             case OF_KEY_LEFT:
-                charSelected = charSelected->getType(LEFT);
+                charSelected = charSelected->getFunction(LEFT);
                 break;
                 
             case OF_KEY_RIGHT:
-                charSelected = charSelected->getType(RIGHT);
+                charSelected = charSelected->getFunction(RIGHT);
                 break;
                 
             case OF_KEY_UP:
@@ -169,11 +169,11 @@ void MainFunction::keyPressed (int key)
                 break;
                 
             case OF_KEY_UP:
-                charSelected = charSelected->getFunction(UP);
+                charSelected = charSelected->getType(UP);
                 break;
                 
             case OF_KEY_DOWN:
-                charSelected = charSelected->getFunction(DOWN);
+                charSelected = charSelected->getType(DOWN);
                 break;
         }
     }
@@ -189,6 +189,7 @@ sig* MainFunction::compile (Memory* memory, bool record)
     {
         Type* t = (Type*)c;
         
+        // TODO: set remaining inputs to zero
         memory->getDAC()->setInput(t->compile(memory, record), channel);
         channel++;
     }
@@ -203,11 +204,11 @@ void MainFunction::mousePressed (float x, float y, int button)
     {
         for (Character* c = begin; c != end(); c = c->right)
         {
-            if ((x >= c->x && x < c->x + charWidth) &&
-                (y >= c->y && y < c->y + charHeight))
+            if ((x >= c->x - 10 && x < c->x + charWidth  + 10) &&
+                (y >= c->y - 10 && y < c->y + charHeight + 10))
             {
                 charSelected = c;
-                break;
+                return;
             }
         }
     }
@@ -215,17 +216,17 @@ void MainFunction::mousePressed (float x, float y, int button)
 
 void MainFunction::mouseReleased (float x, float y, int button)
 {
+    x -= charWidth * 0.5f;
+    
     if (button == OF_MOUSE_BUTTON_LEFT)
     {
         for (Character* c = begin; c != end(); c = c->right)
         {
-            if ((x >= c->x + charWidth * 0.5f &&
-                 x <  c->x + charWidth * 1.5f) &&
-                (y >= c->y &&
-                 y <  c->y + charHeight))
+            if ((x >= c->x - 10 && x < c->x + charWidth  + 10) &&
+                (y >= c->y - 10 && y < c->y + charHeight + 10))
             {
                 c->add(charSelected, false);
-                break;
+                return;
             }
         }
     }

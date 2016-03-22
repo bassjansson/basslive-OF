@@ -50,6 +50,8 @@ public:
     
 private:
     virtual void process (Clock& clock);
+    
+    tick pointer;
 };
 
 
