@@ -111,7 +111,7 @@ void loop_Module::process (Clock& clock)
     {
         tick beat  = tick(inputs[1][t].L * clock.beatLength[t]) + 1;
         tick bar   = tick(inputs[2][t].L * clock.beatLength[t]) + 1;
-        tick start = tick(inputs[3][t].L * clock.beatLength[t]);
+        tick start = tick(inputs[3][t].L * clock.beatLength[t]); // not working right
         
         tick pointer = ((clock[t] - inputs[0].start()) % bar - start) % beat;
         
@@ -124,5 +124,25 @@ void loop_Module::process (Clock& clock)
         {
             output[t] = sample();
         }
+    }
+}
+
+
+//========================================================================
+// crush_Module
+//========================================================================
+crush_Module::crush_Module (const string& ID) : AudioModule(ID, 2)
+{
+    
+}
+
+void crush_Module::process (Clock& clock)
+{
+    for (tick t = 0; t < clock.size; t++)
+    {
+        float crushL = inputs[1][t].L;
+        float crushR = inputs[1][t].R;
+        output[t].L = int(inputs[0][t].L * crushL) / crushL;
+        output[t].R = int(inputs[0][t].R * crushR) / crushR;
     }
 }

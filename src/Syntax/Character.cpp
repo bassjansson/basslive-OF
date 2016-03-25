@@ -134,8 +134,8 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     // Update input position
     if (floating)
     {
-        x = this->x;
-        y = this->y;
+        x = int((this->x + charWidth  * 0.5f) / charWidth)  * charWidth;
+        y = int((this->y + charHeight * 0.5f) / charHeight) * charHeight;
     }
     else
     {
@@ -189,7 +189,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     
     // Draw fractal
-    if (charType == TYPE || charType == FUNC || charType == MAIN)
+    if (charType == FUNC || charType == MAIN)
         drawFractal();
     
     
@@ -222,7 +222,7 @@ void Character::drawFractal()
 {
     float alpha  = (charString.c_str()[0] % 64) / 64.0f * TWO_PI;
     float length = sqrtf(powf(x - ofGetWidth()  * 0.5f, 2.0f) +
-                         powf(y - ofGetHeight() * 0.5f, 2.0f)) * (RMS * 3.0f + 0.5f);
+                         powf(y - ofGetHeight() * 0.5f, 2.0f)) * (RMS * 10.0f + 0.5f);
     
     float counterX = cosf(alpha) * length + ofGetWidth()  * 0.5f;
     float counterY = sinf(alpha) * length + ofGetHeight() * 0.5f;
@@ -240,7 +240,7 @@ void Character::drawFractal()
         float factor = powf(1.0f - length, 4.0f);
         
         ofSetColor(color.r, color.g, color.b, 100 * factor);
-        ofSetLineWidth(6.0f);
+        ofSetLineWidth(5.0f);
         ofDrawLine(counterX,  counterY,
                    counterCX, counterCY);
     }

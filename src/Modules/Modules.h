@@ -17,6 +17,6 @@
 
 #define MAX_NUM_INPUTS 20
 
-#define FADE_SIZE (SAMPLERATE / 1000.0f)
+#define FADE_SIZE (SAMPLERATE / 500.0f)
 
 #endif /* Modules_h */

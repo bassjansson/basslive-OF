@@ -12,21 +12,22 @@
 #include "ofMain.h"
 
 typedef u_long tick;
-typedef float  tick_f;
-typedef float  beat;
+enum rec { OFF, WAIT, ON };
 
 struct sample
 {
+    sample (float value) { L = R = value; };
+    
     float L, R;
-    sample() { L = R = 0.0f; };
 };
 
 class AudioSignal;
+class AudioInput;
 class AudioModule;
 class AudioBuffer;
 
 typedef AudioSignal sig;
-typedef vector<sig> sig_vec;
+typedef vector<AudioInput> InputVector;
 
 
 struct Clock
@@ -49,58 +50,81 @@ class AudioSignal
 {
 public:
     //========================================================================
-    AudioSignal (AudioModule* module);
     AudioSignal (sample value);
     
     //========================================================================
-    tick       size ();
-    tick      start ();
-    void      start (tick start);
-    void   allocate (tick size);
-    void deallocate ();
+    tick size();
+    tick start();
+    rec  recording();
     
     //========================================================================
-    void processModule (Clock& clock);
+    virtual sample getRMS();
+    virtual void   processSignal();
     
     //========================================================================
-          sample& operator[] (tick pointer)
-    { if (buffer) return buffer[pointer]; else return value; };
-    const sample& operator[] (tick pointer) const
-    { if (buffer) return buffer[pointer]; else return value; };
+    virtual       sample& operator[] (tick pointer)       { return value; };
+    virtual const sample& operator[] (tick pointer) const { return value; };
+
+protected:
+    //========================================================================
+    tick signalSize;
+    tick signalStart;
+    rec  signalRecording;
     
 private:
     //========================================================================
-    sample       value;
-    sample*      buffer;
-    tick         b_size;
-    tick         b_start;
-    AudioModule* module;
+    sample value;
 };
 
 
-class AudioModule
+class AudioInput
 {
 public:
     //========================================================================
-     AudioModule (const string& ID, int channels);
-    ~AudioModule ();
+    AudioInput (sig* defaultSignal);
     
     //========================================================================
-    void    setInput  (sig* input, int channel);
-    sig*    getOutput ();
-    string& getID     ();
+    void setToDefaultSignal();
+    void setSignal (sig* signal);
+    sig* getSignal ();
     
     //========================================================================
-    void processModule (Clock& clock);
-    
-protected:
-    //========================================================================
-    sig_vec inputs;
-    sig     output;
+    const sample& operator[] (tick pointer) const { return (*signal)[pointer]; };
     
 private:
     //========================================================================
-    virtual void process (Clock& clock) {};
+    sig* defaultSignal;
+    sig* signal;
+};
+
+
+class AudioModule : public AudioSignal
+{
+public:
+    //========================================================================
+     AudioModule (const string& ID);
+    ~AudioModule ();
+    
+    //========================================================================
+    const string& getID();
+    InputVector&  getInputs();
+    
+    //========================================================================
+    virtual sample getRMS();
+    virtual void   processSignal();
+    
+    //========================================================================
+    virtual       sample& operator[] (tick pointer)       { return output[pointer]; };
+    virtual const sample& operator[] (tick pointer) const { return output[pointer]; };
+    
+protected:
+    //========================================================================
+    InputVector inputs;
+    sample*     output;
+    
+private:
+    //========================================================================
+    virtual void process (Clock& clock);
     
     //========================================================================
     string AM_ID;
@@ -120,9 +144,6 @@ public:
 private:
     //========================================================================
     virtual void process (Clock& clock);
-    
-    //========================================================================
-    enum { OFF, WAIT, ON } recording;
 };
 
 

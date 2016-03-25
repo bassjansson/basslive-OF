@@ -53,4 +53,17 @@ private:
 };
 
 
+//========================================================================
+// crush_Module
+//========================================================================
+class crush_Module : public AudioModule
+{
+public:
+    crush_Module (const string& ID);
+    
+private:
+    virtual void process (Clock& clock);
+};
+
+
 #endif /* BasicModules_hpp */

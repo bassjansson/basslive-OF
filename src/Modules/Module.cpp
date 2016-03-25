@@ -149,9 +149,10 @@ void AudioBuffer::process (Clock& clock)
 {
     for (tick t = 0; t < clock.size; t++)
     {
+        // TODO: check buffer latency
         if (recording == WAIT)
         {
-            if ((clock[t] + 2 * BUFFERSIZE) % clock.barLength[t] < BUFFERSIZE)
+            if ((clock[t] + BUFFERSIZE) % clock.barLength[t] < BUFFERSIZE)
             {
                 output.start(clock[t]);
                 
@@ -159,10 +160,10 @@ void AudioBuffer::process (Clock& clock)
             }
         }
         
-        if (recording == ON)
+        if (recording == ON && clock[t] > output.start() + BUFFERSIZE)
         {
             // Get pointer
-            tick pointer = clock[t] - output.start();
+            tick pointer = clock[t] - output.start() - BUFFERSIZE;
             
             
             // Get envelope
