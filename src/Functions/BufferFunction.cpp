@@ -55,7 +55,7 @@ sig* BufferFunction::compile (Memory* memory, bool record)
     // Set inputs of module
     if (buffer)
     {
-        int channel = 0;
+        sig_vec inputs;
         NumberType* size = NULL;
         
         for (Character* c = identifier->getType(RIGHT);
@@ -65,24 +65,19 @@ sig* BufferFunction::compile (Memory* memory, bool record)
             Type* t = (Type*)c;
             
             if (size == NULL && t->typeType == NUMBER)
-            {
                 size = (NumberType*)t;
-            }
             else
-            {
-                // TODO: set remaining inputs to zero
-                buffer->setInput(t->compile(memory, record), channel);
-                channel++;
-            }
+                inputs.push_back(t->compile(memory, record));
         }
+        
+        buffer->setInputs(inputs);
+        inputs.clear();
         
         if (size == NULL)
         {
             identifier->end()->add(size = new NumberType());
-            charSelected->add(new Character('4'));
-            charSelected->add(new Character('.'));
-            charSelected->add(new Character('0'));
-            size->typeString = "4.0";
+            size->add(new Character('4'));
+            size->typeString = "4";
         }
         
         size->compile(memory, record);

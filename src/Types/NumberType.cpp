@@ -10,7 +10,7 @@
 
 
 //========================================================================
-NumberType::NumberType() : Type(CHAR_TYPE_NUMBER), value(sample())
+NumberType::NumberType() : Type(CHAR_TYPE_NUMBER), value(0.0f)
 {
     typeType = NUMBER;
 }
@@ -42,7 +42,7 @@ sig* NumberType::compile (Memory* memory, bool record)
     else
     {
         flash(COLOR_ERROR);
-        value[0] = sample();
+        value[0] = 0.0f;
     }
     
     return &value;

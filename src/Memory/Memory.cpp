@@ -62,8 +62,8 @@ Memory::Memory (int inputChannels) : click(sample())
     // Init ADC and DAC
     for (int c = 0; c < inputChannels; c++)
     {
-        adc.push_back(AudioSignal(sample()));
-        adc[c].allocate(clock.size);
+        adc.push_back(new AudioSignal(0.0f));
+        adc[c]->allocate(clock.size);
     }
     
     dac = new operator_Module("dac", '+');
@@ -85,7 +85,7 @@ Memory::~Memory()
     
     // Delete ADC and DAC
     for (int c = 0; c < adc.size(); c++)
-        adc[c].deallocate();
+        adc[c]->deallocate();
     adc.clear();
     
     delete dac;
@@ -107,7 +107,7 @@ void Memory::audioIn (float* input, int size, int channels)
     // Write input to ADC
     for (int c = 0; c < adc.size() && c < channels; c++)
         for (tick t = 0; t < clock.size && t < size; t++)
-            adc[c][t].L = adc[c][t].R = input[t * channels + c] * 0.5f;
+            (*adc[c])[t].L = (*adc[c])[t].R = input[t * channels + c] * 0.5f;
 }
 
 void Memory::audioOut (float* output, int size, int channels)
@@ -117,12 +117,10 @@ void Memory::audioOut (float* output, int size, int channels)
     
     
     // Process DAC
-    dac->processModule(clock);
+    dac->processSignal(clock);
     
     
     // Write DAC to output
-    sig dac_sig = *dac->getOutput();
-    
     switch (channels)
     {
         case 0:
@@ -131,34 +129,34 @@ void Memory::audioOut (float* output, int size, int channels)
         case 1:
             for (tick t = 0; t < clock.size && t < size; t++)
             {
-                output[t * channels + 0] = dac_sig[t].L + click[t].L;
+                output[t * channels + 0] = (*dac)[t].L + click[t].L;
             }
             break;
             
         case 2:
             for (tick t = 0; t < clock.size && t < size; t++)
             {
-                output[t * channels + 0] = dac_sig[t].L + click[t].L;
-                output[t * channels + 1] = dac_sig[t].R + click[t].R;
+                output[t * channels + 0] = (*dac)[t].L + click[t].L;
+                output[t * channels + 1] = (*dac)[t].R + click[t].R;
             }
             break;
             
         case 3:
             for (tick t = 0; t < clock.size && t < size; t++)
             {
-                output[t * channels + 0] = dac_sig[t].L;
-                output[t * channels + 1] = dac_sig[t].R;
-                output[t * channels + 2] = dac_sig[t].L + click[t].L;
+                output[t * channels + 0] = (*dac)[t].L;
+                output[t * channels + 1] = (*dac)[t].R;
+                output[t * channels + 2] = (*dac)[t].L + click[t].L;
             }
             break;
             
         default:
             for (tick t = 0; t < clock.size && t < size; t++)
             {
-                output[t * channels + 0] = dac_sig[t].L;
-                output[t * channels + 1] = dac_sig[t].R;
-                output[t * channels + 2] = dac_sig[t].L + click[t].L;
-                output[t * channels + 3] = dac_sig[t].R + click[t].R;
+                output[t * channels + 0] = (*dac)[t].L;
+                output[t * channels + 1] = (*dac)[t].R;
+                output[t * channels + 2] = (*dac)[t].L + click[t].L;
+                output[t * channels + 3] = (*dac)[t].R + click[t].R;
             }
             break;
     }
@@ -174,7 +172,7 @@ Clock& Memory::getClock()
 AudioSignal* Memory::getADC (int channel)
 {
     if (channel >= 0 && channel < adc.size())
-        return &adc[channel];
+        return adc[channel];
     
     return NULL;
 }

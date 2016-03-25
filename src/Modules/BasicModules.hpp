@@ -33,6 +33,8 @@ class operator_Module : public AudioModule
 public:
     operator_Module (const string& ID, char op);
     
+    virtual void setInputs (sig_vec& newInputs);
+    
 private:
     virtual void process (Clock& clock);
     

@@ -49,16 +49,8 @@ void MainFunction::draw()
     
     Function::draw(x, y, HORIZONTAL, false, false);
     
-    sig output = *memory->getDAC()->getOutput();
-    
-    float newRMS = 0.0f;
-    
-    for (tick t = 0; t < output.size(); t++)
-         newRMS += powf(output[t].L, 2.0f);
-    
-    newRMS = sqrtf(newRMS / output.size());
-    
-    RMS = 0.8f * RMS + 0.2f * newRMS;
+    // Update RMS
+    RMS = RMS * 0.9f + memory->getDAC()->getRMS().L * 0.1f;
     
     if (cursorTime < FRAME_RATE / 2)
         charSelected->drawCursor();
@@ -192,7 +184,7 @@ void MainFunction::keyPressed (int key)
 
 sig* MainFunction::compile (Memory* memory, bool record)
 {
-    int channel = 0;
+    sig_vec inputs;
     
     for (Character* c = getType(RIGHT);
          c != end();
@@ -200,10 +192,11 @@ sig* MainFunction::compile (Memory* memory, bool record)
     {
         Type* t = (Type*)c;
         
-        // TODO: set remaining inputs to zero
-        memory->getDAC()->setInput(t->compile(memory, record), channel);
-        channel++;
+        inputs.push_back(t->compile(memory, record));
     }
+    
+    memory->getDAC()->setInputs(inputs);
+    inputs.clear();
     
     flash(COLOR_FUNC_MAIN);
 }

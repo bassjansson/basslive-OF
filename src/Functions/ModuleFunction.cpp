@@ -53,7 +53,7 @@ sig* ModuleFunction::compile (Memory* memory, bool record)
     // Set inputs of module
     if (module)
     {
-        int channel = 0;
+        sig_vec inputs;
         
         for (Character* c = identifier->getType(RIGHT);
              c != end();
@@ -61,10 +61,11 @@ sig* ModuleFunction::compile (Memory* memory, bool record)
         {
             Type* t = (Type*)c;
             
-            // TODO: set remaining inputs to zero
-            module->setInput(t->compile(memory, record), channel);
-            channel++;
+            inputs.push_back(t->compile(memory, record));
         }
+        
+        module->setInputs(inputs);
+        inputs.clear();
         
         flash(COLOR_FUNC_MODULE);
         return identifier->compile(memory, record);

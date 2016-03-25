@@ -23,7 +23,7 @@ sig* ModuleType::compile (Memory* memory, bool record)
     if (module)
     {
         flash(COLOR_TYPE_MOD_ID);
-        return module->getOutput();
+        return module;
     }
     else
     {

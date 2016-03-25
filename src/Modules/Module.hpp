@@ -16,6 +16,7 @@ enum rec { OFF, WAIT, ON };
 
 struct sample
 {
+    sample ()            { L = R = 0.0f;  };
     sample (float value) { L = R = value; };
     
     float L, R;
@@ -26,8 +27,11 @@ class AudioInput;
 class AudioModule;
 class AudioBuffer;
 
-typedef AudioSignal sig;
-typedef vector<AudioInput> InputVector;
+typedef AudioSignal  sig;
+typedef vector<sig*> sig_vec;
+
+typedef vector<AudioSignal> SignalVector;
+typedef vector<AudioInput>  InputVector;
 
 
 struct Clock
@@ -53,27 +57,31 @@ public:
     AudioSignal (sample value);
     
     //========================================================================
-    tick size();
-    tick start();
-    rec  recording();
+    void   allocate (tick size);
+    void deallocate ();
     
     //========================================================================
-    virtual sample getRMS();
-    virtual void   processSignal();
+    tick   size   ();
+    sample getRMS ();
     
     //========================================================================
-    virtual       sample& operator[] (tick pointer)       { return value; };
-    virtual const sample& operator[] (tick pointer) const { return value; };
+    virtual void processSignal (Clock& clock) {};
+    
+    //========================================================================
+          sample& operator[] (tick pointer)
+    { if (buffer) return buffer[pointer]; else return value; };
+    const sample& operator[] (tick pointer) const
+    { if (buffer) return buffer[pointer]; else return value; };
 
-protected:
     //========================================================================
-    tick signalSize;
-    tick signalStart;
-    rec  signalRecording;
+    rec  recording;
+    tick rec_start;
     
 private:
     //========================================================================
-    sample value;
+    sample  value;
+    sample* buffer;
+    tick    b_size;
 };
 
 
@@ -81,10 +89,10 @@ class AudioInput
 {
 public:
     //========================================================================
-    AudioInput (sig* defaultSignal);
+    AudioInput (sample defaultValue);
     
     //========================================================================
-    void setToDefaultSignal();
+    void setSignalToDefault();
     void setSignal (sig* signal);
     sig* getSignal ();
     
@@ -93,7 +101,7 @@ public:
     
 private:
     //========================================================================
-    sig* defaultSignal;
+    sig  defaultSignal;
     sig* signal;
 };
 
@@ -107,24 +115,21 @@ public:
     
     //========================================================================
     const string& getID();
-    InputVector&  getInputs();
     
     //========================================================================
-    virtual sample getRMS();
-    virtual void   processSignal();
+    void processSignal (Clock& clock);
     
     //========================================================================
-    virtual       sample& operator[] (tick pointer)       { return output[pointer]; };
-    virtual const sample& operator[] (tick pointer) const { return output[pointer]; };
+    virtual void setInputs (sig_vec& newInputs);
     
 protected:
     //========================================================================
-    InputVector inputs;
-    sample*     output;
+    InputVector  inputs;
+    AudioSignal& output;
     
 private:
     //========================================================================
-    virtual void process (Clock& clock);
+    virtual void process (Clock& clock) {};
     
     //========================================================================
     string AM_ID;

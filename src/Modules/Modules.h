@@ -13,10 +13,10 @@
 #include "BasicModules.hpp"
 
 #define SAMPLERATE 48000
-#define BUFFERSIZE 512
+#define BUFFERSIZE 128
 
 #define MAX_NUM_INPUTS 20
 
-#define FADE_SIZE (SAMPLERATE / 500.0f)
+#define FADE_SIZE (SAMPLERATE / 200.0f) // 5 milliseconds
 
 #endif /* Modules_h */

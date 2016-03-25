@@ -23,7 +23,7 @@ sig* BufferType::compile (Memory* memory, bool record)
     if (buffer)
     {
         flash(COLOR_TYPE_BUF_ID);
-        return buffer->getOutput();
+        return buffer;
     }
     else
     {

@@ -166,13 +166,14 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     float factor1 = powf(1.0f - animation, 4.0f);
     float factor2 = (1.0f - factor1);
-    float factor3 = animation * animation * 0.3f + 0.7f;
+    
+    float scaling = 1.0f + ofGetHeight() / charHeight * factor1;
     
     ofTranslate(this->x * factor2 + ofGetWidth()  * 0.5f * factor1,
                 this->y * factor2 + ofGetHeight() * 0.5f * factor1);
     ofTranslate(charWidth * 0.5f, charHeight * 0.5f);
     ofRotate(factor1 * factor1 * -45.0f);
-    ofScale(factor3, factor3);
+    ofScale(scaling, scaling);
     charFont.drawString(charString,
                         -charWidth * 0.5f,
                         charHeight * 0.5f + charFont.getDescenderHeight());
