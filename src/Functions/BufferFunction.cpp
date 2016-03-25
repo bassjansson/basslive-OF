@@ -18,11 +18,39 @@ BufferFunction::BufferFunction() : Function(CHAR_FUNC_BUF_OPEN,
     identifier = new BufferType();
     identifier->charType = IDEN;
     add(identifier);
+    
+    buffer = NULL;
+    
+    recordFlashTime = 0;
+    recordFlashBeat = FRAME_RATE / 2.0f;
+}
+
+//========================================================================
+void BufferFunction::drawTypeAnimation()
+{
+    if (buffer && buffer->recording == ON)
+    {
+        float alpha = 1.0f - fmodf(recordFlashTime, recordFlashBeat) / recordFlashBeat;
+        
+        ofSetColor(COLOR_RECORD.r,
+                   COLOR_RECORD.g,
+                   COLOR_RECORD.b, alpha * 191);
+        
+        ofDrawRectangle(x, y, end()->x + charWidth  - x,
+                              end()->y + charHeight - y);
+        
+        recordFlashTime++;
+    }
 }
 
 //========================================================================
 sig* BufferFunction::compile (Memory* memory, bool record)
 {
+    // Get record flash interval
+    float beatLength = memory->getClock().beatLength[0];
+    recordFlashBeat  = FRAME_RATE * beatLength / SAMPLERATE;
+    
+    
     // Fill strings if empty
     if (typeString == "")
     {
@@ -45,14 +73,14 @@ sig* BufferFunction::compile (Memory* memory, bool record)
     }
     
     
-    // Get or add module
-    AudioBuffer* buffer = memory->getBuffer(identifier->typeString);
+    // Get or add buffer
+    buffer = memory->getBuffer(identifier->typeString);
     
     if (buffer == NULL)
         buffer = memory->addBuffer(typeString, identifier->typeString);
     
     
-    // Set inputs of module
+    // Set inputs of buffer, get size and record
     if (buffer)
     {
         sig_vec inputs;
@@ -83,7 +111,10 @@ sig* BufferFunction::compile (Memory* memory, bool record)
         size->compile(memory, record);
         
         if (record)
+        {
             buffer->record(tick(size->getValue() * memory->getClock().beatLength[0]));
+            recordFlashTime = 0;
+        }
         
         flash(COLOR_FUNC_BUFFER);
         return identifier->compile(memory, record);

@@ -35,6 +35,7 @@ public:
     virtual Character* end();
     
     //========================================================================
+    virtual void drawTypeAnimation() {};
     virtual void keyPressed (int key);
     virtual sig* compile (Memory* memory, bool record);
     

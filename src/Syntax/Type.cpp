@@ -51,11 +51,15 @@ void Type::draw (float& x, float& y, bool vertical, bool selection, bool floatin
     // Draw type flash
     if (flashValue > 0.001f)
     {
-        ofSetColor(typeColor.r, typeColor.g, typeColor.b, flashValue * 191);
+        ofSetColor(typeColor.r, typeColor.g, typeColor.b, flashValue * 255);
         ofDrawRectangle(this->x, this->y, x - this->x + charWidth, charHeight);
         
         flashValue *= 0.9f;
     }
+    
+    
+    // Draw type animation
+    drawTypeAnimation();
     
     
     // Default color if string is changed

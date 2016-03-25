@@ -19,7 +19,16 @@ public:
     BufferFunction();
     
     //========================================================================
+    virtual void drawTypeAnimation();
     virtual sig* compile (Memory* memory, bool record);
+    
+private:
+    //========================================================================
+    AudioBuffer* buffer;
+    
+    //========================================================================
+    tick  recordFlashTime;
+    float recordFlashBeat;
 };
 
 
