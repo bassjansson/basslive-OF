@@ -139,11 +139,11 @@ void MainFunction::keyPressed (int key)
                 break;
                 
             case OF_KEY_LEFT:
-                charSelected = charSelected->getFunction(LEFT);
+                charSelected = charSelected->getType(LEFT);
                 break;
                 
             case OF_KEY_RIGHT:
-                charSelected = charSelected->getFunction(RIGHT);
+                charSelected = charSelected->getType(RIGHT);
                 break;
                 
             case OF_KEY_UP:
@@ -172,11 +172,11 @@ void MainFunction::keyPressed (int key)
                 break;
                 
             case OF_KEY_UP:
-                charSelected = charSelected->getType(UP);
+                charSelected = charSelected->getFunction(UP);
                 break;
                 
             case OF_KEY_DOWN:
-                charSelected = charSelected->getType(DOWN);
+                charSelected = charSelected->getFunction(DOWN);
                 break;
         }
     }

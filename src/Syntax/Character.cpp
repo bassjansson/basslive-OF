@@ -42,14 +42,14 @@ void Character::add (Character* c, bool force)
     {
         if (force || (c->charType != IDEN  &&
                       c->charType != CLOSE &&
-                      c->charType != MAIN))
+                      c->charType != MAIN  &&
+                    !(c->charType == CHAR  && charType == CLOSE)))
         {
             // Get destination
             Character* destination = begin;
             
-            if (c->charType != CHAR &&
-                c->charType != IDEN &&
-                c->charType != CLOSE)
+            if (c->charType == TYPE ||
+                c->charType == FUNC)
             {
                 Type* parent = getParentType();
                 
@@ -143,20 +143,28 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
         y += charHeight * int(vertical);
     }
     
-    if (ofGetMousePressed())
+    if (ofGetMousePressed() &&
+        (begin == charSelected ||
+         (begin == charSelected->end()->right && !floating)))
     {
-        if (charSelected == begin)
+        float mouseMovement = (abs(ofGetMouseX() - ofGetPreviousMouseX()) +
+                               abs(ofGetMouseY() - ofGetPreviousMouseY()));
+        
+        if (mouseMovement > 0)
         {
-            x = this->x = ofGetMouseX() - charWidth  / 2;
-            y = this->y = ofGetMouseY() - charHeight / 2;
-        }
-        else if (!floating && charSelected->end()->right == begin)
-        {
-            x = charSelected->left->x;
-            y = charSelected->left->y;
-            
-            x += charWidth;
-            y += charHeight * int(vertical);
+            if (begin == charSelected)
+            {
+                x = ofGetMouseX() - charWidth  * 0.5f;
+                y = ofGetMouseY() - charHeight * 0.5f;
+            }
+            else
+            {
+                x = charSelected->left->x;
+                y = charSelected->left->y;
+                
+                x += charWidth;
+                y += charHeight * int(vertical);
+            }
         }
     }
     
@@ -167,12 +175,12 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     float factor1 = powf(1.0f - animation, 4.0f);
     float factor2 = (1.0f - factor1);
     
-    float scaling = 1.0f + ofGetHeight() / charHeight * factor1 * 0.75f;
+    float scaling = 1.0f + ofGetHeight() / charHeight * factor1 * 0.5f;
     
     ofTranslate(this->x * factor2 + ofGetWidth()  * 0.5f * factor1,
                 this->y * factor2 + ofGetHeight() * 0.5f * factor1);
     ofTranslate(charWidth * 0.5f, charHeight * 0.5f);
-    ofRotate(factor1 * factor1 * 180.0f);
+    ofRotate(factor1 * 360.0f);
     ofScale(scaling, scaling);
     charFont.drawString(charString,
                         -charWidth * 0.5f,
@@ -198,7 +206,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     if (animation >= 1.0f)
         animation  = 1.0f;
     else
-        animation += 0.08f;
+        animation += 0.06f;
     
     
     // Update character position
@@ -223,7 +231,7 @@ void Character::drawFractal()
 {
     float alpha  = (charString.c_str()[0] % 64) / 64.0f * TWO_PI;
     float length = sqrtf(powf(x - ofGetWidth()  * 0.5f, 2.0f) +
-                         powf(y - ofGetHeight() * 0.5f, 2.0f)) * (RMS * 10.0f + 0.5f);
+                         powf(y - ofGetHeight() * 0.5f, 2.0f)) * (RMS * 5.0f + 0.5f);
     
     float counterX = cosf(alpha) * length + ofGetWidth()  * 0.5f;
     float counterY = sinf(alpha) * length + ofGetHeight() * 0.5f;

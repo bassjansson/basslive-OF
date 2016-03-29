@@ -378,7 +378,6 @@
 					"-D__MACOSX_CORE__",
 					"-mtune=native",
 				);
-				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -410,7 +409,6 @@
 					"-D__MACOSX_CORE__",
 					"-mtune=native",
 				);
-				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};

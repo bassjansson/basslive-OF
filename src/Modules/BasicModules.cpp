@@ -202,3 +202,61 @@ void crush_Module::process (Clock& clock)
         output[t].R = int(inputs[0][t].R * crushR) / crushR;
     }
 }
+
+
+//========================================================================
+// comp_Module (input, sidechain, attack, release)
+//========================================================================
+comp_Module::comp_Module (const string& ID) : AudioModule(ID)
+{
+    inputs.push_back(AudioInput(0.0f));  // input
+    inputs.push_back(AudioInput(0.0f));  // sidechain
+    inputs.push_back(AudioInput(0.1f));  // attack
+    inputs.push_back(AudioInput(0.01f)); // release
+    
+    targetRMS  = 0.0f;
+    currentRMS = 0.0f;
+}
+
+void comp_Module::process (Clock& clock)
+{
+    // Get sidechain RMS
+    sample sidechainRMS = inputs[1].getSignal()->getRMS();
+    
+    
+    // Walk samples
+    for (tick t = 0; t < clock.size; t++)
+    {
+        // Update target RMS
+        float factor = (float)t / clock.size;
+        targetRMS.L = (1.0f - factor) * targetRMS.L + factor * sidechainRMS.L;
+        targetRMS.R = (1.0f - factor) * targetRMS.R + factor * sidechainRMS.R;
+        
+        
+        // Get attack and release
+        sample attack  = inputs[2][t];
+        sample release = inputs[3][t];
+        
+        
+        // Update current RMS
+        if (targetRMS.L >= currentRMS.L)
+            currentRMS.L = (1.0f - attack.L)  * currentRMS.L + attack.L  * targetRMS.L;
+        else
+            currentRMS.L = (1.0f - release.L) * currentRMS.L + release.L * targetRMS.L;
+        
+        if (targetRMS.R >= currentRMS.R)
+            currentRMS.R = (1.0f - attack.R)  * currentRMS.R + attack.R  * targetRMS.R;
+        else
+            currentRMS.R = (1.0f - release.R) * currentRMS.R + release.R * targetRMS.R;
+        
+        
+        // Clip current RMS
+        if (currentRMS.L > 1.0f) currentRMS.L = 1.0f;
+        if (currentRMS.R > 1.0f) currentRMS.R = 1.0f;
+        
+        
+        // Compress input to output
+        output[t].L = inputs[0][t].L * (1.0f - currentRMS.L);
+        output[t].R = inputs[0][t].R * (1.0f - currentRMS.R);
+    }
+}

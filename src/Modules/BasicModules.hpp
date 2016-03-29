@@ -68,4 +68,20 @@ private:
 };
 
 
+//========================================================================
+// comp_Module
+//========================================================================
+class comp_Module : public AudioModule
+{
+public:
+    comp_Module (const string& ID);
+    
+private:
+    virtual void process (Clock& clock);
+    
+    sample targetRMS;
+    sample currentRMS;
+};
+
+
 #endif /* BasicModules_hpp */
