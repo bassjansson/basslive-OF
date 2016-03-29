@@ -219,13 +219,15 @@ void Memory::processClockAndClick()
     {
         clock.clockTime[t] = clockStart + t;
         
-        float freq = clock[t] % clock.barLength[t] / clock.beatLength[t];
+        tick barClock = clock[t] % clock.barLength[t];
+        
+        float freq = barClock / clock.beatLength[t];
         if (freq < 1.0f) freq = 1000.0f;
-        else freq = 500.0f;
+        else             freq = 500.0f;
         
         float osc = sinf(clock[t] * freq / SAMPLERATE * TWO_PI);
         
-        float amp = 1.0f - float(clock[t] % clock.beatLength[t]) / SAMPLERATE * 100.0f;
+        float amp = 1.0f - float(barClock % clock.beatLength[t]) / SAMPLERATE * 100.0f;
         if (amp < 0.0f) amp = 0.0f;
         
         click[t].L = osc * amp * 0.5f;

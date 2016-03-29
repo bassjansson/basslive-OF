@@ -180,7 +180,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     ofTranslate(this->x * factor2 + ofGetWidth()  * 0.5f * factor1,
                 this->y * factor2 + ofGetHeight() * 0.5f * factor1);
     ofTranslate(charWidth * 0.5f, charHeight * 0.5f);
-    ofRotate(factor1 * 360.0f);
+    ofRotate(factor1 * 180.0f);
     ofScale(scaling, scaling);
     charFont.drawString(charString,
                         -charWidth * 0.5f,

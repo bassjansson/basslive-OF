@@ -20,37 +20,45 @@ BufferFunction::BufferFunction() : Function(CHAR_FUNC_BUF_OPEN,
     add(identifier);
     
     buffer = NULL;
-    
-    recordFlashTime = 0;
-    recordFlashBeat = FRAME_RATE / 2.0f;
 }
 
 //========================================================================
 void BufferFunction::drawTypeAnimation()
 {
-    if (buffer && buffer->recording == ON)
+    // Draw function beat flash
+    if (buffer && buffer->getBeatTime() >= 0.0f)
     {
-        float alpha = 1.0f - fmodf(recordFlashTime, recordFlashBeat) / recordFlashBeat;
+        ofSetColor(typeColor.r, typeColor.g, typeColor.b,
+                   (1.0f - buffer->getBeatTime()) * 191);
         
-        ofSetColor(COLOR_RECORD.r,
-                   COLOR_RECORD.g,
-                   COLOR_RECORD.b, alpha * 191);
-        
-        ofDrawRectangle(x, y, end()->x + charWidth  - x,
-                              end()->y + charHeight - y);
-        
-        recordFlashTime++;
+        ofDrawRectangle(x, y,
+                        end()->x - x + charWidth,
+                        end()->y - y + charHeight);
     }
+    
+    
+    // Draw function feedback line
+    float beatTime = 0.0f;
+    
+    if (buffer)
+    {
+        beatTime = buffer->getBeatTime();
+        if (beatTime < 0.0f) beatTime = 0.0f;
+    }
+    
+    float alpha  = 1.0f - beatTime;
+    float width  = identifier->end()->x - x + 1.5f * charWidth;
+    float height = end()->y - y;
+    
+    ofSetColor(typeColor.r, typeColor.g, typeColor.b, alpha * 255);
+    ofSetLineWidth(1.0f);
+    ofDrawRectangle(x + 0.5f * charWidth, y + charHeight,
+                    width * beatTime + 1.0f, height);
 }
 
 //========================================================================
 sig* BufferFunction::compile (Memory* memory, bool record)
 {
-    // Get record flash interval
-    float beatLength = memory->getClock().beatLength[0];
-    recordFlashBeat  = FRAME_RATE * beatLength / SAMPLERATE;
-    
-    
     // Fill strings if empty
     if (typeString == "")
     {
@@ -111,10 +119,7 @@ sig* BufferFunction::compile (Memory* memory, bool record)
         size->compile(memory, record);
         
         if (record)
-        {
             buffer->record(tick(size->getValue() * memory->getClock().beatLength[0]));
-            recordFlashTime = 0;
-        }
         
         flash(COLOR_FUNC_BUFFER);
         return identifier->compile(memory, record);

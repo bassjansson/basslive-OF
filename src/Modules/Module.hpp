@@ -61,8 +61,12 @@ public:
     void deallocate ();
     
     //========================================================================
-    tick   size   ();
-    sample getRMS ();
+    tick size();
+    tick start();
+    
+    //========================================================================
+    float  getBeatTime();
+    sample getRMS();
     
     //========================================================================
     virtual void processSignal (Clock& clock) {};
@@ -72,10 +76,14 @@ public:
     { if (buffer) return buffer[pointer]; else return value; };
     const sample& operator[] (tick pointer) const
     { if (buffer) return buffer[pointer]; else return value; };
-
+    
+protected:
     //========================================================================
     rec  recording;
     tick rec_start;
+    
+    //========================================================================
+    float beatTime;
     
 private:
     //========================================================================

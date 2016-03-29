@@ -19,7 +19,12 @@ public:
     ModuleFunction();
     
     //========================================================================
+    virtual void drawTypeAnimation();
     virtual sig* compile (Memory* memory, bool record);
+    
+private:
+    //========================================================================
+    AudioModule* module;
 };
 
 

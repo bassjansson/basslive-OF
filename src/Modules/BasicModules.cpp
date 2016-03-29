@@ -24,7 +24,15 @@ void click_Module::process (Clock& clock)
     {
         clock.beatLength[t] = 60.0f / inputs[0][t].L * SAMPLERATE;
         clock.barLength[t]  = inputs[1][t].L * clock.beatLength[t];
+        
+        if (clock.beatLength[t] == 0) clock.beatLength[t] = 1;
+        if (clock.barLength[t]  == 0) clock.barLength[t]  = 1;
     }
+    
+    // Set beat time for visual feedback
+    tick clock_p = clock.size - 1;
+    tick pointer = clock[clock_p] % clock.barLength[clock_p] % clock.beatLength[clock_p];
+    beatTime = (float)pointer / clock.beatLength[clock_p];
 }
 
 
@@ -141,7 +149,7 @@ void operator_Module::process (Clock& clock)
     else
     {
         for (tick t = 0; t < clock.size; t++)
-            output[t] = sample();
+            output[t] = 0.0f;
     }
 }
 
@@ -160,13 +168,17 @@ loop_Module::loop_Module (const string& ID) : AudioModule(ID)
 void loop_Module::process (Clock& clock)
 {
     tick bufferSize  = inputs[0].getSignal()->size();
-    tick bufferStart = inputs[0].getSignal()->rec_start;
+    tick bufferStart = inputs[0].getSignal()->start();
+    tick beat, bar, start;
     
     for (tick t = 0; t < clock.size; t++)
     {
-        tick beat  = tick(inputs[1][t].L * clock.beatLength[t]) + 1;
-        tick bar   = tick(inputs[2][t].L * clock.beatLength[t]) + 1;
-        tick start = tick(inputs[3][t].L * clock.beatLength[t]);
+        beat  = inputs[1][t].L * clock.beatLength[t];
+        bar   = inputs[2][t].L * clock.beatLength[t];
+        start = inputs[3][t].L * clock.beatLength[t];
+        
+        if (beat == 0) beat = 1;
+        if (bar  == 0) bar  = 1;
         
         tick pointer = (clock[t] - bufferStart - start + bar) % bar % beat;
         
@@ -177,9 +189,13 @@ void loop_Module::process (Clock& clock)
         }
         else
         {
-            output[t] = sample();
+            output[t] = 0.0f;
         }
     }
+    
+    // Set beat time for visual feedback
+    tick pointer = (clock[clock.size - 1] - bufferStart - start + bar) % bar % beat;
+    beatTime = (float)pointer / beat;
 }
 
 
@@ -198,6 +214,7 @@ void crush_Module::process (Clock& clock)
     {
         float crushL = inputs[1][t].L;
         float crushR = inputs[1][t].R;
+        
         output[t].L = int(inputs[0][t].L * crushL) / crushL;
         output[t].R = int(inputs[0][t].R * crushR) / crushR;
     }

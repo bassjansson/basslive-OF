@@ -60,7 +60,7 @@ public:
     static float RMS;
     
     //========================================================================
-    Character *begin, *left, *right;
+    Character *begin, *left, *right; // TODO: should not be public
     CharType charType;
     string charString;
     

@@ -20,6 +20,8 @@ AudioSignal::AudioSignal (sample value)
     
     recording = OFF;
     rec_start = 0;
+    
+    beatTime = -1.0f;
 }
 
 //========================================================================
@@ -45,6 +47,17 @@ void AudioSignal::deallocate()
 tick AudioSignal::size()
 {
     return b_size;
+}
+
+tick AudioSignal::start()
+{
+    return rec_start;
+}
+
+//========================================================================
+float AudioSignal::getBeatTime()
+{
+    return beatTime;
 }
 
 sample AudioSignal::getRMS()
@@ -171,13 +184,12 @@ void AudioBuffer::process (Clock& clock)
 {
     for (tick t = 0; t < clock.size; t++)
     {
-        // TODO: check buffer latency
         if (recording == WAIT)
         {
             if (clock[t] % clock.barLength[t] < BUFFERSIZE)
             {
-                rec_start = clock[t];
                 recording = ON;
+                rec_start = clock[t];
             }
         }
         
@@ -208,5 +220,20 @@ void AudioBuffer::process (Clock& clock)
                 recording = OFF;
             }
         }
+    }
+    
+    
+    // Set beat time for visual feedback
+    tick clock_p = clock.size - 1;
+    tick pointer = clock[clock_p] - rec_start - BUFFERSIZE;
+    
+    if (pointer < size())
+    {
+        pointer  = pointer % clock.barLength[clock_p] % clock.beatLength[clock_p];
+        beatTime = (float)pointer / clock.beatLength[clock_p];
+    }
+    else
+    {
+        beatTime = -1.0f;
     }
 }

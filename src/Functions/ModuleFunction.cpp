@@ -18,6 +18,37 @@ ModuleFunction::ModuleFunction() : Function(CHAR_FUNC_MOD_OPEN,
     identifier = new ModuleType();
     identifier->charType = IDEN;
     add(identifier);
+    
+    module = NULL;
+}
+
+//========================================================================
+void ModuleFunction::drawTypeAnimation()
+{
+    // Draw function beat flash
+    if (module && module->getBeatTime() >= 0.0f)
+    {
+        ofSetColor(typeColor.r, typeColor.g, typeColor.b,
+                   (1.0f - module->getBeatTime()) * 191);
+        
+        ofDrawRectangle(x + charWidth, y,
+                        identifier->x - x - charWidth,
+                        identifier->y - y + charHeight);
+    }
+    
+    
+    // Draw function feedback line
+    sample RMS = 0.0f;
+    if (module) RMS = module->getRMS();
+    
+    float alpha  = 1.0f - (RMS.L + RMS.R);
+    float width  = identifier->end()->x - x + 1.5f * charWidth;
+    float height = end()->y - y;
+    
+    ofSetColor(typeColor.r, typeColor.g, typeColor.b, alpha * 255);
+    ofSetLineWidth(1.0f);
+    ofDrawRectangle(x + 0.5f * charWidth, y + charHeight,
+                    width * (RMS.L + RMS.R) + 1.0f, height);
 }
 
 //========================================================================
@@ -44,7 +75,7 @@ sig* ModuleFunction::compile (Memory* memory, bool record)
     
     
     // Get or add module
-    AudioModule* module = memory->getModule(identifier->typeString);
+    module = memory->getModule(identifier->typeString);
     
     if (module == NULL)
         module = memory->addModule(typeString, identifier->typeString);
