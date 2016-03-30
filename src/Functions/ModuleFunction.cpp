@@ -41,12 +41,11 @@ void ModuleFunction::drawTypeAnimation()
     sample RMS = 0.0f;
     if (module) RMS = module->getRMS();
     
-    float alpha  = 1.0f - (RMS.L + RMS.R);
+    float alpha  = powf(1.0f - (RMS.L + RMS.R), 2.0f);
     float width  = identifier->end()->x - x + 1.5f * charWidth;
     float height = end()->y - y;
     
     ofSetColor(typeColor.r, typeColor.g, typeColor.b, alpha * 255);
-    ofSetLineWidth(1.0f);
     ofDrawRectangle(x + 0.5f * charWidth, y + charHeight,
                     width * (RMS.L + RMS.R) + 1.0f, height);
 }

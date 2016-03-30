@@ -84,4 +84,22 @@ private:
 };
 
 
+//========================================================================
+// pitch_Module
+//========================================================================
+class pitch_Module : public AudioModule
+{
+public:
+     pitch_Module (const string& ID);
+    ~pitch_Module ();
+    
+private:
+    virtual void process (Clock& clock);
+    
+    sig    buffer;
+    tick   pointer;
+    sample phasor;
+};
+
+
 #endif /* BasicModules_hpp */

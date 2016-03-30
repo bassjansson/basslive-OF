@@ -14,14 +14,15 @@ AudioModule* Memory::addModule (const string& module, const string& ID)
 {
     AudioModule* m = NULL;
     
-         if (module == "click") m = new click_Module(ID);
+         if (module == "click") m = new    click_Module(ID);
     else if (module == "+")     m = new operator_Module(ID, '+');
     else if (module == "-")     m = new operator_Module(ID, '-');
     else if (module == "*")     m = new operator_Module(ID, '*');
     else if (module == "/")     m = new operator_Module(ID, '/');
-    else if (module == "loop")  m = new loop_Module(ID);
-    else if (module == "crush") m = new crush_Module(ID);
-    else if (module == "comp")  m = new comp_Module(ID);
+    else if (module == "loop")  m = new     loop_Module(ID);
+    else if (module == "crush") m = new    crush_Module(ID);
+    else if (module == "comp")  m = new     comp_Module(ID);
+    else if (module == "pitch") m = new    pitch_Module(ID);
     
     if (m) modules.push_back(m);
     

@@ -67,15 +67,16 @@ public:
     //========================================================================
     float  getBeatTime();
     sample getRMS();
+    sample getValue (sample pointer);
     
     //========================================================================
     virtual void processSignal (Clock& clock) {};
     
     //========================================================================
           sample& operator[] (tick pointer)
-    { if (buffer) return buffer[pointer]; else return value; };
+    { if (buffer) return buffer[pointer]; return value; };
     const sample& operator[] (tick pointer) const
-    { if (buffer) return buffer[pointer]; else return value; };
+    { if (buffer) return buffer[pointer]; return value; };
     
 protected:
     //========================================================================

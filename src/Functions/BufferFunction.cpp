@@ -46,12 +46,11 @@ void BufferFunction::drawTypeAnimation()
         if (beatTime < 0.0f) beatTime = 0.0f;
     }
     
-    float alpha  = 1.0f - beatTime;
+    float alpha  = sqrtf(1.0f - beatTime);
     float width  = identifier->end()->x - x + 1.5f * charWidth;
     float height = end()->y - y;
     
     ofSetColor(typeColor.r, typeColor.g, typeColor.b, alpha * 255);
-    ofSetLineWidth(1.0f);
     ofDrawRectangle(x + 0.5f * charWidth, y + charHeight,
                     width * beatTime + 1.0f, height);
 }

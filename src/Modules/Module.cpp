@@ -81,6 +81,27 @@ sample AudioSignal::getRMS()
     return value;
 }
 
+sample AudioSignal::getValue (sample pointer)
+{
+    if (buffer)
+    {
+        sample value;
+        
+        tick pL = tick(pointer.L) % b_size;
+        tick pR = tick(pointer.R) % b_size;
+        
+        float fL = pointer.L - pL;
+        float fR = pointer.R - pR;
+        
+        value.L = (1.0f - fL) * buffer[pL].L + fL * buffer[(pL + 1) % b_size].L;
+        value.R = (1.0f - fR) * buffer[pR].R + fR * buffer[(pR + 1) % b_size].R;
+        
+        return value;
+    }
+    
+    return value;
+}
+
 
 //========================================================================
 // AudioInput

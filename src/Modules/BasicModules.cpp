@@ -226,10 +226,10 @@ void crush_Module::process (Clock& clock)
 //========================================================================
 comp_Module::comp_Module (const string& ID) : AudioModule(ID)
 {
-    inputs.push_back(AudioInput(0.0f));  // input
-    inputs.push_back(AudioInput(0.0f));  // sidechain
-    inputs.push_back(AudioInput(0.1f));  // attack
-    inputs.push_back(AudioInput(0.01f)); // release
+    inputs.push_back(AudioInput(0.0f));      // input
+    inputs.push_back(AudioInput(0.0f));      // sidechain
+    inputs.push_back(AudioInput(0.001f));    // attack
+    inputs.push_back(AudioInput(0.000001f)); // release
     
     targetRMS  = 0.0f;
     currentRMS = 0.0f;
@@ -275,5 +275,70 @@ void comp_Module::process (Clock& clock)
         // Compress input to output
         output[t].L = inputs[0][t].L * (1.0f - currentRMS.L);
         output[t].R = inputs[0][t].R * (1.0f - currentRMS.R);
+    }
+}
+
+
+//========================================================================
+// pitch_Module (input, pitch)
+//========================================================================
+pitch_Module::pitch_Module (const string& ID) : AudioModule(ID), buffer(0.0f)
+{
+    inputs.push_back(AudioInput(0.0f)); // input
+    inputs.push_back(AudioInput(1.0f)); // pitch
+    
+    buffer.allocate(SAMPLERATE);
+    
+    pointer = 0;
+    phasor  = 0.0f;
+}
+
+pitch_Module::~pitch_Module()
+{
+    buffer.deallocate();
+}
+
+void pitch_Module::process (Clock& clock)
+{
+    // Walk samples
+    for (tick t = 0; t < clock.size; t++)
+    {
+        // Get frequency
+        float pitch  = (inputs[1][t].L + inputs[1][t].R) / 2.0f;
+        float window = sqrtf(0.5f / pitch) * 0.1f;
+        float freq   = (-pitch + 1.0f) / window;
+        
+        
+        // Update phasor
+        phasor.L = fmodf(phasor.L + 1.0f + freq / SAMPLERATE, 1.0f);
+        phasor.R = fmodf(phasor.L + 0.5f, 1.0f);
+        
+        
+        // Get delay
+        sample delay;
+        delay.L = fmodf(pointer - phasor.L * window * SAMPLERATE + buffer.size(), buffer.size());
+        delay.R = fmodf(pointer - phasor.R * window * SAMPLERATE + buffer.size(), buffer.size());
+        
+        
+        // Get envelope
+        sample envelope;
+        envelope.L = sqrtf(fabsf(fabsf(phasor.L * 2.0f - 1.0f) - 1.0f));
+        envelope.R = sqrtf(fabsf(fabsf(phasor.R * 2.0f - 1.0f) - 1.0f));
+        
+        
+        // Write input to buffer
+        buffer[pointer] = inputs[0][t];
+        
+        
+        // Write buffer to output
+        sample value = buffer.getValue(delay);
+        value.L *= envelope.L;
+        value.R *= envelope.R;
+        output[t].L = value.L + value.R * envelope.R;
+        output[t].R = value.R + value.L * envelope.L;
+        
+       
+        // Update buffer pointer
+        pointer = (pointer + 1) % buffer.size();
     }
 }

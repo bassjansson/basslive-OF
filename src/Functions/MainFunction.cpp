@@ -209,8 +209,8 @@ void MainFunction::mousePressed (float x, float y, int button)
         for (Character* c = begin; c != end(); c = c->right)
         {
             if (c != charSelected &&
-                (x >= c->x - 1 && x < c->x + charWidth  + 1) &&
-                (y >= c->y - 1 && y < c->y + charHeight + 1))
+                (x >= c->x && x < c->x + charWidth) &&
+                (y >= c->y && y < c->y + charHeight))
             {
                 charSelected = c;
                 return;
@@ -228,8 +228,8 @@ void MainFunction::mouseReleased (float x, float y, int button)
         for (Character* c = begin; c != end(); c = c->right)
         {
             if (c != charSelected &&
-                (x >= c->x - 1 && x < c->x + charWidth  + 1) &&
-                (y >= c->y - 1 && y < c->y + charHeight + 1))
+                (x >= c->x && x < c->x + charWidth) &&
+                (y >= c->y && y < c->y + charHeight))
             {
                 c->add(charSelected, false);
                 return;
