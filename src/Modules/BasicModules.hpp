@@ -102,4 +102,17 @@ private:
 };
 
 
+//========================================================================
+// pan_Module
+//========================================================================
+class pan_Module : public AudioModule
+{
+public:
+    pan_Module (const string& ID);
+    
+private:
+    virtual void process (Clock& clock);
+};
+
+
 #endif /* BasicModules_hpp */

@@ -23,6 +23,7 @@ AudioModule* Memory::addModule (const string& module, const string& ID)
     else if (module == "crush") m = new    crush_Module(ID);
     else if (module == "comp")  m = new     comp_Module(ID);
     else if (module == "pitch") m = new    pitch_Module(ID);
+    else if (module == "pan")   m = new      pan_Module(ID);
     
     if (m) modules.push_back(m);
     

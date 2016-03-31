@@ -342,3 +342,24 @@ void pitch_Module::process (Clock& clock)
         pointer = (pointer + 1) % buffer.size();
     }
 }
+
+
+//========================================================================
+// pan_Module (input, pan)
+//========================================================================
+pan_Module::pan_Module (const string& ID) : AudioModule(ID)
+{
+    inputs.push_back(AudioInput(0.0f)); // input
+    inputs.push_back(AudioInput(0.0f)); // pan
+}
+
+void pan_Module::process (Clock& clock) // TODO: improve
+{
+    for (tick t = 0; t < clock.size; t++)
+    {
+        float pan = (inputs[1][t].L + inputs[1][t].R) * 0.5f;
+        
+        output[t].L = inputs[0][t].L * sqrt((pan - 1.0f) * -0.5f);
+        output[t].R = inputs[0][t].R * sqrt((pan + 1.0f) *  0.5f);
+    }
+}

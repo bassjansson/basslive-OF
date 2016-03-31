@@ -18,7 +18,7 @@ NumberType::NumberType() : Type(CHAR_TYPE_NUMBER), value(0.0f)
 //========================================================================
 void NumberType::keyPressed (int key)
 {
-    if ((key > 47 && key < 58) || key == 46)
+    if ((key > 47 && key < 58) || key == '.' || key == '-')
         charSelected->add(new Character(key));
 }
 
