@@ -183,11 +183,12 @@ void AudioModule::setInputs (sig_vec& newInputs)
 
 
 //========================================================================
-// AudioBuffer
+// AudioBuffer (size, input, fade)
 //========================================================================
 AudioBuffer::AudioBuffer (const string& ID) : AudioModule(ID)
 {
-    inputs.push_back(AudioInput(0.0f));
+    inputs.push_back(AudioInput(0.0f));      // input
+    inputs.push_back(AudioInput(FADE_SIZE)); // fade
     
     recording = OFF;
 }
@@ -222,12 +223,13 @@ void AudioBuffer::process (Clock& clock)
             
             // Get envelope
             float envelope = 1.0f;
+            float fadeSize = (inputs[1][t].L + inputs[1][t].R) * 0.5f;
             
-            if (pointer < FADE_SIZE)
-                envelope = sqrtf(pointer / FADE_SIZE);
+            if (pointer < fadeSize)
+                envelope = sqrtf(pointer / fadeSize);
             
-            if (size() - pointer < FADE_SIZE)
-                envelope = sqrtf((size() - pointer) / FADE_SIZE);
+            if (size() - pointer < fadeSize)
+                envelope = sqrtf((size() - pointer) / fadeSize);
                 
                 
             // Write input to output

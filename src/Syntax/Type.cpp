@@ -24,6 +24,10 @@ Type::Type (char c) : Character(c)
 //========================================================================
 void Type::draw (float& x, float& y, bool vertical, bool selection, bool floating)
 {
+    // Draw type animation
+    drawTypeAnimation();
+    
+    
     // Draw type character
     selection = selection || charSelected == begin;
     
@@ -56,10 +60,6 @@ void Type::draw (float& x, float& y, bool vertical, bool selection, bool floatin
         
         flashValue *= 0.9f;
     }
-    
-    
-    // Draw type animation
-    drawTypeAnimation();
     
     
     // Default color if string is changed

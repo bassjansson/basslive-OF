@@ -33,7 +33,7 @@ sig* NumberType::compile (Memory* memory, bool record)
     }
     
     char* err;
-    value[0].L = value[0].R = strtof(typeString.c_str(), &err);
+    value[0] = strtof(typeString.c_str(), &err);
     
     if (*err == 0)
     {

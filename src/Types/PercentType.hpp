@@ -1,22 +1,22 @@
 //
-//  NumberType.hpp
+//  PercentType.hpp
 //  BassLive 2.0
 //
-//  Created by Bass Jansson on 17/02/16.
+//  Created by Bass Jansson on 31/03/16.
 //
 //
 
-#ifndef NumberType_hpp
-#define NumberType_hpp
+#ifndef PercentType_hpp
+#define PercentType_hpp
 
 #include "Type.hpp"
 
 
-class NumberType : public Type
+class PercentType : public Type
 {
 public:
     //========================================================================
-    NumberType();
+    PercentType();
     
     //========================================================================
     virtual void keyPressed (int key);
@@ -27,8 +27,8 @@ public:
     
 private:
     //========================================================================
+    Character* percent;
     sig value; // TODO: fix allocation error
 };
 
-
-#endif /* NumberType_hpp */
+#endif /* PercentType_hpp */

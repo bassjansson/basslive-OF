@@ -50,7 +50,7 @@ void MainFunction::draw()
     Function::draw(x, y, HORIZONTAL, false, false);
     
     // Update RMS
-    RMS = RMS * 0.9f + memory->getDAC()->getRMS().L * 0.1f;
+    RMS = RMS * 0.8f + memory->getDAC()->getRMS().L * 0.2f;
     
     if (cursorTime < FRAME_RATE / 2)
         charSelected->drawCursor();
@@ -72,12 +72,9 @@ void MainFunction::keyPressed (int key)
         {
             switch (key)
             {
-                case 'f': add(new NumberType()); break;
-                case 'i': add(new  InputType()); break;
-                case 'm': add(new ModuleType()); break;
-                    
+                case 'i': add(new InputType());      break;
+                case 'm': add(new ModuleType());     break;
                 case 'n': add(new ModuleFunction()); break;
-                case 'b': add(new BufferFunction()); break;
                     
                 case 'r':
                 case OF_KEY_RETURN:
@@ -97,24 +94,25 @@ void MainFunction::keyPressed (int key)
             
             switch (key)
             {
-                case CHAR_TYPE_NUMBER: charSelected->add(new NumberType()); break;
-                case CHAR_TYPE_INPUT : charSelected->add(new  InputType()); break;
-                case CHAR_TYPE_MOD_ID: charSelected->add(new ModuleType()); break;
-                case CHAR_TYPE_BUF_ID: charSelected->add(new BufferType()); break;
+                case CHAR_TYPE_NUMBER : charSelected->add(new  NumberType()); break;
+                case CHAR_TYPE_PERCENT: charSelected->add(new PercentType()); break;
+                case CHAR_TYPE_INPUT  : charSelected->add(new   InputType()); break;
+                case CHAR_TYPE_MOD_ID : charSelected->add(new  ModuleType()); break;
+                case CHAR_TYPE_BUF_ID : charSelected->add(new  BufferType()); break;
                     
                 case CHAR_FUNC_MOD_OPEN: charSelected->add(new ModuleFunction()); break;
                 case CHAR_FUNC_BUF_OPEN: charSelected->add(new BufferFunction()); break;
                     
                 case ' ':
                     if (ofGetKeyPressed(OF_KEY_SHIFT))
-                        charSelected->add(new ModuleType());
+                        charSelected->add(new PercentType());
                     else
                         charSelected->add(new NumberType());
                     break;
                     
                 case OF_KEY_RETURN:
                     if (ofGetKeyPressed(OF_KEY_SHIFT))
-                        add(new ModuleFunction());
+                        charSelected->add(new BufferFunction());
                     else
                         charSelected->add(new ModuleFunction());
                     break;

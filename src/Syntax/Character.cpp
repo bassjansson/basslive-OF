@@ -162,7 +162,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
                 x = charSelected->left->x;
                 y = charSelected->left->y;
                 
-                x += charWidth;
+                x += charWidth  * 2.0f;
                 y += charHeight * int(vertical);
             }
         }
@@ -175,7 +175,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     float factor1 = powf(1.0f - animation, 4.0f);
     float factor2 = (1.0f - factor1);
     
-    float scaling = 1.0f + ofGetHeight() / charHeight * factor1 * 0.5f;
+    float scaling = 1.0f + ofGetHeight() / charHeight * factor1 * 0.33f;
     
     ofTranslate(this->x * factor2 + ofGetWidth()  * 0.5f * factor1,
                 this->y * factor2 + ofGetHeight() * 0.5f * factor1);
@@ -206,11 +206,11 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     if (animation >= 1.0f)
         animation  = 1.0f;
     else
-        animation += 0.06f;
+        animation += 0.047f;
     
     
     // Update character position
-    float factor = 0.3f;
+    float factor = 0.25f;
     this->x = (1.0f - factor) * this->x + factor * x;
     this->y = (1.0f - factor) * this->y + factor * y;
 }

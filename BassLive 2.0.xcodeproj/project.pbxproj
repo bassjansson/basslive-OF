@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
+		E49E97F71CAD35E6009D015A /* PercentType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E49E97F51CAD35E6009D015A /* PercentType.cpp */; };
 		E4C8813E1C9B3CE500A5C7B6 /* BufferType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C881361C9B3CE500A5C7B6 /* BufferType.cpp */; };
 		E4C8813F1C9B3CE500A5C7B6 /* InputType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C881381C9B3CE500A5C7B6 /* InputType.cpp */; };
 		E4C881401C9B3CE500A5C7B6 /* ModuleType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C8813A1C9B3CE500A5C7B6 /* ModuleType.cpp */; };
@@ -56,6 +57,8 @@
 
 /* Begin PBXFileReference section */
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
+		E49E97F51CAD35E6009D015A /* PercentType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PercentType.cpp; sourceTree = "<group>"; };
+		E49E97F61CAD35E6009D015A /* PercentType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PercentType.hpp; sourceTree = "<group>"; };
 		E4B69B5B0A3A1756003C02F2 /* BassLive 2.0Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BassLive 2.0Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
 		E4C880F11C96F14F00A5C7B6 /* Syntax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Syntax.h; sourceTree = "<group>"; };
@@ -158,6 +161,8 @@
 			children = (
 				E4C8813C1C9B3CE500A5C7B6 /* NumberType.cpp */,
 				E4C8813D1C9B3CE500A5C7B6 /* NumberType.hpp */,
+				E49E97F51CAD35E6009D015A /* PercentType.cpp */,
+				E49E97F61CAD35E6009D015A /* PercentType.hpp */,
 				E4C881381C9B3CE500A5C7B6 /* InputType.cpp */,
 				E4C881391C9B3CE500A5C7B6 /* InputType.hpp */,
 				E4C8813A1C9B3CE500A5C7B6 /* ModuleType.cpp */,
@@ -325,6 +330,7 @@
 				E4EEF6CE1C833AF000F2A323 /* Character.cpp in Sources */,
 				E4EEF6D11C833AF000F2A323 /* Type.cpp in Sources */,
 				E4EC234C1C28535B00E06DC5 /* BassLive.cpp in Sources */,
+				E49E97F71CAD35E6009D015A /* PercentType.cpp in Sources */,
 				E4EC234B1C28535B00E06DC5 /* main.cpp in Sources */,
 				E4C881511C9BD71D00A5C7B6 /* Memory.cpp in Sources */,
 				E4C8814A1C9B3CF000A5C7B6 /* MainFunction.cpp in Sources */,

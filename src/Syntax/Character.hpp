@@ -41,8 +41,8 @@ public:
     
     //========================================================================
     virtual void draw (float& x, float& y, bool vertical, bool selection, bool floating);
-    virtual void drawFractal();
-    virtual void drawCursor();
+    virtual void drawFractal(); // TODO: move fractal to type
+    virtual void drawCursor(); // Fancy cursor?
     virtual Character* end();
     
     //========================================================================
@@ -54,7 +54,7 @@ public:
     static ofTrueTypeFont charFont;
     static float          charWidth;
     static float          charHeight;
-    static CharVector     charVector;
+    static CharVector     charVector; // TODO: better memory managment
     static Character*     charSelected;
     
     static float RMS;

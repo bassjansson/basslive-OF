@@ -17,6 +17,7 @@ enum TypeType
 {
     NO_TYPE = 0,
     NUMBER,
+    PERCENT,
     INPUT,
     MODULE,
     BUFFER
