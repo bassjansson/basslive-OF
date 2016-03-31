@@ -196,6 +196,16 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
         ofDrawRectangle(this->x, this->y, charWidth, charHeight);
     }
     
+    float mouseX = ofGetMouseX();
+    float mouseY = ofGetMouseY();
+    
+    if ((mouseX >= this->x && mouseX < this->x + charWidth) &&
+        (mouseY >= this->y && mouseY < this->y + charHeight))
+    {
+        ofSetColor(COLOR_SELECTION * 2);
+        ofDrawRectRounded(this->x, this->y, charWidth, charHeight, charWidth * 0.25f);
+    }
+    
     
     // Draw fractal
     if (charType == FUNC || charType == MAIN)
