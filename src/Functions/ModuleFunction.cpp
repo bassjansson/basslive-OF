@@ -40,6 +40,8 @@ void ModuleFunction::drawTypeAnimation()
     // Draw function feedback line
     sample RMS = 0.0f;
     if (module) RMS = module->getRMS();
+    if (RMS.L > 1.0f) RMS.L = 1.0f;
+    if (RMS.R > 1.0f) RMS.R = 1.0f;
     
     float alpha  = powf(1.0f - (RMS.L + RMS.R), 2.0f);
     float width  = identifier->end()->x - x + 1.5f * charWidth;

@@ -24,6 +24,7 @@ AudioModule* Memory::addModule (const string& module, const string& ID)
     else if (module == "comp")  m = new     comp_Module(ID);
     else if (module == "pitch") m = new    pitch_Module(ID);
     else if (module == "pan")   m = new      pan_Module(ID);
+    //else if (module == "vocod") m = new    vocod_Module(ID);
     
     if (m) modules.push_back(m);
     

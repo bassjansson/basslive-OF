@@ -19,4 +19,7 @@
 
 #define FADE_SIZE (SAMPLERATE / 200.0f) // 5 milliseconds
 
+#define REAL 0
+#define IMAG 1
+
 #endif /* Modules_h */

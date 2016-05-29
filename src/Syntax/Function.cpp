@@ -70,3 +70,30 @@ Character* Function::end()
 {
     return close;
 }
+
+//========================================================================
+void Function::copyTo (Character* c)
+{
+    Function* f;
+    
+    switch (typeType)
+    {
+        case MODULE: c->add(f = new ModuleFunction()); break;
+        case BUFFER: c->add(f = new BufferFunction()); break;
+            
+        default: return;
+    }
+    
+    for (Character* cc = right; cc->charType == CHAR; cc = cc->right)
+        charSelected->add(new Character(cc->charString[0]));
+    
+    charSelected = f->identifier;
+    
+    for (Character* cc = identifier->right; cc->charType == CHAR; cc = cc->right)
+        charSelected->add(new Character(cc->charString[0]));
+    
+    for (Type* t = identifier->getType(RIGHT); t != end(); t = t->end()->getType(RIGHT))
+        t->copyTo(charSelected);
+    
+    charSelected = f->end();
+}

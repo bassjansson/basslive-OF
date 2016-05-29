@@ -363,3 +363,94 @@ void pan_Module::process (Clock& clock) // TODO: improve
         output[t].R = inputs[0][t].R * sqrt((pan + 1.0f) *  0.5f);
     }
 }
+
+
+////========================================================================
+//// vocod_Module (carrier, modulator)
+////========================================================================
+//vocod_Module::vocod_Module (const string& ID) : AudioModule(ID)
+//{
+//    inputs.push_back(AudioInput(0.0f)); // carrier
+//    inputs.push_back(AudioInput(0.0f)); // modulator
+//    
+//    pointer = 0;
+//    p_size  = 16;
+//    b_size  = p_size * BUFFERSIZE;
+//    
+//    carIn  = new float[b_size];
+//    modIn  = new float[b_size];
+//    vocOut = new float[b_size];
+//    
+//    carOut = (fftwf_complex*)fftwf_malloc(sizeof(fftwf_complex) * b_size);
+//    modOut = (fftwf_complex*)fftwf_malloc(sizeof(fftwf_complex) * b_size);
+//    vocIn  = (fftwf_complex*)fftwf_malloc(sizeof(fftwf_complex) * b_size);
+//    
+//    carPlan = fftwf_plan_dft_r2c_1d(b_size, carIn, carOut, FFTW_ESTIMATE);
+//    modPlan = fftwf_plan_dft_r2c_1d(b_size, modIn, modOut, FFTW_ESTIMATE);
+//    vocPlan = fftwf_plan_dft_c2r_1d(b_size, vocIn, vocOut, FFTW_ESTIMATE);
+//}
+//
+//vocod_Module::~vocod_Module()
+//{
+//    fftwf_destroy_plan(carPlan);
+//    fftwf_destroy_plan(modPlan);
+//    fftwf_destroy_plan(vocPlan);
+//    
+//    fftwf_free(carOut);
+//    fftwf_free(modOut);
+//    fftwf_free(vocIn);
+//    
+//    delete[] carIn;
+//    delete[] modIn;
+//    delete[] vocOut;
+//}
+//
+//void vocod_Module::process (Clock& clock)
+//{
+//    // Write inputs to carrier and modulator
+//    for (tick t = 0; t < clock.size; t++)
+//    {
+//        tick t2 = t + pointer * clock.size;
+//        carIn[t2] = (inputs[0][t].L + inputs[0][t].R) * 0.5f;
+//        modIn[t2] = (inputs[1][t].L + inputs[1][t].R) * 0.5f;
+//    }
+//    
+//    
+//    // Increment of pointer
+//    pointer = (pointer + 1) % p_size;
+//    
+//    
+//    // Process fft if input is filled
+//    if (pointer == 0)
+//    {
+//        // Execute fft of carrier and modulator
+//        fftwf_execute(carPlan);
+//        fftwf_execute(modPlan);
+//        
+//        
+//        // Write magnitude of carrier and phase of modulator to vocoder
+//        for (tick t = 0; t < b_size; t++)
+//        {
+//            float magnitude = sqrtf(powf(carOut[t][REAL], 2) + powf(carOut[t][IMAG], 2));
+//            float phase     = atan2f(modOut[t][IMAG], modOut[t][REAL]);
+//            
+//            magnitude /= float(b_size);
+//            
+//            vocIn[t][REAL] = cosf(phase) * magnitude;
+//            vocIn[t][IMAG] = sinf(phase) * magnitude;
+//        }
+//        
+//        
+//        // Execute fft of vocoder
+//        fftwf_execute(vocPlan);
+//    }
+//
+//    
+//    // Write vocoder to output
+//    for (tick t = 0; t < clock.size; t++)
+//    {
+//        tick t2 = t + pointer * clock.size;
+//        output[t].L = vocOut[t2];
+//        output[t].R = vocOut[t2];
+//    }
+//}

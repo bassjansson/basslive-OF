@@ -10,6 +10,7 @@
 #define BasicModules_hpp
 
 #include "Module.hpp"
+#include "fftw3.h"
 
 
 //========================================================================
@@ -113,6 +114,36 @@ public:
 private:
     virtual void process (Clock& clock);
 };
+
+
+////========================================================================
+//// vocod_Module
+////========================================================================
+//class vocod_Module : public AudioModule
+//{
+//public:
+//     vocod_Module (const string& ID);
+//    ~vocod_Module ();
+//    
+//private:
+//    virtual void process (Clock& clock);
+//    
+//    int pointer;
+//    int p_size;
+//    int b_size;
+//    
+//    float* carIn;
+//    float* modIn;
+//    float* vocOut;
+//    
+//    fftwf_complex* carOut;
+//    fftwf_complex* modOut;
+//    fftwf_complex* vocIn;
+//    
+//    fftwf_plan carPlan;
+//    fftwf_plan modPlan;
+//    fftwf_plan vocPlan;
+//};
 
 
 #endif /* BasicModules_hpp */

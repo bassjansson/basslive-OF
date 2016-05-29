@@ -32,7 +32,7 @@
 #define DOWN  1
 
 #define FRAME_RATE 30
-#define FONT_SIZE  22
+#define FONT_SIZE  30
 
 #define CHAR_TYPE_NUMBER  '$'
 #define CHAR_TYPE_PERCENT '%'

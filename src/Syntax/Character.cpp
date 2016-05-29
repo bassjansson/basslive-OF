@@ -15,6 +15,9 @@ float          Character::charHeight = 0.0f;
 CharVector     Character::charVector;
 Character*     Character::charSelected;
 
+float Character::mouseX = 0.0f;
+float Character::mouseY = 0.0f;
+
 float Character::RMS = 0.0f;
 
 
@@ -134,8 +137,8 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     // Update input position
     if (floating)
     {
-        x = int((this->x + charWidth  * 0.5f) / charWidth)  * charWidth;
-        y = int((this->y + charHeight * 0.5f) / charHeight) * charHeight;
+        x = roundf(this->x / charWidth)  * charWidth;
+        y = roundf(this->y / charHeight) * charHeight;
     }
     else
     {
@@ -143,19 +146,19 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
         y += charHeight * int(vertical);
     }
     
-    if (ofGetMousePressed() &&
-        (begin == charSelected ||
-         (begin == charSelected->end()->right && !floating)))
+    if ((ofGetMousePressed() && !ofGetKeyPressed(OF_KEY_CONTROL))
+        &&
+        (begin == charSelected || (begin == charSelected->end()->right && !floating)))
     {
-        float mouseMovement = (abs(ofGetMouseX() - ofGetPreviousMouseX()) +
-                               abs(ofGetMouseY() - ofGetPreviousMouseY()));
-        
-        if (mouseMovement > 0)
-        {
+//        float mouseMovement = (abs(ofGetMouseX() - ofGetPreviousMouseX()) +
+//                               abs(ofGetMouseY() - ofGetPreviousMouseY()));
+//        
+//        if (mouseMovement > 0)
+//        {
             if (begin == charSelected)
             {
-                x = ofGetMouseX() - charWidth  * 0.5f;
-                y = ofGetMouseY() - charHeight * 0.5f;
+                x = mouseX - charWidth  * 0.5f;
+                y = mouseY - charHeight * 0.5f;
             }
             else
             {
@@ -165,7 +168,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
                 x += charWidth  * 2.0f;
                 y += charHeight * int(vertical);
             }
-        }
+//        }
     }
     
     
@@ -195,9 +198,6 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
         ofSetColor(COLOR_SELECTION);
         ofDrawRectangle(this->x, this->y, charWidth, charHeight);
     }
-    
-    float mouseX = ofGetMouseX();
-    float mouseY = ofGetMouseY();
     
     if ((mouseX >= this->x && mouseX < this->x + charWidth) &&
         (mouseY >= this->y && mouseY < this->y + charHeight))

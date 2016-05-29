@@ -41,6 +41,9 @@ public:
     virtual sig* compile (Memory* memory, bool record);
     
     //========================================================================
+    virtual void copyTo (Character* c);
+    
+    //========================================================================
     TypeType typeType;
     ofColor typeColor;
     string typeString;

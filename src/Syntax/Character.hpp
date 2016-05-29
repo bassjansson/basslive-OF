@@ -57,6 +57,8 @@ public:
     static CharVector     charVector; // TODO: better memory managment
     static Character*     charSelected;
     
+    static float mouseX, mouseY;
+    
     static float RMS;
     
     //========================================================================

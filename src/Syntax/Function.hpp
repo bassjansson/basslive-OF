@@ -23,6 +23,9 @@ public:
     virtual void flash (const ofColor& color);
     virtual Character* end();
     
+    //========================================================================
+    virtual void copyTo (Character* c);
+    
 protected:
     //========================================================================
     Type* identifier;

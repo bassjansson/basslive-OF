@@ -202,7 +202,8 @@ sig* MainFunction::compile (Memory* memory, bool record)
 //========================================================================
 void MainFunction::mousePressed (float x, float y, int button)
 {
-    if (button == OF_MOUSE_BUTTON_LEFT)
+    if (button == OF_MOUSE_BUTTON_LEFT ||
+        button == OF_MOUSE_BUTTON_MIDDLE)
     {
         for (Character* c = begin; c != end(); c = c->right)
         {
@@ -210,7 +211,18 @@ void MainFunction::mousePressed (float x, float y, int button)
                 (x >= c->x && x < c->x + charWidth) &&
                 (y >= c->y && y < c->y + charHeight))
             {
-                charSelected = c;
+                if (button == OF_MOUSE_BUTTON_LEFT)
+                {
+                    charSelected = c;
+                }
+                else
+                {
+                    if (c->charType == TYPE)
+                        ((Type*)c)->copyTo(begin);
+                    else if (c->charType == FUNC)
+                        ((Function*)c)->copyTo(begin);
+                }
+                
                 return;
             }
         }

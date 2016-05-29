@@ -106,3 +106,21 @@ sig* Type::compile (Memory* memory, bool record)
     
     return NULL;
 }
+
+//========================================================================
+void Type::copyTo (Character* c)
+{
+    switch (typeType)
+    {
+        case NUMBER:  c->add(new  NumberType()); break;
+        case PERCENT: c->add(new PercentType()); break;
+        case INPUT:   c->add(new   InputType()); break;
+        case MODULE:  c->add(new  ModuleType()); break;
+        case BUFFER:  c->add(new  BufferType()); break;
+            
+        default: return;
+    }
+    
+    for (Character* cc = right; cc->charType == CHAR; cc = cc->right)
+        charSelected->add(new Character(cc->charString[0]));
+}

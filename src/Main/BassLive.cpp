@@ -33,6 +33,9 @@ void BassLive::setup()
     stream.printDeviceList();
     stream.setDeviceID(2);
     stream.setup(this, OUTPUT_CHANNELS, INPUT_CHANNELS, SAMPLERATE, BUFFERSIZE, 4);
+    
+    xOffset = 0.0f;
+    yOffset = 0.0f;
 }
 
 void BassLive::exit()
@@ -44,13 +47,20 @@ void BassLive::exit()
 
 void BassLive::update()
 {
-
+    main->mouseX = mouseX - xOffset;
+    main->mouseY = mouseY - yOffset;
 }
 
 void BassLive::draw()
 {
+    // Clear background
     ofBackground(0);
+    
+    // Draw main with offset
+    ofPushMatrix();
+    ofTranslate(xOffset, yOffset);
     main->draw();
+    ofPopMatrix();
 }
 
 //========================================================================
@@ -83,17 +93,23 @@ void BassLive::mouseMoved (int x, int y)
 
 void BassLive::mouseDragged (int x, int y, int button)
 {
-    
+    if (ofGetKeyPressed(OF_KEY_COMMAND))
+    {
+        xOffset += x - ofGetPreviousMouseX();
+        yOffset += y - ofGetPreviousMouseY();
+    }
 }
 
 void BassLive::mousePressed (int x, int y, int button)
 {
-    main->mousePressed(x, y, button);
+    main->mousePressed(x - xOffset,
+                       y - yOffset, button);
 }
 
 void BassLive::mouseReleased (int x, int y, int button)
 {
-    main->mouseReleased(x, y, button);
+    main->mouseReleased(x - xOffset,
+                        y - yOffset, button);
 }
 
 //========================================================================

@@ -45,6 +45,8 @@ private:
     Memory*       memory;
     MainFunction* main;
     ofSoundStream stream;
+    
+    float xOffset, yOffset;
 };
 
 
