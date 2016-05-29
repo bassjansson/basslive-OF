@@ -32,6 +32,7 @@ Character::Character (char c)
     
     x = y = 0.0f;
     
+    xAnim = yAnim = 0.0f;
     animation = 0.0f;
     
     if (charSelected == NULL)
@@ -43,10 +44,10 @@ void Character::add (Character* c, bool force)
 {
     if (c != begin)
     {
-        if (force || (c->charType != IDEN  &&
+        if (force || (c->charType != IDEN &&
                       c->charType != CLOSE &&
-                      c->charType != MAIN  &&
-                    !(c->charType == CHAR  && charType == CLOSE)))
+                      c->charType != MAIN &&
+                      !(c->charType == CHAR && charType == CLOSE)))
         {
             // Get destination
             Character* destination = begin;
@@ -135,41 +136,39 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     
     // Update input position
-    if (floating)
+    if (ofGetMousePressed(OF_MOUSE_BUTTON_LEFT) &&
+        charSelected->charType != CHAR &&
+        (begin == charSelected || (begin == charSelected->end()->right && !floating)))
     {
-        x = roundf(this->x / charWidth)  * charWidth;
-        y = roundf(this->y / charHeight) * charHeight;
+        if (begin == charSelected)
+        {
+            x = mouseX - charWidth  * 0.5f;
+            y = mouseY - charHeight * 0.5f;
+        }
+        else
+        {
+            x = charSelected->left->x + charWidth  * 2.0f;
+            y = charSelected->left->y + charHeight * int(vertical);
+        }
     }
     else
     {
-        x += charWidth;
-        y += charHeight * int(vertical);
+        if (floating)
+        {
+            x = roundf(this->x / charWidth)  * charWidth;
+            y = roundf(this->y / charHeight) * charHeight;
+        }
+        else
+        {
+            x += charWidth;
+            y += charHeight * int(vertical);
+        }
     }
     
-    if ((ofGetMousePressed() && !ofGetKeyPressed(OF_KEY_CONTROL))
-        &&
-        (begin == charSelected || (begin == charSelected->end()->right && !floating)))
-    {
-//        float mouseMovement = (abs(ofGetMouseX() - ofGetPreviousMouseX()) +
-//                               abs(ofGetMouseY() - ofGetPreviousMouseY()));
-//        
-//        if (mouseMovement > 0)
-//        {
-            if (begin == charSelected)
-            {
-                x = mouseX - charWidth  * 0.5f;
-                y = mouseY - charHeight * 0.5f;
-            }
-            else
-            {
-                x = charSelected->left->x;
-                y = charSelected->left->y;
-                
-                x += charWidth  * 2.0f;
-                y += charHeight * int(vertical);
-            }
-//        }
-    }
+    
+    // Update character position
+    this->x = x;
+    this->y = y;
     
     
     // Draw character
@@ -180,8 +179,8 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     float scaling = 1.0f + ofGetHeight() / charHeight * factor1 * 0.33f;
     
-    ofTranslate(this->x * factor2 + ofGetWidth()  * 0.5f * factor1,
-                this->y * factor2 + ofGetHeight() * 0.5f * factor1);
+    ofTranslate(xAnim * factor2 + ofGetWidth()  * 0.5f * factor1,
+                yAnim * factor2 + ofGetHeight() * 0.5f * factor1);
     ofTranslate(charWidth * 0.5f, charHeight * 0.5f);
     ofRotate(factor1 * 180.0f);
     ofScale(scaling, scaling);
@@ -196,14 +195,14 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     if (selection)
     {
         ofSetColor(COLOR_SELECTION);
-        ofDrawRectangle(this->x, this->y, charWidth, charHeight);
+        ofDrawRectangle(xAnim, yAnim, charWidth, charHeight);
     }
     
-    if ((mouseX >= this->x && mouseX < this->x + charWidth) &&
-        (mouseY >= this->y && mouseY < this->y + charHeight))
+    if ((mouseX >= xAnim && mouseX < xAnim + charWidth) &&
+        (mouseY >= yAnim && mouseY < yAnim + charHeight))
     {
         ofSetColor(COLOR_SELECTION * 2);
-        ofDrawRectRounded(this->x, this->y, charWidth, charHeight, charWidth * 0.25f);
+        ofDrawRectRounded(xAnim, yAnim, charWidth, charHeight, charWidth * 0.1f);
     }
     
     
@@ -212,17 +211,17 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
         drawFractal();
     
     
+    // Update character animation position
+    float factor = 0.33f;
+    xAnim = (1.0f - factor) * xAnim + factor * this->x;
+    yAnim = (1.0f - factor) * yAnim + factor * this->y;
+    
+    
     // Update animation
     if (animation >= 1.0f)
         animation  = 1.0f;
     else
         animation += 0.047f;
-    
-    
-    // Update character position
-    float factor = 0.25f;
-    this->x = (1.0f - factor) * this->x + factor * x;
-    this->y = (1.0f - factor) * this->y + factor * y;
 }
 
 

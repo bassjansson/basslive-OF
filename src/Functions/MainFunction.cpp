@@ -202,13 +202,11 @@ sig* MainFunction::compile (Memory* memory, bool record)
 //========================================================================
 void MainFunction::mousePressed (float x, float y, int button)
 {
-    if (button == OF_MOUSE_BUTTON_LEFT ||
-        button == OF_MOUSE_BUTTON_MIDDLE)
+    if (button == OF_MOUSE_BUTTON_LEFT || button == OF_MOUSE_BUTTON_RIGHT)
     {
         for (Character* c = begin; c != end(); c = c->right)
         {
-            if (c != charSelected &&
-                (x >= c->x && x < c->x + charWidth) &&
+            if ((x >= c->x && x < c->x + charWidth) &&
                 (y >= c->y && y < c->y + charHeight))
             {
                 if (button == OF_MOUSE_BUTTON_LEFT)
@@ -233,7 +231,7 @@ void MainFunction::mouseReleased (float x, float y, int button)
 {
     x -= charWidth * 0.5f;
     
-    if (button == OF_MOUSE_BUTTON_LEFT)
+    if (button == OF_MOUSE_BUTTON_LEFT && charSelected->charType != CHAR)
     {
         for (Character* c = begin; c != end(); c = c->right)
         {

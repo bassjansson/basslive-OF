@@ -71,6 +71,7 @@ public:
     
 private:
     //========================================================================
+    float xAnim, yAnim;
     float animation;
 };
 
