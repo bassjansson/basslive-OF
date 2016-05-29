@@ -25,21 +25,36 @@ AudioSignal::AudioSignal (sample value)
 }
 
 //========================================================================
-void AudioSignal::allocate (tick size)
+void AudioSignal::allocate (tick newSize)
 {
-    deallocate();
-    
-    if (size > 0)
+    if (newSize > 1)
     {
-        b_size = size;
-        buffer = new sample[b_size];
+        sample* newBuffer = new sample[newSize];
+        sample* oldBuffer = buffer;
+        tick    oldSize   = b_size;
+        
+        if (oldSize > 1)
+            for (tick t = 0; t < newSize && t < oldSize; t++)
+                newBuffer[t] = oldBuffer[t];
+            
+        buffer = newBuffer;
+        b_size = newSize;
+        
+        if (oldSize > 1)
+            delete[] oldBuffer;
+    }
+    else
+    {
+        deallocate();
     }
 }
 
 void AudioSignal::deallocate()
 {
-    if (b_size > 1) delete[] buffer;
+    if (b_size > 1)
+        delete[] buffer;
     
+    buffer = NULL;
     b_size = 1;
 }
 
@@ -208,10 +223,14 @@ void AudioBuffer::process (Clock& clock)
     {
         if (recording == WAIT)
         {
+            // Start of recording
             if (clock[t] % clock.barLength[t] < BUFFERSIZE)
             {
                 recording = ON;
                 rec_start = clock[t];
+                
+                for (tick t = 0; t < size(); t++)
+                    output[t] = 0.0f;
             }
         }
         

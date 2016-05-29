@@ -131,8 +131,8 @@ void Character::remove (bool force)
 void Character::draw (float& x, float& y, bool vertical, bool selection, bool floating)
 {
     // Init character position
-    if (this->x == 0.0f) this->x = x + charWidth;
-    if (this->y == 0.0f) this->y = y + charHeight * int(vertical);
+    if (this->x == 0.0f) this->x = xAnim = x + charWidth;
+    if (this->y == 0.0f) this->y = yAnim = y + charHeight * int(vertical);
     
     
     // Update input position
@@ -147,7 +147,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
         }
         else
         {
-            x = charSelected->left->x + charWidth  * 2.0f;
+            x = charSelected->left->x + charWidth  * 3.0f;
             y = charSelected->left->y + charHeight * int(vertical);
         }
     }
@@ -212,7 +212,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     
     // Update character animation position
-    float factor = 0.33f;
+    float factor = 0.25f;
     xAnim = (1.0f - factor) * xAnim + factor * this->x;
     yAnim = (1.0f - factor) * yAnim + factor * this->y;
     

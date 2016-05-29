@@ -57,7 +57,7 @@ public:
     AudioSignal (sample value);
     
     //========================================================================
-    void   allocate (tick size);
+    void   allocate (tick newSize);
     void deallocate ();
     
     //========================================================================
