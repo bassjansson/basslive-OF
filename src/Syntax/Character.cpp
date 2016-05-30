@@ -207,8 +207,8 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     
     // Draw fractal
-    if (charType == FUNC || charType == MAIN)
-        drawFractal();
+    //if (charType == FUNC || charType == MAIN)
+    //    drawFractal();
     
     
     // Update character animation position
@@ -225,7 +225,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     
     // Shake characters when a key is pressed
-    if (ofGetKeyPressed())
+    if (ofGetKeyPressed() && animation > 0.87f)
     {
         float factor = 0.033f;
         xAnim += ofRandom(-charWidth * factor, charWidth * factor);

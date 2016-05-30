@@ -36,6 +36,25 @@ void BassLive::setup()
     
     xOffset = 0.0f;
     yOffset = 0.0f;
+    zoom = 1.0f; //2*M_PI;
+    
+    shader.load("shaders/newton");
+    
+    a[0]        = 1.0f;
+    coefs[0][0] = ofRandom(-1.0f, 1.0f);
+    coefs[1][0] = ofRandom(-1.0f, 1.0f);
+    coefs[2][0] = 0.5f;
+    //coefs[3][0] = 0.0f;
+    //coefs[4][0] = 0.0f;
+    //coefs[5][0] = 0.0f;
+    
+    a[1]        = -0.8f;
+    coefs[0][1] = ofRandom(-1.0f, 1.0f);
+    coefs[1][1] = ofRandom(-1.0f, 1.0f);
+    coefs[2][1] = -0.5f;
+    //coefs[3][1] = 0.0f;
+    //coefs[4][1] = 0.0f;
+    //coefs[5][1] = 0.0f;
 }
 
 void BassLive::exit()
@@ -43,6 +62,8 @@ void BassLive::exit()
     stream.close();
     delete main;
     delete memory;
+    
+    shader.unload();
 }
 
 void BassLive::update()
@@ -56,16 +77,17 @@ void BassLive::draw()
     // Clear background
     ofBackground(0);
     
+    
     // Draw vertical grid lines
     for (int i = 0; i < ofGetWidth() / main->charWidth; i++)
     {
         float x = i * main->charWidth + fmodf(xOffset, main->charWidth);
-        ofSetColor(30);
+        ofSetColor(64);
         ofSetLineWidth(0.5f);
         ofDrawLine(x, 0, x, ofGetHeight());
     }
     
-    ofSetColor(50, 0, 25);
+    ofSetColor(64, 0, 32);
     ofSetLineWidth(1.0f);
     ofDrawLine(xOffset, 0, xOffset, ofGetHeight());
     
@@ -74,14 +96,37 @@ void BassLive::draw()
     for (int i = 0; i < ofGetHeight() / main->charHeight; i++)
     {
         float y = i * main->charHeight + fmodf(yOffset, main->charHeight);
-        ofSetColor(30);
+        ofSetColor(64);
         ofSetLineWidth(0.5f);
         ofDrawLine(0, y, ofGetWidth(), y);
     }
     
-    ofSetColor(50, 0, 25);
+    ofSetColor(64, 0, 32);
     ofSetLineWidth(1.0f);
     ofDrawLine(0, yOffset, ofGetWidth(), yOffset);
+    
+    
+    // Draw newton fractal
+    float RMS = main->RMS * 3.0f;
+    a[0] =  0.75f + RMS;
+    a[1] = -0.50f - RMS;
+    coefs[2][0] =  0.5f + sinf(ofGetSystemTime() / 110000.0f * TWO_PI) * 0.5f;
+    coefs[2][1] = -0.5f + sinf(ofGetSystemTime() / 130000.0f * TWO_PI) * 0.5f;
+    
+    shader.begin();
+    
+    shader.setUniform2f("dimensions", ofGetHeight(), ofGetHeight());
+    shader.setUniform2f("translate" , -xOffset * zoom * 2.0f / ofGetHeight(),
+                        yOffset * zoom * 2.0f / ofGetHeight());
+    shader.setUniform1f("zoom"      , zoom);
+    shader.setUniform2f("a"         , a[0], a[1]);
+    
+    for (int i = 0; i < NEWTON_SIZE; i++)
+        shader.setUniform2f("coef" + ofToString(i), coefs[i][0], coefs[i][1]);
+    
+    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+    
+    shader.end();
     
     
     // Draw main with offset
@@ -121,7 +166,7 @@ void BassLive::mouseMoved (int x, int y)
 
 void BassLive::mouseDragged (int x, int y, int button)
 {
-    if (button == OF_MOUSE_BUTTON_MIDDLE)
+    if (button == OF_MOUSE_BUTTON_RIGHT)
     {
         xOffset += x - ofGetPreviousMouseX();
         yOffset += y - ofGetPreviousMouseY();

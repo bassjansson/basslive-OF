@@ -11,6 +11,7 @@
 
 #include "Syntax.h"
 
+#define NEWTON_SIZE 3
 
 class BassLive : public ofBaseApp
 {
@@ -46,7 +47,14 @@ private:
     MainFunction* main;
     ofSoundStream stream;
     
+    //========================================================================
     float xOffset, yOffset;
+    float zoom;
+    
+    ofShader shader;
+    
+    fftwf_complex a;
+    fftwf_complex coefs[NEWTON_SIZE];
 };
 
 

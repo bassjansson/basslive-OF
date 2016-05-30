@@ -57,6 +57,8 @@
 
 /* Begin PBXFileReference section */
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
+		E46B399B1CFC4448002126DA /* newton.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = newton.frag; sourceTree = "<group>"; };
+		E46B399C1CFC4448002126DA /* newton.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = newton.vert; sourceTree = "<group>"; };
 		E49E97F51CAD35E6009D015A /* PercentType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PercentType.cpp; sourceTree = "<group>"; };
 		E49E97F61CAD35E6009D015A /* PercentType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PercentType.hpp; sourceTree = "<group>"; };
 		E4B69B5B0A3A1756003C02F2 /* BassLive 2.0Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BassLive 2.0Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,11 +132,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E46B399A1CFC4448002126DA /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				E46B399C1CFC4448002126DA /* newton.vert */,
+				E46B399B1CFC4448002126DA /* newton.frag */,
+			);
+			name = shaders;
+			path = bin/data/shaders;
+			sourceTree = "<group>";
+		};
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
+				E46B399A1CFC4448002126DA /* shaders */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,

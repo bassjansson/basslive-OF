@@ -51,7 +51,7 @@ void MainFunction::draw()
     Function::draw(x, y, HORIZONTAL, false, false);
     
     // Update RMS
-    RMS = RMS * 0.8f + memory->getDAC()->getRMS().L * 0.2f;
+    RMS = RMS * 0.65f + memory->getDAC()->getRMS().L * 0.35f;
     
     charSelected->drawCursor(cursorAnim);
     
@@ -208,7 +208,7 @@ sig* MainFunction::compile (Memory* memory, bool record)
 //========================================================================
 void MainFunction::mousePressed (float x, float y, int button)
 {
-    if (button == OF_MOUSE_BUTTON_LEFT || button == OF_MOUSE_BUTTON_RIGHT)
+    if (button == OF_MOUSE_BUTTON_LEFT || button == OF_MOUSE_BUTTON_MIDDLE)
     {
         for (Character* c = begin; c != end(); c = c->right)
         {
