@@ -56,9 +56,9 @@ void Type::draw (float& x, float& y, bool vertical, bool selection, bool floatin
     if (flashValue > 0.001f)
     {
         ofSetColor(typeColor.r, typeColor.g, typeColor.b, flashValue * 255);
-        ofDrawRectangle(this->x, this->y, x - this->x + charWidth, charHeight);
+        ofDrawRectangle(xAnim, yAnim, x - xAnim + charWidth, charHeight);
         
-        flashValue *= 0.9f;
+        flashValue *= 0.925f;
     }
     
     

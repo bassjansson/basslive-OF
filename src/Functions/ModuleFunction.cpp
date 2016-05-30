@@ -31,25 +31,29 @@ void ModuleFunction::drawTypeAnimation()
         ofSetColor(typeColor.r, typeColor.g, typeColor.b,
                    (1.0f - module->getBeatTime()) * 191);
         
-        ofDrawRectangle(x + charWidth, y,
-                        identifier->x - x - charWidth,
-                        identifier->y - y + charHeight);
+        ofDrawRectRounded(xAnim + charWidth, yAnim,
+                          identifier->xAnim - xAnim - charWidth,
+                          identifier->yAnim - yAnim + charHeight,
+                          charWidth * 0.25f);
     }
     
     
-    // Draw function feedback line
-    sample RMS = 0.0f;
-    if (module) RMS = module->getRMS();
-    if (RMS.L > 1.0f) RMS.L = 1.0f;
-    if (RMS.R > 1.0f) RMS.R = 1.0f;
+    // Draw function line
+//    sample RMS = 0.0f;
+//    if (module) RMS = module->getRMS();
+//    if (RMS.L > 1.0f) RMS.L = 1.0f;
+//    if (RMS.R > 1.0f) RMS.R = 1.0f;
+//    
+//    float alpha  = powf(1.0f - (RMS.L + RMS.R), 2.0f);
+//    float width  = identifier->end()->x - x + 1.5f * charWidth;
+//    float height = end()->y - y;
     
-    float alpha  = powf(1.0f - (RMS.L + RMS.R), 2.0f);
-    float width  = identifier->end()->x - x + 1.5f * charWidth;
-    float height = end()->y - y;
-    
-    ofSetColor(typeColor.r, typeColor.g, typeColor.b, alpha * 255);
-    ofDrawRectangle(x + 0.5f * charWidth, y + charHeight,
-                    width * (RMS.L + RMS.R) + 1.0f, height);
+    ofSetColor(typeColor.r, typeColor.g, typeColor.b, 150); //alpha * 255);
+    ofSetLineWidth(2.0f);
+    ofDrawLine(xAnim + 0.5f * charWidth,        yAnim + charHeight,
+               xAnim + 0.5f * charWidth, end()->yAnim + charHeight);
+    //ofDrawRectangle(x + 0.5f * charWidth, y + charHeight,
+    //                width * (RMS.L + RMS.R) + 1.0f, height);
 }
 
 //========================================================================

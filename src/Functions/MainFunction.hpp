@@ -33,7 +33,8 @@ public:
 private:
     //========================================================================
     Memory* memory;
-    int cursorTime;
+    int   cursorTime;
+    float cursorAnim;
 };
 
 

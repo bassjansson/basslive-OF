@@ -56,40 +56,32 @@ void BassLive::draw()
     // Clear background
     ofBackground(0);
     
-    
-    // Get offsets
-    float xOff = fmodf(xOffset + 10*ofGetWidth(),  ofGetWidth());
-    float yOff = fmodf(yOffset + 10*ofGetHeight(), ofGetHeight());
-    
-    
     // Draw vertical grid lines
     for (int i = 0; i < ofGetWidth() / main->charWidth; i++)
     {
-        float x = i * main->charWidth + fmodf(xOff, main->charWidth);
+        float x = i * main->charWidth + fmodf(xOffset, main->charWidth);
         ofSetColor(30);
         ofSetLineWidth(0.5f);
         ofDrawLine(x, 0, x, ofGetHeight());
     }
     
-    float x = fmodf(xOff, ofGetWidth());
     ofSetColor(50, 0, 25);
     ofSetLineWidth(1.0f);
-    ofDrawLine(x, 0, x, ofGetHeight());
+    ofDrawLine(xOffset, 0, xOffset, ofGetHeight());
     
     
     // Draw horizontal grid lines
     for (int i = 0; i < ofGetHeight() / main->charHeight; i++)
     {
-        float y = i * main->charHeight + fmodf(yOff, main->charHeight);
+        float y = i * main->charHeight + fmodf(yOffset, main->charHeight);
         ofSetColor(30);
         ofSetLineWidth(0.5f);
         ofDrawLine(0, y, ofGetWidth(), y);
     }
     
-    float y = fmodf(yOff, ofGetHeight());
     ofSetColor(50, 0, 25);
     ofSetLineWidth(1.0f);
-    ofDrawLine(0, y, ofGetWidth(), y);
+    ofDrawLine(0, yOffset, ofGetWidth(), yOffset);
     
     
     // Draw main with offset

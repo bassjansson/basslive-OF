@@ -23,6 +23,7 @@ MainFunction::MainFunction (Memory* memory) : Function(CHAR_FUNC_MAIN_OPEN,
     
     this->memory = memory;
     this->cursorTime = 0;
+    this->cursorAnim = 0.0f;
     
                   add(new Character('B'));
     charSelected->add(new Character('a'));
@@ -44,7 +45,7 @@ MainFunction::~MainFunction()
 //========================================================================
 void MainFunction::draw()
 {
-    float x = charWidth;
+    float x = 0;
     float y = charHeight;
     
     Function::draw(x, y, HORIZONTAL, false, false);
@@ -52,10 +53,15 @@ void MainFunction::draw()
     // Update RMS
     RMS = RMS * 0.8f + memory->getDAC()->getRMS().L * 0.2f;
     
-    if (cursorTime < FRAME_RATE / 2)
-        charSelected->drawCursor();
+    charSelected->drawCursor(cursorAnim);
     
     cursorTime = (cursorTime + 1) % FRAME_RATE;
+    
+    if (cursorTime < FRAME_RATE / 2)
+        cursorAnim += 0.9f * (1.0f - cursorAnim);
+    else
+        cursorAnim -= 0.3f * cursorAnim;
+        
 }
 
 //========================================================================

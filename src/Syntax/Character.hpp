@@ -42,7 +42,7 @@ public:
     //========================================================================
     virtual void draw (float& x, float& y, bool vertical, bool selection, bool floating);
     virtual void drawFractal(); // TODO: move fractal to type
-    virtual void drawCursor(); // Fancy cursor?
+    virtual void drawCursor (float size); // Fancy cursor?
     virtual Character* end();
     
     //========================================================================
@@ -68,10 +68,10 @@ public:
     
     //========================================================================
     float x, y;
+    float xAnim, yAnim;
     
 private:
     //========================================================================
-    float xAnim, yAnim;
     float animation;
 };
 

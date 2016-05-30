@@ -31,8 +31,8 @@ Character::Character (char c)
     charString = c;
     
     x = y = 0.0f;
-    
     xAnim = yAnim = 0.0f;
+    
     animation = 0.0f;
     
     if (charSelected == NULL)
@@ -177,7 +177,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     float factor1 = powf(1.0f - animation, 4.0f);
     float factor2 = (1.0f - factor1);
     
-    float scaling = 1.0f + ofGetHeight() / charHeight * factor1 * 0.33f;
+    float scaling = 1.0f + ofGetHeight() / charHeight * factor1 * 0.4f;
     
     ofTranslate(xAnim * factor2 + ofGetWidth()  * 0.5f * factor1,
                 yAnim * factor2 + ofGetHeight() * 0.5f * factor1);
@@ -222,6 +222,17 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
         animation  = 1.0f;
     else
         animation += 0.047f;
+    
+    
+    // Shake characters when a key is pressed
+    if (ofGetKeyPressed())
+    {
+        float factor = 0.033f;
+        xAnim += ofRandom(-charWidth * factor, charWidth * factor);
+        yAnim -= ofRandom(0.0f, charHeight * factor);
+        
+        animation *= 0.933f;
+    }
 }
 
 
@@ -264,11 +275,14 @@ void Character::drawFractal()
     }
 }
 
-void Character::drawCursor()
+void Character::drawCursor (float size)
 {
-    ofSetColor(255);
-    ofDrawRectangle(this->x + charWidth * 0.95f, this->y,
-                    charWidth * 0.1f, charHeight);
+    ofSetColor(250, 75 + 175 * size, 75);
+    ofDrawRectRounded(xAnim + charWidth * 0.5f + charWidth * size * 0.44f,
+                      yAnim + charHeight,
+                      charWidth * (1.0f - size * 0.88f),
+                      -charHeight * size,
+                      charWidth * (1.0f - size));
 }
 
 Character* Character::end()

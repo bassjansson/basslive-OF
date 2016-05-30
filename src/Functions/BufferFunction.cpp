@@ -31,9 +31,10 @@ void BufferFunction::drawTypeAnimation()
         ofSetColor(typeColor.r, typeColor.g, typeColor.b,
                    (1.0f - buffer->getBeatTime()) * 191);
         
-        ofDrawRectangle(x, y,
-                        end()->x - x + charWidth,
-                        end()->y - y + charHeight);
+        ofDrawRectRounded(xAnim, yAnim,
+                          end()->xAnim - xAnim + charWidth,
+                          end()->yAnim - yAnim + charHeight,
+                          charWidth * 0.25f);
     }
     
     
@@ -47,11 +48,11 @@ void BufferFunction::drawTypeAnimation()
     }
     
     float alpha  = sqrtf(1.0f - beatTime);
-    float width  = identifier->end()->x - x + 1.5f * charWidth;
-    float height = end()->y - y;
+    float width  = identifier->end()->xAnim - xAnim + 1.5f * charWidth;
+    float height = end()->yAnim - yAnim;
     
     ofSetColor(typeColor.r, typeColor.g, typeColor.b, alpha * 255);
-    ofDrawRectangle(x + 0.5f * charWidth, y + charHeight,
+    ofDrawRectangle(xAnim + 0.5f * charWidth, yAnim + charHeight,
                     width * beatTime + 1.0f, height);
 }
 
