@@ -51,7 +51,7 @@ void MainFunction::draw()
     Function::draw(x, y, HORIZONTAL, false, false);
     
     // Update RMS
-    RMS = RMS * 0.65f + memory->getDAC()->getRMS().L * 0.35f;
+    RMS = RMS * 0.7f + memory->getDAC()->getRMS().L * 0.3f;
     
     charSelected->drawCursor(cursorAnim);
     

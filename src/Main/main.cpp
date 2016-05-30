@@ -15,8 +15,9 @@ int main()
     
     ofGLFWWindowSettings settings;
     settings.setGLVersion(3, 2); //we define the OpenGL version we want to use
-    settings.width = 1024;
-    settings.height = 768;
+    //settings.width = 1024;
+    //settings.height = 768;
+    settings.windowMode = OF_FULLSCREEN;
     ofCreateWindow(settings);
     
     return ofRunApp(new BassLive());

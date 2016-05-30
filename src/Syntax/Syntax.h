@@ -31,8 +31,8 @@
 #define UP    0
 #define DOWN  1
 
-#define FRAME_RATE 30
-#define FONT_SIZE  30
+#define FRAME_RATE 20
+#define FONT_SIZE  26
 
 #define CHAR_TYPE_NUMBER  '$'
 #define CHAR_TYPE_PERCENT '%'

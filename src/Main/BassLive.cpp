@@ -22,8 +22,8 @@ void BassLive::setup()
     ofSetFrameRate(FRAME_RATE);
     ofSetVerticalSync(true);
     ofSetEscapeQuitsApp(false);
-    ofSetWindowShape(ofGetScreenWidth() - 150, ofGetScreenHeight() - 150);
-    ofSetWindowPosition(75, 75);
+    //ofSetWindowShape(ofGetScreenWidth() - 150, ofGetScreenHeight() - 150);
+    //ofSetWindowPosition(75, 75);
     ofSetWindowTitle("BassLive 2.0");
     
     memory = new Memory(INPUT_CHANNELS);
@@ -43,7 +43,7 @@ void BassLive::setup()
     a[0]        = 1.0f;
     coefs[0][0] = ofRandom(-1.0f, 1.0f);
     coefs[1][0] = ofRandom(-1.0f, 1.0f);
-    coefs[2][0] = 0.5f;
+    coefs[2][0] = 0.0f;
     //coefs[3][0] = 0.0f;
     //coefs[4][0] = 0.0f;
     //coefs[5][0] = 0.0f;
@@ -51,7 +51,7 @@ void BassLive::setup()
     a[1]        = -0.8f;
     coefs[0][1] = ofRandom(-1.0f, 1.0f);
     coefs[1][1] = ofRandom(-1.0f, 1.0f);
-    coefs[2][1] = -0.5f;
+    coefs[2][1] = 0.0f;
     //coefs[3][1] = 0.0f;
     //coefs[4][1] = 0.0f;
     //coefs[5][1] = 0.0f;
@@ -110,14 +110,15 @@ void BassLive::draw()
     float RMS = main->RMS * 3.0f;
     a[0] =  0.75f + RMS;
     a[1] = -0.50f - RMS;
-    coefs[2][0] =  0.5f + sinf(ofGetSystemTime() / 110000.0f * TWO_PI) * 0.5f;
-    coefs[2][1] = -0.5f + sinf(ofGetSystemTime() / 130000.0f * TWO_PI) * 0.5f;
+    coefs[2][0] = sinf(ofGetSystemTime() / 130000.0f * TWO_PI);
+    coefs[2][1] = cosf(ofGetSystemTime() / 170000.0f * TWO_PI);
     
     shader.begin();
     
     shader.setUniform2f("dimensions", ofGetHeight(), ofGetHeight());
-    shader.setUniform2f("translate" , -xOffset * zoom * 2.0f / ofGetHeight(),
-                        yOffset * zoom * 2.0f / ofGetHeight());
+    shader.setUniform2f("translate" ,
+                        -xOffset * zoom * 2.0f / ofGetHeight(),
+                         yOffset * zoom * 2.0f / ofGetHeight());
     shader.setUniform1f("zoom"      , zoom);
     shader.setUniform2f("a"         , a[0], a[1]);
     

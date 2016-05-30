@@ -225,13 +225,13 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     
     // Shake characters when a key is pressed
-    if (ofGetKeyPressed() && animation > 0.87f)
+    if (RMS > 0.05f) // CHANGE THIS WHEN NEEDED
     {
-        float factor = 0.033f;
+        float factor = 0.04f;
         xAnim += ofRandom(-charWidth * factor, charWidth * factor);
         yAnim -= ofRandom(0.0f, charHeight * factor);
         
-        animation *= 0.933f;
+        animation *= 0.93f;
     }
 }
 
