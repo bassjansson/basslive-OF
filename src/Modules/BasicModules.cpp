@@ -304,7 +304,7 @@ void pitch_Module::process (Clock& clock)
     for (tick t = 0; t < clock.size; t++)
     {
         // Get frequency
-        float pitch  = (inputs[1][t].L + inputs[1][t].R) / 2.0f;
+        float pitch  = (inputs[1][t].L + inputs[1][t].R) * 0.5f;
         float window = sqrtf(0.5f / pitch) * 0.1f;
         float freq   = (-pitch + 1.0f) / window;
         
@@ -338,6 +338,62 @@ void pitch_Module::process (Clock& clock)
         output[t].R = value.R + value.L * envelope.L;
         
        
+        // Update buffer pointer
+        pointer = (pointer + 1) % buffer.size();
+    }
+}
+
+
+//========================================================================
+// delay_Module (input, delay, feedback)
+//========================================================================
+delay_Module::delay_Module (const string& ID) : AudioModule(ID), buffer(0.0f)
+{
+    inputs.push_back(AudioInput(0.0f)); // input
+    inputs.push_back(AudioInput(0.0f)); // delay
+    inputs.push_back(AudioInput(0.0f)); // feedback
+    
+    buffer.allocate(SAMPLERATE * 10);
+    
+    pointer = 0;
+}
+
+delay_Module::~delay_Module()
+{
+    buffer.deallocate();
+}
+
+void delay_Module::process (Clock& clock)
+{
+    // Walk samples
+    for (tick t = 0; t < clock.size; t++)
+    {
+        // Get delay time
+        float d = (inputs[1][t].L + inputs[1][t].R) * 0.5f * clock.beatLength[t];
+        d = fmodf(fabsf(d), buffer.size()) + 1.0f; // Minimum 1 sample delay
+        sample delayTime = fmodf(pointer - d + buffer.size(), buffer.size());
+        
+        
+        // Get feedback value
+        float feedback = (inputs[2][t].L + inputs[2][t].R) * 0.5f;
+        if (feedback < 0.00f) feedback = 0.00f;
+        if (feedback > 0.99f) feedback = 0.99f;
+        
+        
+        // Get delayed sample
+        sample delayedSample = buffer.getValue(delayTime);
+        
+        
+        // Write input and feedback to buffer
+        buffer[pointer].L = inputs[0][t].L + delayedSample.L * feedback;
+        buffer[pointer].R = inputs[0][t].R + delayedSample.R * feedback;
+        
+        
+        // Write input and delay to output
+        output[t].L = inputs[0][t].L + delayedSample.L;
+        output[t].R = inputs[0][t].R + delayedSample.R;
+        
+        
         // Update buffer pointer
         pointer = (pointer + 1) % buffer.size();
     }

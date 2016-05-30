@@ -104,6 +104,23 @@ private:
 
 
 //========================================================================
+// delay_Module
+//========================================================================
+class delay_Module : public AudioModule
+{
+public:
+     delay_Module (const string& ID);
+    ~delay_Module ();
+    
+private:
+    virtual void process (Clock& clock);
+    
+    sig  buffer;
+    tick pointer;
+};
+
+
+//========================================================================
 // pan_Module
 //========================================================================
 class pan_Module : public AudioModule

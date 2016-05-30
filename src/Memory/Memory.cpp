@@ -23,6 +23,7 @@ AudioModule* Memory::addModule (const string& module, const string& ID)
     else if (module == "crush") m = new    crush_Module(ID);
     else if (module == "comp")  m = new     comp_Module(ID);
     else if (module == "pitch") m = new    pitch_Module(ID);
+    else if (module == "delay") m = new    delay_Module(ID);
     else if (module == "pan")   m = new      pan_Module(ID);
     //else if (module == "vocod") m = new    vocod_Module(ID);
     
@@ -233,7 +234,7 @@ void Memory::processClockAndClick()
         float amp = 1.0f - float(barClock % clock.beatLength[t]) / SAMPLERATE * 100.0f;
         if (amp < 0.0f) amp = 0.0f;
         
-        click[t].L = osc * amp * 0.5f;
-        click[t].R = osc * amp * 0.5f;
+        click[t].L = osc * amp * 0.25f;
+        click[t].R = osc * amp * 0.25f;
     }
 }
