@@ -45,7 +45,7 @@ MainFunction::~MainFunction()
 //========================================================================
 void MainFunction::draw()
 {
-    float x = 0;
+    float x = 0.0f;
     float y = charHeight;
     
     Function::draw(x, y, HORIZONTAL, false, false);

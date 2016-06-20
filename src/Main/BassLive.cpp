@@ -26,33 +26,39 @@ void BassLive::setup()
     //ofSetWindowPosition(75, 75);
     ofSetWindowTitle("BassLive 2.0");
     
+    
     memory = new Memory(INPUT_CHANNELS);
     main   = new MainFunction(memory);
+    
     
     // TODO: List devices in interface
     stream.printDeviceList();
     stream.setDeviceID(2);
     stream.setup(this, OUTPUT_CHANNELS, INPUT_CHANNELS, SAMPLERATE, BUFFERSIZE, 4);
     
-    xOffset = 0.0f;
-    yOffset = 0.0f;
-    zoom = 1.0f; //2*M_PI;
+    
+    xOffset    = 0.0f;
+    yOffset    = 0.0f;
+    zoom       = 1.0f;
+    zoomTarget = 1.0f;
+    
     
     shader.load("shaders/newton");
+    
     
     a[0]        = 1.0f;
     coefs[0][0] = ofRandom(-1.0f, 1.0f);
     coefs[1][0] = ofRandom(-1.0f, 1.0f);
-    coefs[2][0] = 0.0f;
-    //coefs[3][0] = 0.0f;
+    coefs[2][0] = ofRandom(-1.0f, 1.0f);
+    coefs[3][0] = 0.0f;
     //coefs[4][0] = 0.0f;
     //coefs[5][0] = 0.0f;
     
     a[1]        = -0.8f;
     coefs[0][1] = ofRandom(-1.0f, 1.0f);
     coefs[1][1] = ofRandom(-1.0f, 1.0f);
-    coefs[2][1] = 0.0f;
-    //coefs[3][1] = 0.0f;
+    coefs[2][1] = ofRandom(-1.0f, 1.0f);
+    coefs[3][1] = 0.0f;
     //coefs[4][1] = 0.0f;
     //coefs[5][1] = 0.0f;
 }
@@ -68,8 +74,21 @@ void BassLive::exit()
 
 void BassLive::update()
 {
-    main->mouseX = mouseX - xOffset;
-    main->mouseY = mouseY - yOffset;
+    // Update mouse position in main
+    main->mouseX = (mouseX - xOffset) / zoom;
+    main->mouseY = (mouseY - yOffset) / zoom;
+    
+    
+    // Update zoom
+    zoom = 0.9f * zoom + 0.1f * zoomTarget;
+    
+    
+    // Update coefficients with RMS
+    float RMS = main->RMS * 3.0f;
+    a[0] =  0.75f + RMS;
+    a[1] = -0.50f - RMS;
+    coefs[NEWTON_SIZE - 1][0] = sinf(ofGetSystemTime() / 130000.0f * TWO_PI * (RMS + 1.0f));
+    coefs[NEWTON_SIZE - 1][1] = cosf(ofGetSystemTime() / 170000.0f * TWO_PI * (RMS + 1.0f));
 }
 
 void BassLive::draw()
@@ -79,48 +98,34 @@ void BassLive::draw()
     
     
     // Draw vertical grid lines
-    for (int i = 0; i < ofGetWidth() / main->charWidth; i++)
+    float gridXStep = main->charWidth * zoom;
+    float gridXOffset = fmodf(fabsf(xOffset), gridXStep);
+    if (xOffset < 0.0f) gridXOffset = gridXStep - gridXOffset;
+    for (float x = gridXOffset; x < ofGetWidth(); x += gridXStep)
     {
-        float x = i * main->charWidth + fmodf(xOffset, main->charWidth);
-        ofSetColor(64);
-        ofSetLineWidth(0.5f);
+        ofSetColor(30, 40, 50);
         ofDrawLine(x, 0, x, ofGetHeight());
     }
-    
-    ofSetColor(64, 0, 32);
-    ofSetLineWidth(1.0f);
-    ofDrawLine(xOffset, 0, xOffset, ofGetHeight());
-    
+
     
     // Draw horizontal grid lines
-    for (int i = 0; i < ofGetHeight() / main->charHeight; i++)
+    float gridYStep = main->charHeight * zoom;
+    float gridYOffset = fmodf(fabsf(yOffset), gridYStep);
+    if (yOffset < 0.0f) gridYOffset = gridYStep - gridYOffset;
+    for (float y = gridYOffset; y < ofGetHeight(); y += gridYStep)
     {
-        float y = i * main->charHeight + fmodf(yOffset, main->charHeight);
-        ofSetColor(64);
-        ofSetLineWidth(0.5f);
+        ofSetColor(30, 40, 50);
         ofDrawLine(0, y, ofGetWidth(), y);
     }
     
-    ofSetColor(64, 0, 32);
-    ofSetLineWidth(1.0f);
-    ofDrawLine(0, yOffset, ofGetWidth(), yOffset);
-    
     
     // Draw newton fractal
-    float RMS = main->RMS * 3.0f;
-    a[0] =  0.75f + RMS;
-    a[1] = -0.50f - RMS;
-    coefs[2][0] = sinf(ofGetSystemTime() / 130000.0f * TWO_PI);
-    coefs[2][1] = cosf(ofGetSystemTime() / 170000.0f * TWO_PI);
-    
     shader.begin();
     
-    shader.setUniform2f("dimensions", ofGetHeight(), ofGetHeight());
-    shader.setUniform2f("translate" ,
-                        -xOffset * zoom * 2.0f / ofGetHeight(),
-                         yOffset * zoom * 2.0f / ofGetHeight());
-    shader.setUniform1f("zoom"      , zoom);
-    shader.setUniform2f("a"         , a[0], a[1]);
+    shader.setUniform1f("height"   , ofGetHeight());
+    shader.setUniform2f("translate", xOffset, yOffset);
+    shader.setUniform1f("zoom"     , 1.0f / zoom);
+    shader.setUniform2f("a"        , a[0], a[1]);
     
     for (int i = 0; i < NEWTON_SIZE; i++)
         shader.setUniform2f("coef" + ofToString(i), coefs[i][0], coefs[i][1]);
@@ -130,10 +135,14 @@ void BassLive::draw()
     shader.end();
     
     
-    // Draw main with offset
+    // Draw main with offset and zoom
     ofPushMatrix();
+    
     ofTranslate(xOffset, yOffset);
+    ofScale(zoom, zoom);
+    
     main->draw();
+    
     ofPopMatrix();
 }
 
@@ -151,6 +160,31 @@ void BassLive::audioOut (float* output, int size, int channels)
 //========================================================================
 void BassLive::keyPressed (int key)
 {
+    if (ofGetKeyPressed(OF_KEY_COMMAND))
+    {
+        // TODO: VALUES SHOULD GO AS DEFINES INTO Syntax.h!!!
+             if (key == '=') zoomTarget *= 1.2f;
+        else if (key == '-') zoomTarget /= 1.2f;
+        else if (key == '/')
+        {
+            a[0]        = 1.0f;
+            coefs[0][0] = ofRandom(-1.0f, 1.0f);
+            coefs[1][0] = ofRandom(-1.0f, 1.0f);
+            coefs[2][0] = ofRandom(-1.0f, 1.0f);
+            coefs[3][0] = 0.0f;
+            //coefs[4][0] = 0.0f;
+            //coefs[5][0] = 0.0f;
+            
+            a[1]        = -0.8f;
+            coefs[0][1] = ofRandom(-1.0f, 1.0f);
+            coefs[1][1] = ofRandom(-1.0f, 1.0f);
+            coefs[2][1] = ofRandom(-1.0f, 1.0f);
+            coefs[3][1] = 0.0f;
+            //coefs[4][1] = 0.0f;
+            //coefs[5][1] = 0.0f;
+        }
+    }
+    
     main->keyPressed(key);
 }
 
@@ -181,8 +215,9 @@ void BassLive::mousePressed (int x, int y, int button)
 
 void BassLive::mouseReleased (int x, int y, int button)
 {
-    main->mouseReleased(x - xOffset,
-                        y - yOffset, button);
+//    main->mouseReleased(x - xOffset,
+//                        y - yOffset, button);
+    main->mousePressed(main->mouseX, main->mouseY, button);
 }
 
 //========================================================================

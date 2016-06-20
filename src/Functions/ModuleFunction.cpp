@@ -49,7 +49,7 @@ void ModuleFunction::drawTypeAnimation()
 //    float height = end()->y - y;
     
     ofSetColor(typeColor.r, typeColor.g, typeColor.b, 150); //alpha * 255);
-    ofSetLineWidth(2.0f);
+    //ofSetLineWidth(2.0f);
     ofDrawLine(xAnim + 0.5f * charWidth,        yAnim + charHeight,
                xAnim + 0.5f * charWidth, end()->yAnim + charHeight);
     //ofDrawRectangle(x + 0.5f * charWidth, y + charHeight,

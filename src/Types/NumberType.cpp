@@ -10,9 +10,11 @@
 
 
 //========================================================================
-NumberType::NumberType() : Type(CHAR_TYPE_NUMBER), value(0.0f)
+NumberType::NumberType() : Type(CHAR_TYPE_NUMBER)
 {
     typeType = NUMBER;
+    
+    value = new AudioSignal(0.0f);
 }
 
 //========================================================================
@@ -33,7 +35,7 @@ sig* NumberType::compile (Memory* memory, bool record)
     }
     
     char* err;
-    value[0] = strtof(typeString.c_str(), &err);
+    (*value)[0] = strtof(typeString.c_str(), &err);
     
     if (*err == 0)
     {
@@ -42,14 +44,14 @@ sig* NumberType::compile (Memory* memory, bool record)
     else
     {
         flash(COLOR_ERROR);
-        value[0] = 0.0f;
+        (*value)[0] = 0.0f;
     }
     
-    return &value;
+    return value;
 }
 
 //========================================================================
 float NumberType::getValue()
 {
-    return value[0].L;
+    return (*value)[0].L;
 }

@@ -11,7 +11,7 @@
 
 #include "Syntax.h"
 
-#define NEWTON_SIZE 3
+#define NEWTON_SIZE 4
 
 class BassLive : public ofBaseApp
 {
@@ -49,7 +49,7 @@ private:
     
     //========================================================================
     float xOffset, yOffset;
-    float zoom;
+    float zoom, zoomTarget;
     
     ofShader shader;
     

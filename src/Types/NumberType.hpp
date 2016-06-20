@@ -27,7 +27,7 @@ public:
     
 private:
     //========================================================================
-    sig value; // TODO: fix allocation error
+    sig* value; // TODO: fix allocation error, fixed???
 };
 
 

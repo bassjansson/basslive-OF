@@ -28,7 +28,7 @@ public:
 private:
     //========================================================================
     Character* percent;
-    sig value; // TODO: fix allocation error
+    sig* value; // TODO: fix allocation error, fixed???
 };
 
 #endif /* PercentType_hpp */

@@ -3,11 +3,11 @@
 
 #version 150
 
-#define SIZE       3
-#define PRECISION  0.1
+#define SIZE       4
+#define PRECISION  0.667
 #define ITERATIONS 5
 
-uniform vec2  dimensions;
+uniform float height;
 uniform vec2  translate;
 uniform float zoom;
 uniform vec2  a;
@@ -15,7 +15,7 @@ uniform vec2  a;
 uniform vec2 coef0;
 uniform vec2 coef1;
 uniform vec2 coef2;
-//uniform vec2 coef3;
+uniform vec2 coef3;
 //uniform vec2 coef4;
 //uniform vec2 coef5;
 
@@ -109,12 +109,22 @@ vec4 getColor (vec2 z, float i)
 //    color.r = (1. - i) * mod(theta + 0.00, 1.);// * radius;
 //    color.g = (1. - i) * mod(theta + 0.33, 1.);// * radius;
 //    color.b = (1. - i) * mod(theta + 0.66, 1.);// * radius;
-//    color.a =  1.;
+//    color.a = 0.5;
     
-    color.r = (1. - i) * sqrt(z.x * z.x + z.y * z.y);
-    color.g = (1. - i) * (z.x / 2. + 0.5);
-    color.b = (1. - i) * (z.y / 2. + 0.5);
-    color.a =  0.5;
+//    color.r = (1. - i) * sqrt(z.x * z.x + z.y * z.y);
+//    color.g = (1. - i) * (z.x / 2. + 0.5);
+//    color.b = (1. - i) * (z.y / 2. + 0.5);
+//    color.a = 0.5;
+    
+//    color.r = 0.25 + 0.75 * (1. - i) * mod(theta + 0.00, 1.) * radius;
+//    color.g = 0.25 + 0.75 * (1. - i) * mod(theta + 0.33, 1.) * radius;
+//    color.b = 0.25 + 0.75 * (1. - i) * mod(theta + 0.66, 1.) * radius;
+//    color.a = 0.5;
+    
+    color.r = 0.2 + 0.8 * (1. - i) * sqrt(z.x * z.x + z.y * z.y);
+    color.g = 0.2 + 0.8 * (1. - i) * (z.x / 2. + 0.5);
+    color.b = 0.2 + 0.8 * (1. - i) * (z.y / 2. + 0.5);
+    color.a = 0.5;
     
     return color;
 }
@@ -126,16 +136,16 @@ void main()
     coefs[0] = coef0;
     coefs[1] = coef1;
     coefs[2] = coef2;
-    //coefs[3] = coef3;
+    coefs[3] = coef3;
     //coefs[4] = coef4;
     //coefs[5] = coef5;
     
     vec2[SIZE] derivative = getDerivative(coefs);
     
-    vec2 z = vec2((gl_FragCoord.x / dimensions.x * 2. - 1.) * zoom + translate.x,
-                  (gl_FragCoord.y / dimensions.y * 2. - 1.) * zoom + translate.y);
+    vec2 z = vec2(( gl_FragCoord.x - translate.x         ) * zoom / height,
+                  (-gl_FragCoord.y - translate.y + height) * zoom / height);
     
-    float  i = 0.;
+    float i = 0.;
     
     while (i < 1.)
     {

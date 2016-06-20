@@ -179,8 +179,9 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     float scaling = 1.0f + ofGetHeight() / charHeight * factor1 * 0.4f;
     
-    ofTranslate(xAnim * factor2 + ofGetWidth()  * 0.5f * factor1,
-                yAnim * factor2 + ofGetHeight() * 0.5f * factor1);
+    // TODO: change translate
+    ofTranslate(xAnim * factor2, // + ofGetWidth()  * 0.5f * factor1,
+                yAnim * factor2);// + ofGetHeight() * 0.5f * factor1);
     ofTranslate(charWidth * 0.5f, charHeight * 0.5f);
     ofRotate(factor1 * 180.0f);
     ofScale(scaling, scaling);
@@ -212,7 +213,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     
     // Update character animation position
-    float factor = 0.25f;
+    float factor = 0.3f;
     xAnim = (1.0f - factor) * xAnim + factor * this->x;
     yAnim = (1.0f - factor) * yAnim + factor * this->y;
     
@@ -225,7 +226,7 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     
     // Shake characters when a key is pressed
-    if (RMS > 0.05f) // CHANGE THIS WHEN NEEDED
+    if (RMS > 0.075f) // CHANGE THIS WHEN NEEDED
     {
         float factor = 0.04f;
         xAnim += ofRandom(-charWidth * factor, charWidth * factor);
@@ -269,7 +270,7 @@ void Character::drawFractal()
         float factor = powf(1.0f - length, 4.0f);
         
         ofSetColor(color.r, color.g, color.b, 100 * factor);
-        ofSetLineWidth(5.0f);
+        //ofSetLineWidth(5.0f);
         ofDrawLine(counterX,  counterY,
                    counterCX, counterCY);
     }
