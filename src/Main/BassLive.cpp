@@ -22,8 +22,6 @@ void BassLive::setup()
     ofSetFrameRate(FRAME_RATE);
     ofSetVerticalSync(true);
     ofSetEscapeQuitsApp(false);
-    //ofSetWindowShape(ofGetScreenWidth() - 150, ofGetScreenHeight() - 150);
-    //ofSetWindowPosition(75, 75);
     ofSetWindowTitle("BassLive 2.0");
     
     
@@ -65,11 +63,11 @@ void BassLive::setup()
 
 void BassLive::exit()
 {
+    shader.unload();
+    
     stream.close();
     delete main;
     delete memory;
-    
-    shader.unload();
 }
 
 void BassLive::update()
@@ -160,32 +158,26 @@ void BassLive::audioOut (float* output, int size, int channels)
 //========================================================================
 void BassLive::keyPressed (int key)
 {
+    // Send key to main
+    main->keyPressed(key);
+    
+    
+    // Zoom in/out and randomnise fractal
     if (ofGetKeyPressed(OF_KEY_COMMAND))
     {
-        // TODO: VALUES SHOULD GO AS DEFINES INTO Syntax.h!!!
              if (key == '=') zoomTarget *= 1.2f;
         else if (key == '-') zoomTarget /= 1.2f;
         else if (key == '/')
         {
-            a[0]        = 1.0f;
             coefs[0][0] = ofRandom(-1.0f, 1.0f);
             coefs[1][0] = ofRandom(-1.0f, 1.0f);
             coefs[2][0] = ofRandom(-1.0f, 1.0f);
-            coefs[3][0] = 0.0f;
-            //coefs[4][0] = 0.0f;
-            //coefs[5][0] = 0.0f;
             
-            a[1]        = -0.8f;
             coefs[0][1] = ofRandom(-1.0f, 1.0f);
             coefs[1][1] = ofRandom(-1.0f, 1.0f);
             coefs[2][1] = ofRandom(-1.0f, 1.0f);
-            coefs[3][1] = 0.0f;
-            //coefs[4][1] = 0.0f;
-            //coefs[5][1] = 0.0f;
         }
     }
-    
-    main->keyPressed(key);
 }
 
 void BassLive::keyReleased (int key)
@@ -215,9 +207,7 @@ void BassLive::mousePressed (int x, int y, int button)
 
 void BassLive::mouseReleased (int x, int y, int button)
 {
-//    main->mouseReleased(x - xOffset,
-//                        y - yOffset, button);
-    main->mousePressed(main->mouseX, main->mouseY, button);
+    main->mouseReleased(main->mouseX, main->mouseY, button);
 }
 
 //========================================================================

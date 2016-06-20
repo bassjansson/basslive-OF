@@ -51,10 +51,12 @@ private:
     float xOffset, yOffset;
     float zoom, zoomTarget;
     
+    //========================================================================
     ofShader shader;
     
-    fftwf_complex a;
-    fftwf_complex coefs[NEWTON_SIZE];
+    //========================================================================
+    float a[2];
+    float coefs[NEWTON_SIZE][2];
 };
 
 
