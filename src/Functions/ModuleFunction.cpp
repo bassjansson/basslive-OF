@@ -68,7 +68,7 @@ sig* ModuleFunction::compile (Memory* memory, bool record)
     
     if (identifier->typeString == "")
     {
-        string str = "m" + ofToString(memory->getNewID());
+        string str = "m" + ofToString(memory->getNewModuleID());
         
         charSelected = identifier;
         

@@ -6,7 +6,7 @@
 //
 //
 
-#include "Memory.hpp"
+#include "Syntax.h"
 
 
 //========================================================================
@@ -27,7 +27,11 @@ AudioModule* Memory::addModule (const string& module, const string& ID)
     else if (module == "pan")   m = new      pan_Module(ID);
     //else if (module == "vocod") m = new    vocod_Module(ID);
     
-    if (m) modules.push_back(m);
+    if (m)
+    {
+        modules.push_back(m);
+        moduleStrings.push_back(module + CHAR_TYPE_MOD_ID + ID);
+    }
     
     return m;
 }
@@ -36,9 +40,13 @@ AudioBuffer* Memory::addBuffer (const string& buffer, const string& ID)
 {
     AudioBuffer* b = NULL;
     
-    if (buffer == "buffer" || buffer == "buf") b = new AudioBuffer(ID);
+    if (buffer == "buf") b = new AudioBuffer(ID);
     
-    if (b) buffers.push_back(b);
+    if (b)
+    {
+        buffers.push_back(b);
+        bufferStrings.push_back(buffer + CHAR_TYPE_BUF_ID + ID);
+    }
     
     return b;
 }
@@ -75,7 +83,8 @@ Memory::Memory (int inputChannels) : click(sample())
     
     
     // Init ID count
-    idCount = 0;
+    moduleIDCount = 0;
+    bufferIDCount = 0;
 }
 
 Memory::~Memory()
@@ -104,6 +113,11 @@ Memory::~Memory()
     for (int b = 0; b < buffers.size(); b++)
         delete buffers[b];
     buffers.clear();
+    
+    
+    // Clear module and buffer strings
+    moduleStrings.clear();
+    bufferStrings.clear();
 }
 
 //========================================================================
@@ -207,9 +221,25 @@ AudioBuffer* Memory::getBuffer (const string& ID)
 }
 
 //========================================================================
-int Memory::getNewID()
+StringVector& Memory::getModuleStrings()
 {
-    return idCount++;
+    return moduleStrings;
+}
+
+StringVector& Memory::getBufferStrings()
+{
+    return bufferStrings;
+}
+
+//========================================================================
+int Memory::getNewModuleID()
+{
+    return moduleIDCount++;
+}
+
+int Memory::getNewBufferID()
+{
+    return bufferIDCount++;
 }
 
 //========================================================================

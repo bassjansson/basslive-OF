@@ -70,7 +70,7 @@ sig* BufferFunction::compile (Memory* memory, bool record)
     
     if (identifier->typeString == "")
     {
-        string str = "b" + ofToString(memory->getNewID());
+        string str = "b" + ofToString(memory->getNewBufferID());
         
         charSelected = identifier;
         

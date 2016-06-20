@@ -48,10 +48,12 @@ private:
     ofSoundStream stream;
     
     //========================================================================
+    float sideBarWidth;
     float xOffset, yOffset;
     float zoom, zoomTarget;
     
     //========================================================================
+    ofTrueTypeFont sideBarFont;
     ofShader shader;
     
     //========================================================================

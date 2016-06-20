@@ -4,7 +4,7 @@
 #version 150
 
 #define SIZE       4
-#define PRECISION  0.667
+#define PRECISION  0.675
 #define ITERATIONS 5
 
 uniform float height;

@@ -11,6 +11,10 @@
 
 #include "Modules.h"
 
+typedef vector<AudioModule*> ModuleVector;
+typedef vector<AudioBuffer*> BufferVector;
+typedef vector<string>       StringVector;
+
 
 class Memory
 {
@@ -39,7 +43,12 @@ public:
     AudioBuffer* addBuffer (const string& buffer, const string& ID);
     
     //========================================================================
-    int getNewID();
+    StringVector& getModuleStrings();
+    StringVector& getBufferStrings();
+    
+    //========================================================================
+    int getNewModuleID();
+    int getNewBufferID();
     
 private:
     //========================================================================
@@ -54,11 +63,16 @@ private:
     AudioModule* dac;
     
     //========================================================================
-    vector<AudioModule*> modules;
-    vector<AudioBuffer*> buffers;
+    ModuleVector modules;
+    BufferVector buffers;
     
     //========================================================================
-    int idCount;
+    StringVector moduleStrings;
+    StringVector bufferStrings;
+    
+    //========================================================================
+    int moduleIDCount;
+    int bufferIDCount;
 };
 
 

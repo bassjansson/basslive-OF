@@ -35,12 +35,14 @@ void BassLive::setup()
     stream.setup(this, OUTPUT_CHANNELS, INPUT_CHANNELS, SAMPLERATE, BUFFERSIZE, 4);
     
     
-    xOffset    = 0.0f;
-    yOffset    = 0.0f;
-    zoom       = 1.0f;
+    sideBarWidth = main->charWidth * 10.0f; // TODO: should be a define
+    xOffset = sideBarWidth;
+    yOffset = 0.0f;
+    zoom = 1.0f;
     zoomTarget = 1.0f;
     
     
+    sideBarFont.load("fonts/Menlo-Bold.ttf", FONT_SIZE / 2);
     shader.load("shaders/newton");
     
     
@@ -97,11 +99,14 @@ void BassLive::draw()
     
     // Draw vertical grid lines
     float gridXStep = main->charWidth * zoom;
-    float gridXOffset = fmodf(fabsf(xOffset), gridXStep);
+    float gridXOffset = fmodf(fabsf(xOffset - sideBarWidth), gridXStep);
     if (xOffset < 0.0f) gridXOffset = gridXStep - gridXOffset;
-    for (float x = gridXOffset; x < ofGetWidth(); x += gridXStep)
+    
+    for (float x =  gridXOffset  + sideBarWidth;
+               x <  ofGetWidth() - sideBarWidth;
+               x += gridXStep)
     {
-        ofSetColor(30, 40, 50);
+        ofSetColor(50, 50, 50); // TODO: should be a define
         ofDrawLine(x, 0, x, ofGetHeight());
     }
 
@@ -110,10 +115,13 @@ void BassLive::draw()
     float gridYStep = main->charHeight * zoom;
     float gridYOffset = fmodf(fabsf(yOffset), gridYStep);
     if (yOffset < 0.0f) gridYOffset = gridYStep - gridYOffset;
-    for (float y = gridYOffset; y < ofGetHeight(); y += gridYStep)
+    
+    for (float y =  gridYOffset;
+               y <  ofGetHeight();
+               y += gridYStep)
     {
-        ofSetColor(30, 40, 50);
-        ofDrawLine(0, y, ofGetWidth(), y);
+        ofSetColor(30, 50, 70); // TODO: should be a define
+        ofDrawLine(sideBarWidth, y, ofGetWidth() - sideBarWidth, y);
     }
     
     
@@ -142,6 +150,56 @@ void BassLive::draw()
     main->draw();
     
     ofPopMatrix();
+    
+    
+    // Draw module strings
+    float xPos = 0.0f;
+    float yPos = 0.0f;
+    ofSetColor(80, 110, 140, 50); // TODO: should be a define
+    ofDrawRectangle(xPos, yPos, sideBarWidth, ofGetHeight());
+    
+    yPos += main->charHeight * 0.875f;
+    ofSetColor(140, 170, 200, 230); // TODO: should be a define
+    ofDrawLine(xPos, yPos, xPos + sideBarWidth, yPos);
+    
+    xPos += main->charWidth  * 0.5f;
+    yPos -= main->charHeight * 0.125f;
+    sideBarFont.drawString("Modules in memory:", xPos, yPos);
+    
+    yPos += main->charHeight * 0.75f;
+    StringVector& moduleStrings = memory->getModuleStrings();
+    
+    for (int m = 0; m < moduleStrings.size(); ++m)
+    {
+        ofSetColor(110, 140, 170, 200); // TODO: should be a define
+        sideBarFont.drawString(moduleStrings[moduleStrings.size() - m - 1], xPos, yPos);
+        yPos += main->charHeight * 0.5f;
+    }
+    
+    
+    // Draw buffer strings
+    xPos = ofGetWidth() - sideBarWidth;
+    yPos = 0.0f;
+    ofSetColor(140, 80, 110, 50); // TODO: should be a define
+    ofDrawRectangle(xPos, yPos, sideBarWidth, ofGetHeight());
+    
+    yPos += main->charHeight * 0.875f;
+    ofSetColor(200, 140, 170, 230); // TODO: should be a define
+    ofDrawLine(xPos, yPos, xPos + sideBarWidth, yPos);
+    
+    xPos += main->charWidth  * 0.5f;
+    yPos -= main->charHeight * 0.125f;
+    sideBarFont.drawString("Buffers in memory:", xPos, yPos);
+    
+    yPos += main->charHeight * 0.75f;
+    StringVector& bufferStrings = memory->getBufferStrings();
+    
+    for (int b = 0; b < bufferStrings.size(); ++b)
+    {
+        ofSetColor(170, 110, 140, 200); // TODO: should be a define
+        sideBarFont.drawString(bufferStrings[bufferStrings.size() - b - 1], xPos, yPos);
+        yPos += main->charHeight * 0.5f;
+    }
 }
 
 //========================================================================
@@ -167,7 +225,7 @@ void BassLive::keyPressed (int key)
     {
              if (key == '=') zoomTarget *= 1.2f;
         else if (key == '-') zoomTarget /= 1.2f;
-        else if (key == '/')
+        else if (key == '/') // TODO: should be a define
         {
             coefs[0][0] = ofRandom(-1.0f, 1.0f);
             coefs[1][0] = ofRandom(-1.0f, 1.0f);
