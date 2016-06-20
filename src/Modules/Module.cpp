@@ -34,8 +34,11 @@ void AudioSignal::allocate (tick newSize)
         tick    oldSize   = b_size;
         
         if (oldSize > 1)
-            for (tick t = 0; t < newSize && t < oldSize; t++)
+            for (tick t = 0; t < newSize && t < oldSize; ++t)
                 newBuffer[t] = oldBuffer[t];
+        else
+            for (tick t = 0; t < newSize && t < oldSize; ++t)
+                newBuffer[t] = 0.0f;
             
         buffer = newBuffer;
         b_size = newSize;
@@ -81,7 +84,7 @@ sample AudioSignal::getRMS()
     {
         sample RMS = 0.0f;
         
-        for (tick t = 0; t < b_size; t++)
+        for (tick t = 0; t < b_size; ++t)
         {
             RMS.L += buffer[t].L * buffer[t].L;
             RMS.R += buffer[t].R * buffer[t].R;
@@ -177,7 +180,7 @@ void AudioModule::processSignal (Clock& clock)
     {
         this->clock = clock.clock;
         
-        for (int c = 0; c < inputs.size(); c++)
+        for (int c = 0; c < inputs.size(); ++c)
             inputs[c].getSignal()->processSignal(clock);
         
         process(clock);
@@ -187,7 +190,7 @@ void AudioModule::processSignal (Clock& clock)
 //========================================================================
 void AudioModule::setInputs (sig_vec& newInputs)
 {
-    for (int c = 0; c < inputs.size(); c++)
+    for (int c = 0; c < inputs.size(); ++c)
     {
         if (c < newInputs.size())
             inputs[c].setSignal(newInputs[c]);
@@ -211,6 +214,9 @@ AudioBuffer::AudioBuffer (const string& ID) : AudioModule(ID)
 //========================================================================
 void AudioBuffer::record (tick size)
 {
+    if (size < BUFFERSIZE)
+        size = BUFFERSIZE;
+    
     allocate(size);
     
     recording = WAIT;
@@ -219,36 +225,37 @@ void AudioBuffer::record (tick size)
 //========================================================================
 void AudioBuffer::process (Clock& clock)
 {
-    for (tick t = 0; t < clock.size; t++)
+    for (tick t = 0; t < clock.size; ++t)
     {
         if (recording == WAIT)
         {
             // Start of recording
-            if (clock[t] % clock.barLength[t] < BUFFERSIZE)
+            if (clock[t] % clock.barLength[t] < clock.size)
             {
                 recording = ON;
-                rec_start = clock[t];
-                
+                rec_start = clock[t] - clock.size;
+
+                // TODO: Clear needed or not?
                 for (tick t = 0; t < size(); t++)
                     output[t] = 0.0f;
             }
         }
         
-        if (recording == ON && clock[t] > rec_start + BUFFERSIZE)
+        if (recording == ON && clock[t] >= rec_start + clock.size * 2)
         {
             // Get pointer
-            tick pointer = clock[t] - rec_start - BUFFERSIZE;
+            tick pointer = clock[t] - rec_start - clock.size;
             
             
             // Get envelope
             float envelope = 1.0f;
             float fadeSize = (inputs[1][t].L + inputs[1][t].R) * 0.5f;
             
-            if (pointer < fadeSize)
-                envelope = sqrtf(pointer / fadeSize);
+            if (pointer - clock.size < fadeSize)
+                envelope *= sqrtf((pointer - clock.size) / fadeSize);
             
             if (size() - pointer < fadeSize)
-                envelope = sqrtf((size() - pointer) / fadeSize);
+                envelope *= sqrtf((size() - pointer) / fadeSize);
                 
                 
             // Write input to output
@@ -267,7 +274,7 @@ void AudioBuffer::process (Clock& clock)
     
     // Set beat time for visual feedback
     tick clock_p = clock.size - 1;
-    tick pointer = clock[clock_p] - rec_start - BUFFERSIZE;
+    tick pointer = clock[clock_p] - rec_start - clock.size;
     
     if (pointer < size())
     {
