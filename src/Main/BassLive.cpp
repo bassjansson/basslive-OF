@@ -87,8 +87,8 @@ void BassLive::update()
     float RMS = main->RMS * 3.0f;
     a[0] =  0.75f + RMS;
     a[1] = -0.50f - RMS;
-    coefs[NEWTON_SIZE - 1][0] = sinf(ofGetSystemTime() / 130000.0f * TWO_PI * (RMS + 1.0f));
-    coefs[NEWTON_SIZE - 1][1] = cosf(ofGetSystemTime() / 170000.0f * TWO_PI * (RMS + 1.0f));
+    coefs[NEWTON_SIZE - 1][0] = sinf(ofGetSystemTime() / 130000.0f * TWO_PI);// * (RMS + 1.0f));
+    coefs[NEWTON_SIZE - 1][1] = cosf(ofGetSystemTime() / 170000.0f * TWO_PI);// * (RMS + 1.0f));
 }
 
 void BassLive::draw()
@@ -99,8 +99,9 @@ void BassLive::draw()
     
     // Draw vertical grid lines
     float gridXStep = main->charWidth * zoom;
-    float gridXOffset = fmodf(fabsf(xOffset - sideBarWidth), gridXStep);
+    float gridXOffset = fmodf(fabsf(xOffset), gridXStep);
     if (xOffset < 0.0f) gridXOffset = gridXStep - gridXOffset;
+    gridXOffset = fmodf(gridXOffset - fmodf(sideBarWidth, gridXStep) + gridXStep, gridXStep);
     
     for (float x =  gridXOffset  + sideBarWidth;
                x <  ofGetWidth() - sideBarWidth;
