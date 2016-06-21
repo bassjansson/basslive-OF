@@ -11,7 +11,6 @@
 
 #include "Syntax.h"
 
-#define NEWTON_SIZE 4
 
 class BassLive : public ofBaseApp
 {
@@ -55,10 +54,6 @@ private:
     //========================================================================
     ofTrueTypeFont sideBarFont;
     ofShader shader;
-    
-    //========================================================================
-    float a[2];
-    float coefs[NEWTON_SIZE][2];
 };
 
 

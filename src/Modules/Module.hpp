@@ -110,7 +110,7 @@ public:
     
 private:
     //========================================================================
-    sig  defaultSignal;
+    sig* defaultSignal;
     sig* signal;
 };
 

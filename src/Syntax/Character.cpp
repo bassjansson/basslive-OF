@@ -226,13 +226,13 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
     
     
     // Shake characters when a key is pressed
-    if (RMS > 0.075f) // CHANGE THIS WHEN NEEDED
+    if (RMS > 0.0707f) // CHANGE THIS WHEN NEEDED
     {
-        float factor = 0.04f;
+        float factor = 0.05f;
         xAnim += ofRandom(-charWidth * factor, charWidth * factor);
         yAnim -= ofRandom(0.0f, charHeight * factor);
         
-        animation *= 0.93f;
+        animation *= 0.92f;
     }
 }
 
@@ -248,33 +248,33 @@ void Character::draw (float& x, float& y, bool vertical, bool selection, bool fl
  charHeight * 0.5f + charFont.getDescenderHeight());
  */
 
-void Character::drawFractal()
-{
-    float alpha  = (charString.c_str()[0] % 64) / 64.0f * TWO_PI;
-    float length = sqrtf(powf(x - ofGetWidth()  * 0.5f, 2.0f) +
-                         powf(y - ofGetHeight() * 0.5f, 2.0f)) * (RMS * 5.0f + 0.5f);
-    
-    float counterX = cosf(alpha) * length + ofGetWidth()  * 0.5f;
-    float counterY = sinf(alpha) * length + ofGetHeight() * 0.5f;
-    
-    ofColor color = getParentType()->typeColor;
-    
-    for (Character* c = begin; c->right->charType != MAIN; c = c->getType(RIGHT))
-    {
-        float counterCX = -c->x + ofGetWidth();
-        float counterCY = -c->y + ofGetHeight();
-        
-        length = sqrtf(powf(counterCX - counterX, 2.0f) +
-                       powf(counterCY - counterY, 2.0f)) / ofGetWidth();
-        
-        float factor = powf(1.0f - length, 4.0f);
-        
-        ofSetColor(color.r, color.g, color.b, 100 * factor);
-        //ofSetLineWidth(5.0f);
-        ofDrawLine(counterX,  counterY,
-                   counterCX, counterCY);
-    }
-}
+//void Character::drawFractal()
+//{
+//    float alpha  = (charString.c_str()[0] % 64) / 64.0f * TWO_PI;
+//    float length = sqrtf(powf(x - ofGetWidth()  * 0.5f, 2.0f) +
+//                         powf(y - ofGetHeight() * 0.5f, 2.0f)) * (RMS * 5.0f + 0.5f);
+//    
+//    float counterX = cosf(alpha) * length + ofGetWidth()  * 0.5f;
+//    float counterY = sinf(alpha) * length + ofGetHeight() * 0.5f;
+//    
+//    ofColor color = getParentType()->typeColor;
+//    
+//    for (Character* c = begin; c->right->charType != MAIN; c = c->getType(RIGHT))
+//    {
+//        float counterCX = -c->x + ofGetWidth();
+//        float counterCY = -c->y + ofGetHeight();
+//        
+//        length = sqrtf(powf(counterCX - counterX, 2.0f) +
+//                       powf(counterCY - counterY, 2.0f)) / ofGetWidth();
+//        
+//        float factor = powf(1.0f - length, 4.0f);
+//        
+//        ofSetColor(color.r, color.g, color.b, 100 * factor);
+//        //ofSetLineWidth(5.0f);
+//        ofDrawLine(counterX,  counterY,
+//                   counterCX, counterCY);
+//    }
+//}
 
 void Character::drawCursor (float size)
 {

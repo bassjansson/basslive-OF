@@ -44,23 +44,6 @@ void BassLive::setup()
     
     sideBarFont.load("fonts/Menlo-Bold.ttf", FONT_SIZE / 2);
     shader.load("shaders/newton");
-    
-    
-    a[0]        = 1.0f;
-    coefs[0][0] = ofRandom(-1.0f, 1.0f);
-    coefs[1][0] = ofRandom(-1.0f, 1.0f);
-    coefs[2][0] = ofRandom(-1.0f, 1.0f);
-    coefs[3][0] = 0.0f;
-    //coefs[4][0] = 0.0f;
-    //coefs[5][0] = 0.0f;
-    
-    a[1]        = -0.8f;
-    coefs[0][1] = ofRandom(-1.0f, 1.0f);
-    coefs[1][1] = ofRandom(-1.0f, 1.0f);
-    coefs[2][1] = ofRandom(-1.0f, 1.0f);
-    coefs[3][1] = 0.0f;
-    //coefs[4][1] = 0.0f;
-    //coefs[5][1] = 0.0f;
 }
 
 void BassLive::exit()
@@ -81,14 +64,6 @@ void BassLive::update()
     
     // Update zoom
     zoom = 0.9f * zoom + 0.1f * zoomTarget;
-    
-    
-    // Update coefficients with RMS
-    float RMS = main->RMS * 3.0f;
-    a[0] =  0.75f + RMS;
-    a[1] = -0.50f - RMS;
-    coefs[NEWTON_SIZE - 1][0] = sinf(ofGetSystemTime() / 130000.0f * TWO_PI);// * (RMS + 1.0f));
-    coefs[NEWTON_SIZE - 1][1] = cosf(ofGetSystemTime() / 170000.0f * TWO_PI);// * (RMS + 1.0f));
 }
 
 void BassLive::draw()
@@ -131,11 +106,11 @@ void BassLive::draw()
     
     shader.setUniform1f("height"   , ofGetHeight());
     shader.setUniform2f("translate", xOffset, yOffset);
-    shader.setUniform1f("zoom"     , 1.0f / zoom);
-    shader.setUniform2f("a"        , a[0], a[1]);
+    shader.setUniform1f("zoom"     , 2.0f / zoom);
+    shader.setUniform2f("a"        , main->a[0], main->a[1]);
     
     for (int i = 0; i < NEWTON_SIZE; i++)
-        shader.setUniform2f("coef" + ofToString(i), coefs[i][0], coefs[i][1]);
+        shader.setUniform2f("coef" + ofToString(i), main->coefs[i][0], main->coefs[i][1]);
     
     ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     
@@ -221,21 +196,11 @@ void BassLive::keyPressed (int key)
     main->keyPressed(key);
     
     
-    // Zoom in/out and randomnise fractal
+    // Zoom in/out with cmd plus/min
     if (ofGetKeyPressed(OF_KEY_COMMAND))
     {
              if (key == '=') zoomTarget *= 1.2f;
         else if (key == '-') zoomTarget /= 1.2f;
-        else if (key == '/') // TODO: should be a define
-        {
-            coefs[0][0] = ofRandom(-1.0f, 1.0f);
-            coefs[1][0] = ofRandom(-1.0f, 1.0f);
-            coefs[2][0] = ofRandom(-1.0f, 1.0f);
-            
-            coefs[0][1] = ofRandom(-1.0f, 1.0f);
-            coefs[1][1] = ofRandom(-1.0f, 1.0f);
-            coefs[2][1] = ofRandom(-1.0f, 1.0f);
-        }
     }
 }
 

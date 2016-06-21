@@ -16,14 +16,27 @@ MainFunction::MainFunction (Memory* memory) : Function(CHAR_FUNC_MAIN_OPEN,
     charType = MAIN;
     typeType = MODULE;
     
+    
     charFont.load("fonts/Menlo-Bold.ttf", FONT_SIZE);
     charWidth    = charFont.stringWidth("X");
     charHeight   = charFont.stringHeight("Xgj{|");
     charSelected = begin;
     
+    
     this->memory = memory;
     this->cursorTime = 0;
     this->cursorAnim = 0.0f;
+    
+    
+    a[0] =  1.0f;
+    a[1] = -0.8f;
+    
+    for (int i = 0; i < NEWTON_SIZE; ++i)
+    {
+        coefs[i][0] = ofRandom(-0.02f, 0.02f);
+        coefs[i][1] = ofRandom(-0.02f, 0.02f);
+    }
+    
     
                   add(new Character('B'));
     charSelected->add(new Character('a'));
@@ -33,6 +46,7 @@ MainFunction::MainFunction (Memory* memory) : Function(CHAR_FUNC_MAIN_OPEN,
     charSelected->add(new Character('i'));
     charSelected->add(new Character('v'));
     charSelected->add(new Character('e'));
+    
     
     flash(COLOR_FUNC_MAIN);
 }
@@ -45,14 +59,13 @@ MainFunction::~MainFunction()
 //========================================================================
 void MainFunction::draw()
 {
+    // Draw main function
     float x = 0.0f;
     float y = charHeight;
-    
     Function::draw(x, y, HORIZONTAL, false, false);
     
-    // Update RMS
-    RMS = RMS * 0.7f + memory->getDAC()->getRMS().L * 0.3f;
     
+    // Draw cursor and update cursor time
     charSelected->drawCursor(cursorAnim);
     
     cursorTime = (cursorTime + 1) % FRAME_RATE;
@@ -61,6 +74,16 @@ void MainFunction::draw()
         cursorAnim += 0.9f * (1.0f - cursorAnim);
     else
         cursorAnim -= 0.3f * cursorAnim;
+    
+    
+    // Update RMS and newton fractal coefficients
+    RMS = 0.9f * RMS + 0.1f * (memory->getDAC()->getRMS().L +
+                               memory->getDAC()->getRMS().R) * 0.5f;
+    
+    a[0] =  0.75f + RMS;
+    a[1] = -0.50f - RMS;
+    coefs[0][0] = sinf(ofGetSystemTime() / 130000.0f * TWO_PI * (RMS * 0.1f + 1.0f)) * coefs[1][0] * 2.0f;
+    coefs[0][1] = cosf(ofGetSystemTime() / 170000.0f * TWO_PI * (RMS * 0.1f + 1.0f)) * coefs[1][1] * 2.0f;
         
 }
 
@@ -85,7 +108,20 @@ void MainFunction::keyPressed (int key)
                 case 'r':
                 case OF_KEY_RETURN:
                     if (ofGetKeyPressed(OF_KEY_SHIFT))
+                    {
+                        // Change newton fractal coefficients randomly
+                        int a = int(ofRandom(NEWTON_SIZE - 1)) + 1;
+                        int b = int(ofRandom(2));
+                        if (fabsf(coefs[a][b]) > 0.8f)
+                            coefs[a][b] *= -0.1f;
+                        else if (coefs[a][b] < 0.0f)
+                            coefs[a][b] -= 0.02f + ofRandom(0.2f);
+                        else
+                            coefs[a][b] += 0.02f + ofRandom(0.2f);
+                           
+                        // Compile everything
                         charSelected = begin;
+                    }
                     charSelected->getParentType()->compile(memory, key == 'r');
                     break;
             }

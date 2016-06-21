@@ -124,20 +124,20 @@ sample AudioSignal::getValue (sample pointer)
 //========================================================================
 // AudioInput
 //========================================================================
-AudioInput::AudioInput (sample defaultValue) : defaultSignal(defaultValue)
+AudioInput::AudioInput (sample defaultValue)
 {
-    signal = &defaultSignal;
+    signal = defaultSignal = new AudioSignal(defaultValue); // TODO: not being freed
 }
 
 //========================================================================
 void AudioInput::setSignalToDefault()
 {
-    signal = &defaultSignal;
+    signal = defaultSignal;
 }
 
 void AudioInput::setSignal (sig* signal)
 {
-    if (signal)
+    if (signal != NULL)
         this->signal = signal;
     else
         setSignalToDefault();

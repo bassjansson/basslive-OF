@@ -11,6 +11,8 @@
 
 #include "Function.hpp"
 
+#define NEWTON_SIZE 4 // Maybe should not be here
+
 
 class MainFunction : public Function
 {
@@ -29,6 +31,10 @@ public:
     //========================================================================
     void mousePressed  (float x, float y, int button);
     void mouseReleased (float x, float y, int button);
+    
+    //========================================================================
+    float a[2]; // TODO: code should be more clear, maybe not public
+    float coefs[NEWTON_SIZE][2];
     
 private:
     //========================================================================

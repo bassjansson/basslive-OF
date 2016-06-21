@@ -14,7 +14,7 @@ NumberType::NumberType() : Type(CHAR_TYPE_NUMBER)
 {
     typeType = NUMBER;
     
-    value = new AudioSignal(0.0f);
+    value = new AudioSignal(0.0f); // TODO: not being freed
 }
 
 //========================================================================

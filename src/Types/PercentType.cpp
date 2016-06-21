@@ -20,7 +20,7 @@ PercentType::PercentType() : Type(CHAR_TYPE_PERCENT)
     
     flash(COLOR_TYPE_PERCENT);
     
-    value = new AudioSignal(1.0f);
+    value = new AudioSignal(1.0f); // TODO: not being freed
 }
 
 //========================================================================

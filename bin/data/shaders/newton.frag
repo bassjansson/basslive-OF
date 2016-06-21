@@ -16,8 +16,8 @@ uniform vec2 coef0;
 uniform vec2 coef1;
 uniform vec2 coef2;
 uniform vec2 coef3;
-//uniform vec2 coef4;
-//uniform vec2 coef5;
+uniform vec2 coef4;
+uniform vec2 coef5;
 
 out vec4 outputColor;
 
