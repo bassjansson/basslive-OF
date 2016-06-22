@@ -539,7 +539,7 @@ void switch_Buffer::process (Clock& clock)
     for (tick t = 0; t < clock.size; ++t)
     {
         // Get interval between switching
-        tick interval = (inputs[2][t].L + inputs[2][t].R) * 0.5f * clock.beatLength[t];
+        tick interval = (inputs[0][t].L + inputs[0][t].R) * 0.5f * clock.beatLength[t];
         
         
         // Switch between buffers
