@@ -39,8 +39,10 @@ AudioModule* Memory::addModule (const string& module, const string& ID)
 AudioBuffer* Memory::addBuffer (const string& buffer, const string& ID)
 {
     AudioBuffer* b = NULL;
-    
-    if (buffer == "buf") b = new AudioBuffer(ID);
+
+         if (buffer == "buf")    b = new   AudioBuffer(ID);
+    else if (buffer == "buffer") b = new   AudioBuffer(ID);
+    else if (buffer == "switch") b = new switch_Buffer(ID);
     
     if (b)
     {

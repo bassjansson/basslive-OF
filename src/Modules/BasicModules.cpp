@@ -510,3 +510,44 @@ void pan_Module::process (Clock& clock) // TODO: improve
 //        output[t].R = vocOut[t2];
 //    }
 //}
+
+
+//========================================================================
+// switch_Buffer (size, interval, buffer1, buffer2)
+//========================================================================
+switch_Buffer::switch_Buffer (const string& ID) : AudioBuffer(ID)
+{
+    inputs.push_back(AudioInput(16.0f)); // interval
+    inputs.push_back(AudioInput(0.0f));  // buffer1
+    inputs.push_back(AudioInput(0.0f));  // buffer2
+    
+    selectedBufferNumber = 0;
+    
+    output = *inputs[selectedBufferNumber + 1].getSignal();
+}
+
+void switch_Buffer::record (tick size)
+{
+    AudioBuffer* selectedBuffer = dynamic_cast<AudioBuffer*>(&output);
+    
+    if (selectedBuffer)
+        selectedBuffer->record(size);
+}
+
+void switch_Buffer::process (Clock& clock)
+{
+    for (tick t = 0; t < clock.size; ++t)
+    {
+        // Get interval between switching
+        tick interval = (inputs[2][t].L + inputs[2][t].R) * 0.5f * clock.beatLength[t];
+        
+        
+        // Switch between buffers
+        if ((clock[t] - output.start()) % interval == 0)
+        {
+            selectedBufferNumber = (selectedBufferNumber + 1) % 2;
+            
+            output = *inputs[selectedBufferNumber + 1].getSignal();
+        }
+    }
+}

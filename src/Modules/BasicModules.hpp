@@ -163,4 +163,21 @@ private:
 //};
 
 
+//========================================================================
+// switch_Buffer
+//========================================================================
+class switch_Buffer : public AudioBuffer
+{
+public:
+    switch_Buffer (const string& ID);
+    
+    virtual void record (tick size);
+    
+private:
+    virtual void process (Clock& clock);
+    
+    int selectedBufferNumber;
+};
+
+
 #endif /* BasicModules_hpp */
