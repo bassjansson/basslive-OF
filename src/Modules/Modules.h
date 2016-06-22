@@ -19,6 +19,8 @@
 
 #define FADE_SIZE (SAMPLERATE / 200.0f) // 5 milliseconds
 
+#define LATENCY_COMPENSATION (BUFFERSIZE * 2)
+
 #define REAL 0
 #define IMAG 1
 

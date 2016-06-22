@@ -241,10 +241,10 @@ void AudioBuffer::process (Clock& clock)
             }
         }
         
-        if (recording == ON && clock[t] >= rec_start + clock.size * 2)
+        if (recording == ON && clock[t] >= rec_start + clock.size + LATENCY_COMPENSATION)
         {
             // Get pointer
-            tick pointer = clock[t] - rec_start - clock.size;
+            tick pointer = clock[t] - rec_start - LATENCY_COMPENSATION;
             
             
             // Get envelope
