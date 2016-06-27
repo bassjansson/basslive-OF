@@ -393,6 +393,7 @@
 					"$(OF_CORE_HEADERS)",
 					src,
 				);
+				ICON_FILE_PATH = ./bin/data/icons/;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-mtune=native",
@@ -428,6 +429,7 @@
 					"$(OF_CORE_HEADERS)",
 					src,
 				);
+				ICON_FILE_PATH = ./bin/data/icons/;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-mtune=native",
@@ -460,6 +462,7 @@
 				);
 				ICON = "$(ICON_NAME_DEBUG)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
+				ICON_FILE_PATH = ./bin/data/icons/;
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
@@ -498,6 +501,7 @@
 				);
 				ICON = "$(ICON_NAME_RELEASE)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
+				ICON_FILE_PATH = ./bin/data/icons/;
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
