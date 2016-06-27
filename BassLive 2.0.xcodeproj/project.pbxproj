@@ -394,6 +394,7 @@
 					src,
 				);
 				ICON_FILE_PATH = ./bin/data/icons/;
+				ICON_NAME_DEBUG = icon.icns;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-mtune=native",
@@ -430,6 +431,7 @@
 					src,
 				);
 				ICON_FILE_PATH = ./bin/data/icons/;
+				ICON_NAME_DEBUG = icon.icns;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-mtune=native",
@@ -460,9 +462,10 @@
 					src,
 					/usr/local/include,
 				);
-				ICON = "$(ICON_NAME_DEBUG)";
+				ICON = icon.icns;
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
 				ICON_FILE_PATH = ./bin/data/icons/;
+				ICON_NAME_DEBUG = icon.icns;
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
@@ -476,7 +479,7 @@
 					"-lfftw3",
 					"-lm",
 				);
-				PRODUCT_NAME = "BassLive 2.0Debug";
+				PRODUCT_NAME = BassLive;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -502,6 +505,7 @@
 				ICON = "$(ICON_NAME_RELEASE)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
 				ICON_FILE_PATH = ./bin/data/icons/;
+				ICON_NAME_DEBUG = icon.icns;
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
@@ -515,7 +519,7 @@
 					"-lfftw3",
 					"-lm",
 				);
-				PRODUCT_NAME = "BassLive 2.0Debug";
+				PRODUCT_NAME = BassLive;
 				WRAPPER_EXTENSION = app;
 				baseConfigurationReference = E4EB6923138AFD0F00A09F29;
 			};
