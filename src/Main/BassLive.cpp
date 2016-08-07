@@ -19,10 +19,11 @@ void BassLive::setup()
     ofSetLogLevel(OF_LOG_VERBOSE);
     ofEnableAntiAliasing();
     ofEnableSmoothing();
-    ofSetFrameRate(FRAME_RATE);
     ofSetVerticalSync(true);
     ofSetEscapeQuitsApp(false);
-    ofSetWindowTitle("BassLive 2.0");
+    ofSetFrameRate(FRAME_RATE);
+    ofSetWindowTitle(WINDOW_TITLE);
+    ofSetDataPathRoot("../Resources/data/");
     
     
     memory = new Memory(INPUT_CHANNELS);

@@ -48,7 +48,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolderSpec = 7;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,12 +57,16 @@
 
 /* Begin PBXFileReference section */
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
-		E46B399B1CFC4448002126DA /* newton.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = newton.frag; sourceTree = "<group>"; };
-		E46B399C1CFC4448002126DA /* newton.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = newton.vert; sourceTree = "<group>"; };
+		E45879581D57CFCC00419729 /* Menlo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Menlo-Bold.ttf"; sourceTree = "<group>"; };
+		E45879591D57CFCC00419729 /* Menlo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Menlo-Regular.ttf"; sourceTree = "<group>"; };
+		E458795B1D57CFCC00419729 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		E458795E1D57CFCC00419729 /* newton.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = newton.frag; sourceTree = "<group>"; };
+		E458795F1D57CFCC00419729 /* newton.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = newton.vert; sourceTree = "<group>"; };
+		E45879641D57DAF800419729 /* BassLive-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BassLive-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E49639DA1D57EE5100726170 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E49E97F51CAD35E6009D015A /* PercentType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PercentType.cpp; sourceTree = "<group>"; };
 		E49E97F61CAD35E6009D015A /* PercentType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PercentType.hpp; sourceTree = "<group>"; };
-		E4B69B5B0A3A1756003C02F2 /* BassLive 2.0Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BassLive 2.0Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
+		E4B6FCAD0C3E899E008CF71C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4C880F11C96F14F00A5C7B6 /* Syntax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Syntax.h; sourceTree = "<group>"; };
 		E4C881361C9B3CE500A5C7B6 /* BufferType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferType.cpp; sourceTree = "<group>"; };
 		E4C881371C9B3CE500A5C7B6 /* BufferType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferType.hpp; sourceTree = "<group>"; };
@@ -110,20 +114,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6948EE371B920CB800B5AC1A /* local_addons */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = local_addons;
-			sourceTree = "<group>";
-		};
-		BB4B014C10F69532006C3DED /* addons */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = addons;
-			sourceTree = "<group>";
-		};
 		E4328144138ABC890047C5CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,27 +122,53 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E46B399A1CFC4448002126DA /* shaders */ = {
+		E45879561D57CFCC00419729 /* data */ = {
 			isa = PBXGroup;
 			children = (
-				E46B399C1CFC4448002126DA /* newton.vert */,
-				E46B399B1CFC4448002126DA /* newton.frag */,
+				E45879571D57CFCC00419729 /* fonts */,
+				E458795A1D57CFCC00419729 /* icons */,
+				E458795D1D57CFCC00419729 /* shaders */,
 			);
-			name = shaders;
-			path = bin/data/shaders;
+			name = data;
+			path = bin/data;
+			sourceTree = "<group>";
+		};
+		E45879571D57CFCC00419729 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E45879581D57CFCC00419729 /* Menlo-Bold.ttf */,
+				E45879591D57CFCC00419729 /* Menlo-Regular.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+		E458795A1D57CFCC00419729 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				E458795B1D57CFCC00419729 /* icon.icns */,
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
+		E458795D1D57CFCC00419729 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				E458795E1D57CFCC00419729 /* newton.frag */,
+				E458795F1D57CFCC00419729 /* newton.vert */,
+			);
+			path = shaders;
 			sourceTree = "<group>";
 		};
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
-				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
-				E46B399A1CFC4448002126DA /* shaders */,
+				E4B6FCAD0C3E899E008CF71C /* Info.plist */,
+				E49639DA1D57EE5100726170 /* README.md */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
+				E45879561D57CFCC00419729 /* data */,
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
-				BB4B014C10F69532006C3DED /* addons */,
-				6948EE371B920CB800B5AC1A /* local_addons */,
-				E4B69B5B0A3A1756003C02F2 /* BassLive 2.0Debug.app */,
+				E45879641D57DAF800419729 /* BassLive-Debug.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -256,9 +272,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4B69B5A0A3A1756003C02F2 /* BassLive 2.0 */ = {
+		E4B69B5A0A3A1756003C02F2 /* BassLive */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "BassLive 2.0" */;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "BassLive" */;
 			buildPhases = (
 				E4B69B580A3A1756003C02F2 /* Sources */,
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
@@ -270,9 +286,9 @@
 			dependencies = (
 				E4EEB9AC138B136A00A80321 /* PBXTargetDependency */,
 			);
-			name = "BassLive 2.0";
+			name = BassLive;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* BassLive 2.0Debug.app */;
+			productReference = E45879641D57DAF800419729 /* BassLive-Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -283,7 +299,7 @@
 			attributes = {
 				LastUpgradeCheck = 0600;
 			};
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "BassLive 2.0" */;
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "BassLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -304,7 +320,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				E4B69B5A0A3A1756003C02F2 /* BassLive 2.0 */,
+				E4B69B5A0A3A1756003C02F2 /* BassLive */,
 			);
 		};
 /* End PBXProject section */
@@ -331,7 +347,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rsync -aved ../../../libs/fmodex/lib/osx/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/\"; install_name_tool -change ./libfmodex.dylib @executable_path/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\";\nmkdir -p \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\nrsync -aved \"$ICON_FILE\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\nrsync -aved ../../../libs/glut/lib/osx/GLUT.framework \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Frameworks/\"\n";
+			shellScript = "rsync -aved ../../../libs/fmodex/lib/osx/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/\"; install_name_tool -change ./libfmodex.dylib @executable_path/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\";\nmkdir -p \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\nrsync -aved \"$SRCROOT/bin/data\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\nrsync -aved ../../../libs/glut/lib/osx/GLUT.framework \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Frameworks/\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -374,8 +390,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/builds/BassLive_$(APP_VERSION)";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "$(APP_VERSION)";
 				DEAD_CODE_STRIPPING = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
@@ -393,8 +410,6 @@
 					"$(OF_CORE_HEADERS)",
 					src,
 				);
-				ICON_FILE_PATH = ./bin/data/icons/;
-				ICON_NAME_DEBUG = icon.icns;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-mtune=native",
@@ -403,6 +418,7 @@
 					"$(OF_CORE_LIBS)",
 					"$(OF_CORE_FRAMEWORKS)",
 				);
+				SDKROOT = macosx10.9;
 			};
 			name = Debug;
 		};
@@ -410,8 +426,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/builds/BassLive_$(APP_VERSION)";
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = "$(APP_VERSION)";
 				DEAD_CODE_STRIPPING = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
@@ -430,8 +447,6 @@
 					"$(OF_CORE_HEADERS)",
 					src,
 				);
-				ICON_FILE_PATH = ./bin/data/icons/;
-				ICON_NAME_DEBUG = icon.icns;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-mtune=native",
@@ -440,6 +455,7 @@
 					"$(OF_CORE_LIBS)",
 					"$(OF_CORE_FRAMEWORKS)",
 				);
+				SDKROOT = macosx10.9;
 			};
 			name = Release;
 		};
@@ -462,11 +478,8 @@
 					src,
 					/usr/local/include,
 				);
-				ICON = icon.icns;
-				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
-				ICON_FILE_PATH = ./bin/data/icons/;
-				ICON_NAME_DEBUG = icon.icns;
-				INFOPLIST_FILE = "openFrameworks-Info.plist";
+				ICON_FILE = "$(ICON_FILE_DEBUG)";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -479,7 +492,7 @@
 					"-lfftw3",
 					"-lm",
 				);
-				PRODUCT_NAME = BassLive;
+				PRODUCT_NAME = "BassLive-Debug";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -502,11 +515,8 @@
 					src,
 					/usr/local/include,
 				);
-				ICON = "$(ICON_NAME_RELEASE)";
-				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
-				ICON_FILE_PATH = ./bin/data/icons/;
-				ICON_NAME_DEBUG = icon.icns;
-				INFOPLIST_FILE = "openFrameworks-Info.plist";
+				ICON_FILE = "$(ICON_FILE_RELEASE)";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -528,7 +538,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "BassLive 2.0" */ = {
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "BassLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B4E0A3A1720003C02F2 /* Debug */,
@@ -537,7 +547,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "BassLive 2.0" */ = {
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "BassLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B600A3A1757003C02F2 /* Debug */,

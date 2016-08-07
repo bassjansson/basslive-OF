@@ -7,16 +7,18 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string>${ICON}</string>
+	<string>${ICON_FILE}</string>
 	<key>CFBundleIdentifier</key>
-	<string>cc.openFrameworks.ofapp</string>
+	<string>com.bassjansson.BassLive</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>${APP_VERSION}</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.music</string>
 </dict>
 </plist>

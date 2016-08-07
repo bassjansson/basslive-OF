@@ -12,8 +12,12 @@
 int main()
 {
     ofGLFWWindowSettings settings;
+    
     settings.setGLVersion(3, 2);
-    settings.windowMode = OF_FULLSCREEN;
+    settings.width = 1024;
+    settings.height = 576;
+    settings.windowMode = OF_WINDOW;
+    
     ofCreateWindow(settings);
     
     return ofRunApp(new BassLive());
