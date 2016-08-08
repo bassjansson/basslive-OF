@@ -2,8 +2,6 @@
 
 ##Bass Jansson
 
-![Bass Jansson](https://raw.githubusercontent.com/bassjansson/BassLive/master/doc/Bass2.png)
-
 Momenteel ben ik een onderzoek aan het doen naar expressie in Live Coding.
 
 Live Coding is geïmproviseerde interactieve programmering met behulp van een programmeertaal / -omgeving. Live Coding wordt vaak gebruikt om beeld en geluid op basis van digitale media te maken en komt vooral voor in computer muziek, waar algoritmische compositie wordt gecombineerd met improvisatie. Gewoonlijk wordt het proces van het schrijven zichtbaar gemaakt door het projecteren van het scherm met bijvoorbeeld een beamer in de toeschouwersruimte.
