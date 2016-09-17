@@ -23,7 +23,7 @@
 #include "BufferFunction.hpp"
 #include "MainFunction.hpp"
 
-#define WINDOW_TITLE "BassLive 2.0"
+#define WINDOW_TITLE "BassLive"
 
 #define HORIZONTAL 0
 #define VERTICAL   1
