@@ -1,7 +1,7 @@
 
 # BassLive 3
 
-![alt tag](icon.png)
+![alt tag](Resources/Images/icon.png)
 
 ## Documentation & API
 
