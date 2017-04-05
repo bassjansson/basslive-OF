@@ -1,2 +1,1 @@
-bin/builds/*
-doc/*
+*.DS_Store
