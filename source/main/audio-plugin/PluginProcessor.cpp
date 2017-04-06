@@ -1,19 +1,30 @@
-/*
-  ==============================================================================
+/*========================================================================*
+ |                                                                        |
+ |  This file is part of the live coding environment BassLive.            |
+ |  Copyright (C) 2017 Bass Jansson.                                      |
+ |                                                                        |
+ |  This program is free software: you can redistribute it and/or modify  |
+ |  it under the terms of the GNU General Public License as published by  |
+ |  the Free Software Foundation, either version 3 of the License, or     |
+ |  (at your option) any later version.                                   |
+ |                                                                        |
+ |  This program is distributed in the hope that it will be useful,       |
+ |  but WITHOUT ANY WARRANTY; without even the implied warranty of        |
+ |  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the          |
+ |  GNU General Public License for more details.                          |
+ |                                                                        |
+ |  You should have received a copy of the GNU General Public License     |
+ |  along with this program. If not, see <http://www.gnu.org/licenses/>.  |
+ |                                                                        |
+ *========================================================================*/
 
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
 
 //==============================================================================
-AudioPluginTestAudioProcessor::AudioPluginTestAudioProcessor()
+BassLiveAudioProcessor::BassLiveAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -27,17 +38,17 @@ AudioPluginTestAudioProcessor::AudioPluginTestAudioProcessor()
 {
 }
 
-AudioPluginTestAudioProcessor::~AudioPluginTestAudioProcessor()
+BassLiveAudioProcessor::~BassLiveAudioProcessor()
 {
 }
 
 //==============================================================================
-const String AudioPluginTestAudioProcessor::getName() const
+const String BassLiveAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool AudioPluginTestAudioProcessor::acceptsMidi() const
+bool BassLiveAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -46,7 +57,7 @@ bool AudioPluginTestAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool AudioPluginTestAudioProcessor::producesMidi() const
+bool BassLiveAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -55,50 +66,50 @@ bool AudioPluginTestAudioProcessor::producesMidi() const
    #endif
 }
 
-double AudioPluginTestAudioProcessor::getTailLengthSeconds() const
+double BassLiveAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int AudioPluginTestAudioProcessor::getNumPrograms()
+int BassLiveAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int AudioPluginTestAudioProcessor::getCurrentProgram()
+int BassLiveAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void AudioPluginTestAudioProcessor::setCurrentProgram (int index)
+void BassLiveAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const String AudioPluginTestAudioProcessor::getProgramName (int index)
+const String BassLiveAudioProcessor::getProgramName (int index)
 {
     return String();
 }
 
-void AudioPluginTestAudioProcessor::changeProgramName (int index, const String& newName)
+void BassLiveAudioProcessor::changeProgramName (int index, const String& newName)
 {
 }
 
 //==============================================================================
-void AudioPluginTestAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void BassLiveAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 }
 
-void AudioPluginTestAudioProcessor::releaseResources()
+void BassLiveAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool AudioPluginTestAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool BassLiveAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
@@ -121,7 +132,7 @@ bool AudioPluginTestAudioProcessor::isBusesLayoutSupported (const BusesLayout& l
 }
 #endif
 
-void AudioPluginTestAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void BassLiveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     const int totalNumInputChannels  = getTotalNumInputChannels();
     const int totalNumOutputChannels = getTotalNumOutputChannels();
@@ -146,25 +157,25 @@ void AudioPluginTestAudioProcessor::processBlock (AudioSampleBuffer& buffer, Mid
 }
 
 //==============================================================================
-bool AudioPluginTestAudioProcessor::hasEditor() const
+bool BassLiveAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* AudioPluginTestAudioProcessor::createEditor()
+AudioProcessorEditor* BassLiveAudioProcessor::createEditor()
 {
-    return new AudioPluginTestAudioProcessorEditor (*this);
+    return new BassLiveAudioProcessorEditor (*this);
 }
 
 //==============================================================================
-void AudioPluginTestAudioProcessor::getStateInformation (MemoryBlock& destData)
+void BassLiveAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void AudioPluginTestAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void BassLiveAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -174,5 +185,5 @@ void AudioPluginTestAudioProcessor::setStateInformation (const void* data, int s
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new AudioPluginTestAudioProcessor();
+    return new BassLiveAudioProcessor();
 }

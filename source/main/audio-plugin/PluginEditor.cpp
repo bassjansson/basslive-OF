@@ -1,19 +1,30 @@
-/*
-  ==============================================================================
+/*========================================================================*
+ |                                                                        |
+ |  This file is part of the live coding environment BassLive.            |
+ |  Copyright (C) 2017 Bass Jansson.                                      |
+ |                                                                        |
+ |  This program is free software: you can redistribute it and/or modify  |
+ |  it under the terms of the GNU General Public License as published by  |
+ |  the Free Software Foundation, either version 3 of the License, or     |
+ |  (at your option) any later version.                                   |
+ |                                                                        |
+ |  This program is distributed in the hope that it will be useful,       |
+ |  but WITHOUT ANY WARRANTY; without even the implied warranty of        |
+ |  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the          |
+ |  GNU General Public License for more details.                          |
+ |                                                                        |
+ |  You should have received a copy of the GNU General Public License     |
+ |  along with this program. If not, see <http://www.gnu.org/licenses/>.  |
+ |                                                                        |
+ *========================================================================*/
 
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
 
 //==============================================================================
-AudioPluginTestAudioProcessorEditor::AudioPluginTestAudioProcessorEditor (AudioPluginTestAudioProcessor& p)
+BassLiveAudioProcessorEditor::BassLiveAudioProcessorEditor (BassLiveAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
     // Make sure that before the constructor has finished, you've set the
@@ -21,12 +32,12 @@ AudioPluginTestAudioProcessorEditor::AudioPluginTestAudioProcessorEditor (AudioP
     setSize (400, 300);
 }
 
-AudioPluginTestAudioProcessorEditor::~AudioPluginTestAudioProcessorEditor()
+BassLiveAudioProcessorEditor::~BassLiveAudioProcessorEditor()
 {
 }
 
 //==============================================================================
-void AudioPluginTestAudioProcessorEditor::paint (Graphics& g)
+void BassLiveAudioProcessorEditor::paint (Graphics& g)
 {
     g.fillAll (Colours::white);
 
@@ -35,7 +46,7 @@ void AudioPluginTestAudioProcessorEditor::paint (Graphics& g)
     g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
 }
 
-void AudioPluginTestAudioProcessorEditor::resized()
+void BassLiveAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
