@@ -10,7 +10,7 @@
               pluginIsSynth="1" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
               pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="1" pluginAUExportPrefix="BassLiveAU"
               pluginRTASCategory="" aaxIdentifier="com.BassJansson.BassLive"
-              pluginAAXCategory="AAX_ePlugInCategory_Instrument">
+              pluginAAXCategory="AAX_ePlugInCategory_SWGenerators">
   <MAINGROUP id="VLDkWt" name="BassLive">
     <GROUP id="{2223FCD9-5BBA-80D3-9CEC-F57020475F21}" name="Main">
       <FILE id="Homkdj" name="PluginEditor.cpp" compile="1" resource="0"
@@ -25,12 +25,12 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" customXcodeResourceFolders="../resources"
                customPList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&#10;&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;&#10;&lt;plist&gt;&#10;  &lt;dict&gt;&#10;    &lt;key&gt;CFBundleIconFile&lt;/key&gt;&#10;    &lt;string&gt;${ICON_FILE}&lt;/string&gt;&#10;    &lt;key&gt;LSApplicationCategoryType&lt;/key&gt;&#10;    &lt;string&gt;public.app-category.music&lt;/string&gt;&#10;    &lt;key&gt;NSHumanReadableCopyright&lt;/key&gt;&#10;    &lt;string&gt;Copyright (C) 2017 Bass Jansson.&lt;/string&gt;&#10;  &lt;/dict&gt;&#10;&lt;/plist&gt;"
-               extraDefs="" vst3Folder="" aaxFolder="">
+               extraDefs="" vst3Folder="" aaxFolder="" rtasFolder="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="BassLive"
                        osxSDK="10.12 SDK" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
                        defines="" customXcodeFlags="ICON_FILE=resources/icons/icon-release.icns"
-                       userNotes="" xcodeVst3BinaryLocation="/Library/Audio/Plug-Ins/VST3/"/>
+                       userNotes=""/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
