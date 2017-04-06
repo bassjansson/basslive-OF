@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="LWI7Yj" name="BassLive" projectType="guiapp" version="3.0.0"
+<JUCERPROJECT id="LWI7Yj" name="BassLive" projectType="guiapp" version="3.0.1"
               bundleIdentifier="com.BassJansson.BassLive" includeBinaryInAppConfig="1"
-              jucerVersion="4.3.1" companyName="BassJansson" companyWebsite="https://www.bassjansson.com"
+              jucerVersion="4.3.1" companyName="BassJansson" companyWebsite="https://www.bassjansson.com/"
               companyEmail="bassjansson@gmail.com">
   <MAINGROUP id="VLDkWt" name="BassLive">
-    <GROUP id="{C6D0A6BC-5850-BE3B-7094-F29D0D977354}" name="Source">
-      <FILE id="MyTmZb" name="MainComponent.cpp" compile="1" resource="0"
-            file="Source/MainComponent.cpp"/>
-      <FILE id="Rh46Km" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    <GROUP id="{2223FCD9-5BBA-80D3-9CEC-F57020475F21}" name="Main">
+      <FILE id="dlVsWs" name="Main.cpp" compile="1" resource="0" file="../source/main/gui-application/Main.cpp"/>
+      <FILE id="zMh8Zs" name="MainComponent.cpp" compile="1" resource="0"
+            file="../source/main/gui-application/MainComponent.cpp"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" customXcodeResourceFolders="Resources"
+    <XCODE_MAC targetFolder="Builds/MacOSX" customXcodeResourceFolders="../resources"
                customPList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&#10;&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;&#10;&lt;plist&gt;&#10;  &lt;dict&gt;&#10;    &lt;key&gt;CFBundleIconFile&lt;/key&gt;&#10;    &lt;string&gt;${ICON_FILE}&lt;/string&gt;&#10;    &lt;key&gt;LSApplicationCategoryType&lt;/key&gt;&#10;    &lt;string&gt;public.app-category.music&lt;/string&gt;&#10;    &lt;key&gt;NSHumanReadableCopyright&lt;/key&gt;&#10;    &lt;string&gt;Copyright (C) 2017 Bass Jansson.&lt;/string&gt;&#10;  &lt;/dict&gt;&#10;&lt;/plist&gt;"
                extraDefs="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="BassLive-Debug"
                        osxSDK="10.12 SDK" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
-                       defines="" customXcodeFlags="ICON_FILE=Resources/Icons/icon-debug.icns"/>
+                       defines="" customXcodeFlags="ICON_FILE=resources/icons/icon-debug.icns"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="BassLive"
                        osxSDK="10.12 SDK" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
-                       defines="" customXcodeFlags="ICON_FILE=Resources/Icons/icon-release.icns"/>
+                       defines="" customXcodeFlags="ICON_FILE=resources/icons/icon-release.icns"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_video" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_opengl" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
@@ -58,4 +58,7 @@
     <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
   <JUCEOPTIONS/>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>
