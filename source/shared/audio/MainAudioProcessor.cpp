@@ -23,3 +23,12 @@
 
 
 /*========================================================================*/
+MainAudioProcessor::MainAudioProcessor()
+{
+
+}
+
+MainAudioProcessor::~MainAudioProcessor()
+{
+    
+}

@@ -23,3 +23,12 @@
 
 
 /*========================================================================*/
+TemplateClass::TemplateClass()
+{
+
+}
+
+TemplateClass::~TemplateClass()
+{
+
+}

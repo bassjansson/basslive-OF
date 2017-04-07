@@ -23,3 +23,12 @@
 
 
 /*========================================================================*/
+MainGUIComponent::MainGUIComponent()
+{
+
+}
+
+MainGUIComponent::~MainGUIComponent()
+{
+
+}

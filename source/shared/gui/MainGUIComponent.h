@@ -22,14 +22,24 @@
 #ifndef MAIN_GUI_COMPONENT_H_INCLUDED
 #define MAIN_GUI_COMPONENT_H_INCLUDED
 
+#include "JuceHeader.h"
+
 
 class MainGUIComponent
 {
 public:
     /*====================================================================*/
+     MainGUIComponent();
+    ~MainGUIComponent();
+
+    /*====================================================================*/
 
 private:
     /*====================================================================*/
+
+
+    /*====================================================================*/
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainGUIComponent)
 };
 
 

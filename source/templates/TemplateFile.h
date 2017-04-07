@@ -22,14 +22,24 @@
 #ifndef TEMPLATE_FILE_H_INCLUDED
 #define TEMPLATE_FILE_H_INCLUDED
 
+#include "JuceHeader.h"
 
-class TemplateFile
+
+class TemplateClass
 {
 public:
+    /*====================================================================*/
+     TemplateClass();
+    ~TemplateClass();
+
     /*====================================================================*/
 
 private:
     /*====================================================================*/
+
+
+    /*====================================================================*/
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TemplateClass)
 };
 
 
