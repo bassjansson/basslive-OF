@@ -3,7 +3,7 @@
 <JUCERPROJECT id="LWI7Yj" name="BassLive" projectType="guiapp" version="3.0.1"
               bundleIdentifier="com.BassJansson.BassLive" includeBinaryInAppConfig="1"
               jucerVersion="4.3.1" companyName="BassJansson" companyWebsite="https://www.bassjansson.com/"
-              companyEmail="bassjansson@gmail.com" defines="BASSLIVE_GUI_APPLICATION">
+              companyEmail="bassjansson@gmail.com" defines="">
   <MAINGROUP id="VLDkWt" name="BassLive">
     <GROUP id="{EC3792BF-9F72-4955-67DF-523EB4D971C3}" name="app">
       <FILE id="Bn3Aj0" name="MainApplication.cpp" compile="1" resource="0"

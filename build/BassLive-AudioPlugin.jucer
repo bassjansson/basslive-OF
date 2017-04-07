@@ -10,7 +10,7 @@
               pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
               pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="1" pluginAUExportPrefix="BassLiveAU"
               pluginRTASCategory="" aaxIdentifier="com.BassJansson.BassLive"
-              pluginAAXCategory="AAX_ePlugInCategory_SWGenerators" defines="BASSLIVE_AUDIO_PLUGIN">
+              pluginAAXCategory="AAX_ePlugInCategory_SWGenerators" defines="">
   <MAINGROUP id="VLDkWt" name="BassLive">
     <GROUP id="{4932729F-964C-7F81-AAAC-1F327BF8AC6F}" name="audio">
       <FILE id="ycbota" name="MainAudioProcessor.cpp" compile="1" resource="0"
