@@ -6,12 +6,25 @@
               companyEmail="bassjansson@gmail.com" buildVST="1" buildVST3="1"
               buildAU="1" buildAUv3="1" buildRTAS="0" buildAAX="0" pluginName="BassLive"
               pluginDesc="BassLive: A unique live coding environment." pluginManufacturer="BassJansson"
-              pluginManufacturerCode="BJ94" pluginCode="BL17" pluginChannelConfigs="{1, 1}, {2, 2}"
-              pluginIsSynth="1" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
+              pluginManufacturerCode="BJ94" pluginCode="BL17" pluginChannelConfigs=""
+              pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
               pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="1" pluginAUExportPrefix="BassLiveAU"
               pluginRTASCategory="" aaxIdentifier="com.BassJansson.BassLive"
               pluginAAXCategory="AAX_ePlugInCategory_SWGenerators" defines="BASSLIVE_AUDIO_PLUGIN">
-  <MAINGROUP id="VLDkWt" name="BassLive"/>
+  <MAINGROUP id="VLDkWt" name="BassLive">
+    <GROUP id="{4932729F-964C-7F81-AAAC-1F327BF8AC6F}" name="audio">
+      <FILE id="ycbota" name="MainAudioProcessor.cpp" compile="1" resource="0"
+            file="../source/audio/MainAudioProcessor.cpp"/>
+      <FILE id="bpJzCH" name="MainAudioProcessor.h" compile="0" resource="0"
+            file="../source/audio/MainAudioProcessor.h"/>
+    </GROUP>
+    <GROUP id="{7833ED02-E411-60A7-E470-A58296E10552}" name="gui">
+      <FILE id="Dx737g" name="MainGUIComponent.cpp" compile="1" resource="0"
+            file="../source/gui/MainGUIComponent.cpp"/>
+      <FILE id="jt4AGu" name="MainGUIComponent.h" compile="0" resource="0"
+            file="../source/gui/MainGUIComponent.h"/>
+    </GROUP>
+  </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" customXcodeResourceFolders="../resources"
                customPList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&#10;&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;&#10;&lt;plist&gt;&#10;  &lt;dict&gt;&#10;    &lt;key&gt;CFBundleIconFile&lt;/key&gt;&#10;    &lt;string&gt;${ICON_FILE}&lt;/string&gt;&#10;    &lt;key&gt;LSApplicationCategoryType&lt;/key&gt;&#10;    &lt;string&gt;public.app-category.music&lt;/string&gt;&#10;    &lt;key&gt;NSHumanReadableCopyright&lt;/key&gt;&#10;    &lt;string&gt;Copyright (C) 2017 Bass Jansson.&lt;/string&gt;&#10;  &lt;/dict&gt;&#10;&lt;/plist&gt;"
