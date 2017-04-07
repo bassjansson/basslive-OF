@@ -19,7 +19,37 @@
  *========================================================================*/
 
 
-#include "JuceHeader.h"
+#include "MainGUIComponent.h"
 
 
 /*========================================================================*/
+MainGUIComponent::MainGUIComponent(MainAudioProcessor* processor)
+: AudioProcessorEditor(processor), mainAudioProcessor(processor)
+{
+    // Make sure that before the constructor has finished, you've set the
+    // editor's size to whatever you need it to be.
+    setSize(800, 600);
+}
+
+MainGUIComponent::~MainGUIComponent()
+{
+
+}
+
+
+/*========================================================================*/
+void MainGUIComponent::paint (Graphics& g)
+{
+    g.fillAll(Colours::black);
+
+    g.setColour(Colours::white);
+    g.setFont(32.0f);
+    g.drawFittedText("Welcome to the world BassLive!", getLocalBounds(), Justification::centred, 1);
+}
+
+void MainGUIComponent::resized()
+{
+    // This is called when the MainContentComponent is resized.
+    // If you add any child components, this is where you should
+    // update their positions.
+}

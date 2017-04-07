@@ -19,16 +19,43 @@
  *========================================================================*/
 
 
-#include "MainAudioProcessor.h"
+#include "MainApplication.h"
 
 
 /*========================================================================*/
-MainAudioProcessor::MainAudioProcessor()
+void MainApplication::initialise(const String& commandLine)
 {
-
+    mainAudioProcessor = new MainAudioProcessor();
+    mainGUIComponent = new MainGUIComponent(mainAudioProcessor);
+    mainWindow = new MainWindow(getApplicationName(), mainGUIComponent);
 }
 
-MainAudioProcessor::~MainAudioProcessor()
+void MainApplication::shutdown()
 {
-    
+    mainAudioProcessor = nullptr;
+    mainGUIComponent = nullptr;
+    mainWindow = nullptr;
 }
+
+
+/*========================================================================*/
+void MainApplication::systemRequestedQuit()
+{
+    // This is called when the app is being asked to quit: you can ignore this
+    // request and let the app carry on running, or call quit() to allow the app to close.
+    quit();
+}
+
+void MainApplication::anotherInstanceStarted(const String& commandLine)
+{
+    // When another instance of the app is launched while this one is running,
+    // this method is invoked, and the commandLine parameter tells you what
+    // the other instance's command-line arguments were.
+}
+
+
+/*========================================================================*/
+/**
+ *  This macro generates the main() routine that launches the app.
+ */
+START_JUCE_APPLICATION(MainApplication)

@@ -22,24 +22,26 @@
 #ifndef MAIN_GUI_COMPONENT_H_INCLUDED
 #define MAIN_GUI_COMPONENT_H_INCLUDED
 
-#include "JuceHeader.h"
+#include "MainAudioProcessor.h"
 
 
-class MainGUIComponent
+class MainGUIComponent : public AudioProcessorEditor
 {
 public:
     /*====================================================================*/
-     MainGUIComponent();
+     MainGUIComponent(MainAudioProcessor* processor);
     ~MainGUIComponent();
 
     /*====================================================================*/
+    void paint(Graphics&) override;
+    void resized() override;
 
 private:
     /*====================================================================*/
-
+    MainAudioProcessor* mainAudioProcessor;
 
     /*====================================================================*/
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainGUIComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainGUIComponent)
 };
 
 

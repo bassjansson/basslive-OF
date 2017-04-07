@@ -19,35 +19,32 @@
  *========================================================================*/
 
 
-#include "PluginProcessor.h"
-#include "PluginEditor.h"
+#include "MainWindow.h"
+#include "MainGUIComponent.h"
 
 
-//==============================================================================
-BassLiveAudioProcessorEditor::BassLiveAudioProcessorEditor (BassLiveAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
+/*========================================================================*/
+MainWindow::MainWindow(String name, Component* content)
+: DocumentWindow(name, Colours::darkseagreen, DocumentWindow::allButtons)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setUsingNativeTitleBar(true);
+    setContentOwned(content, true);
+    setResizable(true, true);
+    centreWithSize(getWidth(), getHeight());
+    setVisible(true);
 }
 
-BassLiveAudioProcessorEditor::~BassLiveAudioProcessorEditor()
+MainWindow::~MainWindow()
 {
+
 }
 
-//==============================================================================
-void BassLiveAudioProcessorEditor::paint (Graphics& g)
-{
-    g.fillAll (Colours::white);
 
-    g.setColour (Colours::black);
-    g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
-}
-
-void BassLiveAudioProcessorEditor::resized()
+/*========================================================================*/
+void MainWindow::closeButtonPressed()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+    // This is called when the user tries to close this window. Here, we'll just
+    // ask the app to quit when this happens, but you can change this to do
+    // whatever you need.
+    JUCEApplication::getInstance()->systemRequestedQuit();
 }

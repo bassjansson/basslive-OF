@@ -19,16 +19,42 @@
  *========================================================================*/
 
 
+#ifndef MAIN_APPLICATION_H_INCLUDED
+#define MAIN_APPLICATION_H_INCLUDED
+
+#include "MainWindow.h"
 #include "MainGUIComponent.h"
+#include "MainAudioProcessor.h"
 
 
-/*========================================================================*/
-MainGUIComponent::MainGUIComponent()
+class MainApplication : public JUCEApplication
 {
+public:
+    /*====================================================================*/
+    MainApplication() {}
 
-}
+    /*====================================================================*/
+    const String getApplicationName()    override { return ProjectInfo::projectName; }
+    const String getApplicationVersion() override { return ProjectInfo::versionString; }
+    bool moreThanOneInstanceAllowed()    override { return false; }
 
-MainGUIComponent::~MainGUIComponent()
-{
+    /*====================================================================*/
+    void initialise(const String& commandLine) override;
+    void shutdown() override;
 
-}
+    /*====================================================================*/
+    void systemRequestedQuit() override;
+    void anotherInstanceStarted(const String& commandLine) override;
+
+private:
+    /*====================================================================*/
+    ScopedPointer<MainWindow>         mainWindow;
+    ScopedPointer<MainGUIComponent>   mainGUIComponent;
+    ScopedPointer<MainAudioProcessor> mainAudioProcessor;
+
+    /*====================================================================*/
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainApplication)
+};
+
+
+#endif /* MAIN_APPLICATION_H_INCLUDED */
