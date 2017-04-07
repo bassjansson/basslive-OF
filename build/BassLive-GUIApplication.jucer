@@ -1,36 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="LWI7Yj" name="BassLive" projectType="audioplug" version="3.0.1"
+<JUCERPROJECT id="LWI7Yj" name="BassLive" projectType="guiapp" version="3.0.1"
               bundleIdentifier="com.BassJansson.BassLive" includeBinaryInAppConfig="1"
               jucerVersion="4.3.1" companyName="BassJansson" companyWebsite="https://www.bassjansson.com/"
-              companyEmail="bassjansson@gmail.com" buildVST="1" buildVST3="1"
-              buildAU="1" buildAUv3="1" buildRTAS="0" buildAAX="0" pluginName="BassLive"
-              pluginDesc="BassLive: A unique live coding environment." pluginManufacturer="BassJansson"
-              pluginManufacturerCode="BJ94" pluginCode="BL17" pluginChannelConfigs="{1, 1}, {2, 2}"
-              pluginIsSynth="1" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
-              pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="1" pluginAUExportPrefix="BassLiveAU"
-              pluginRTASCategory="" aaxIdentifier="com.BassJansson.BassLive"
-              pluginAAXCategory="AAX_ePlugInCategory_SWGenerators">
-  <MAINGROUP id="VLDkWt" name="BassLive">
-    <GROUP id="{2223FCD9-5BBA-80D3-9CEC-F57020475F21}" name="Main">
-      <FILE id="Homkdj" name="PluginEditor.cpp" compile="1" resource="0"
-            file="../source/main/audio-plugin/PluginEditor.cpp"/>
-      <FILE id="Ky2oym" name="PluginEditor.h" compile="0" resource="0" file="../source/main/audio-plugin/PluginEditor.h"/>
-      <FILE id="HCvo3y" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="../source/main/audio-plugin/PluginProcessor.cpp"/>
-      <FILE id="SXgEtC" name="PluginProcessor.h" compile="0" resource="0"
-            file="../source/main/audio-plugin/PluginProcessor.h"/>
-    </GROUP>
-  </MAINGROUP>
+              companyEmail="bassjansson@gmail.com" defines="BASSLIVE_GUI_APPLICATION">
+  <MAINGROUP id="VLDkWt" name="BassLive"/>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" customXcodeResourceFolders="../resources"
                customPList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&#10;&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;&#10;&lt;plist&gt;&#10;  &lt;dict&gt;&#10;    &lt;key&gt;CFBundleIconFile&lt;/key&gt;&#10;    &lt;string&gt;${ICON_FILE}&lt;/string&gt;&#10;    &lt;key&gt;LSApplicationCategoryType&lt;/key&gt;&#10;    &lt;string&gt;public.app-category.music&lt;/string&gt;&#10;    &lt;key&gt;NSHumanReadableCopyright&lt;/key&gt;&#10;    &lt;string&gt;Copyright (C) 2017 Bass Jansson.&lt;/string&gt;&#10;  &lt;/dict&gt;&#10;&lt;/plist&gt;"
-               extraDefs="" vst3Folder="" aaxFolder="" rtasFolder="">
+               extraDefs="">
       <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="BassLive-Debug"
+                       osxSDK="10.12 SDK" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
+                       defines="" customXcodeFlags="ICON_FILE=resources/icons/icon-debug.icns"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="BassLive"
                        osxSDK="10.12 SDK" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
-                       defines="" customXcodeFlags="ICON_FILE=resources/icons/icon-release.icns"
-                       userNotes=""/>
+                       defines="" customXcodeFlags="ICON_FILE=resources/icons/icon-release.icns"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
@@ -47,7 +32,6 @@
         <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
@@ -55,7 +39,6 @@
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
