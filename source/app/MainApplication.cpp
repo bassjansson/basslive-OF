@@ -25,13 +25,62 @@
 /*========================================================================*/
 void MainApplication::initialise(const String& commandLine)
 {
+    // Init main app components
     mainAudioProcessor = new MainAudioProcessor();
     mainGUIComponent = new MainGUIComponent(mainAudioProcessor);
     mainWindow = new MainWindow(getApplicationName(), mainGUIComponent);
+
+
+    // Init audio settings
+    int minAudioInputChannels = 2;
+    int maxAudioInputChannels = 32;
+    int minAudioOutputChannels = 2;
+    int maxAudioOutputChannels = 32;
+    bool showMidiInputOptions = true;
+    bool showMidiOutputSelector = false;
+    bool showChannelsAsStereoPairs = true;
+    bool hideAdvancedOptionsWithButton = false;
+
+
+    // Init audioProcessorPlayer
+    audioProcessorPlayer = new AudioProcessorPlayer();
+    audioProcessorPlayer->setProcessor(mainAudioProcessor);
+
+
+    // Init audioDeviceManager
+    audioDeviceManager = new AudioDeviceManager();
+    audioDeviceManager->initialiseWithDefaultDevices(minAudioInputChannels, minAudioOutputChannels);
+    audioDeviceManager->addAudioCallback(audioProcessorPlayer);
+
+
+    // Init audioDeviceSelectorComponent
+    audioDeviceSelectorComponent = new AudioDeviceSelectorComponent(*audioDeviceManager,
+                                                                    minAudioInputChannels,
+                                                                    maxAudioInputChannels,
+                                                                    minAudioOutputChannels,
+                                                                    maxAudioOutputChannels,
+                                                                    showMidiInputOptions,
+                                                                    showMidiOutputSelector,
+                                                                    showChannelsAsStereoPairs,
+                                                                    hideAdvancedOptionsWithButton);
+    mainGUIComponent->addChildComponent(audioDeviceSelectorComponent);
+    audioDeviceSelectorComponent->setCentrePosition(mainGUIComponent->getWidth()  * 0.25f,
+                                                    mainGUIComponent->getHeight() * 0.25f);
+    audioDeviceSelectorComponent->setSize(400, 300);
+    audioDeviceSelectorComponent->setVisible(true);
 }
 
 void MainApplication::shutdown()
 {
+    mainGUIComponent->removeChildComponent(audioDeviceSelectorComponent);
+    audioDeviceSelectorComponent = nullptr;
+
+    audioDeviceManager->removeAudioCallback(audioProcessorPlayer);
+    audioDeviceManager->closeAudioDevice();
+    audioDeviceManager = nullptr;
+
+    audioProcessorPlayer = nullptr;
+
     mainAudioProcessor = nullptr;
     mainGUIComponent = nullptr;
     mainWindow = nullptr;

@@ -40,11 +40,11 @@ MainGUIComponent::~MainGUIComponent()
 /*========================================================================*/
 void MainGUIComponent::paint (Graphics& g)
 {
-    g.fillAll(Colours::black);
+    g.fillAll(Colours::grey);
 
-    g.setColour(Colours::white);
-    g.setFont(32.0f);
-    g.drawFittedText("Welcome to the world BassLive!", getLocalBounds(), Justification::centred, 1);
+    //g.setColour(Colours::white);
+    //g.setFont(32.0f);
+    //g.drawFittedText("Welcome to the world BassLive!", getLocalBounds(), Justification::centred, 1);
 }
 
 void MainGUIComponent::resized()

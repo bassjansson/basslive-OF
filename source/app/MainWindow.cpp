@@ -25,7 +25,7 @@
 
 /*========================================================================*/
 MainWindow::MainWindow(String name, Component* content)
-: DocumentWindow(name, Colours::darkseagreen, DocumentWindow::allButtons)
+: DocumentWindow(name, Colours::pink, DocumentWindow::allButtons)
 {
     setUsingNativeTitleBar(true);
     setContentOwned(content, true);
