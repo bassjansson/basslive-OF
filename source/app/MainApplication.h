@@ -22,9 +22,7 @@
 #ifndef MAIN_APPLICATION_H_INCLUDED
 #define MAIN_APPLICATION_H_INCLUDED
 
-#include "MainWindow.h"
-#include "MainGUIComponent.h"
-#include "MainAudioProcessor.h"
+#include "JuceHeader.h"
 
 
 class MainApplication : public JUCEApplication
@@ -46,16 +44,17 @@ public:
     void systemRequestedQuit() override;
     void anotherInstanceStarted(const String& commandLine) override;
 
+    /*====================================================================*/
+    void openAudioDeviceSettingsDialog();
+
 private:
     /*====================================================================*/
-    ScopedPointer<MainWindow>         mainWindow;
-    ScopedPointer<MainGUIComponent>   mainGUIComponent;
-    ScopedPointer<MainAudioProcessor> mainAudioProcessor;
+    ScopedPointer<AudioProcessor> mainAudioProcessor;
+    ScopedPointer<DocumentWindow> mainDocumentWindow;
 
     /*====================================================================*/
-    ScopedPointer<AudioProcessorPlayer>         audioProcessorPlayer;
-    ScopedPointer<AudioDeviceManager>           audioDeviceManager;
-    ScopedPointer<AudioDeviceSelectorComponent> audioDeviceSelectorComponent;
+    ScopedPointer<AudioProcessorPlayer> audioProcessorPlayer;
+    ScopedPointer<AudioDeviceManager>   audioDeviceManager;
 
     /*====================================================================*/
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainApplication)

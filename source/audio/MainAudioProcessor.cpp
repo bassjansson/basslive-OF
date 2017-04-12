@@ -175,9 +175,7 @@ void MainAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 
 
 /*========================================================================*/
-/**
- *  This creates new instances of the audio plugin.
- */
+/** This creates new instances of the audio plugin. */
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new MainAudioProcessor();

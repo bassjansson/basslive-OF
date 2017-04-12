@@ -20,70 +20,41 @@
 
 
 #include "MainApplication.h"
+#include "MainAudioProcessor.h"
+#include "MainWindow.h"
 
 
 /*========================================================================*/
 void MainApplication::initialise(const String& commandLine)
 {
-    // Init main app components
+    // Init audio processor
     mainAudioProcessor = new MainAudioProcessor();
-    mainGUIComponent = new MainGUIComponent(mainAudioProcessor);
-    mainWindow = new MainWindow(getApplicationName(), mainGUIComponent);
 
 
-    // Init audio settings
-    int minAudioInputChannels = 2;
-    int maxAudioInputChannels = 32;
-    int minAudioOutputChannels = 2;
-    int maxAudioOutputChannels = 32;
-    bool showMidiInputOptions = true;
-    bool showMidiOutputSelector = false;
-    bool showChannelsAsStereoPairs = true;
-    bool hideAdvancedOptionsWithButton = false;
+    // Init main window
+    mainDocumentWindow = new MainWindow(getApplicationName() + " " +
+                                        getApplicationVersion(),
+                                        mainAudioProcessor->createEditor());
 
 
-    // Init audioProcessorPlayer
+    // Init audio processor player
     audioProcessorPlayer = new AudioProcessorPlayer();
     audioProcessorPlayer->setProcessor(mainAudioProcessor);
 
 
-    // Init audioDeviceManager
+    // Init audio device manager
     audioDeviceManager = new AudioDeviceManager();
-    audioDeviceManager->initialiseWithDefaultDevices(minAudioInputChannels, minAudioOutputChannels);
+    audioDeviceManager->initialiseWithDefaultDevices(2, 2);
     audioDeviceManager->addAudioCallback(audioProcessorPlayer);
-
-
-    // Init audioDeviceSelectorComponent
-    audioDeviceSelectorComponent = new AudioDeviceSelectorComponent(*audioDeviceManager,
-                                                                    minAudioInputChannels,
-                                                                    maxAudioInputChannels,
-                                                                    minAudioOutputChannels,
-                                                                    maxAudioOutputChannels,
-                                                                    showMidiInputOptions,
-                                                                    showMidiOutputSelector,
-                                                                    showChannelsAsStereoPairs,
-                                                                    hideAdvancedOptionsWithButton);
-    mainGUIComponent->addChildComponent(audioDeviceSelectorComponent);
-    audioDeviceSelectorComponent->setCentrePosition(mainGUIComponent->getWidth()  * 0.25f,
-                                                    mainGUIComponent->getHeight() * 0.25f);
-    audioDeviceSelectorComponent->setSize(400, 300);
-    audioDeviceSelectorComponent->setVisible(true);
 }
 
 void MainApplication::shutdown()
 {
-    mainGUIComponent->removeChildComponent(audioDeviceSelectorComponent);
-    audioDeviceSelectorComponent = nullptr;
-
-    audioDeviceManager->removeAudioCallback(audioProcessorPlayer);
-    audioDeviceManager->closeAudioDevice();
     audioDeviceManager = nullptr;
-
     audioProcessorPlayer = nullptr;
 
+    mainDocumentWindow = nullptr;
     mainAudioProcessor = nullptr;
-    mainGUIComponent = nullptr;
-    mainWindow = nullptr;
 }
 
 
@@ -103,8 +74,49 @@ void MainApplication::anotherInstanceStarted(const String& commandLine)
 }
 
 
+/*====================================================================*/
+void MainApplication::openAudioDeviceSettingsDialog()
+{
+    // Init audio settings
+    int minAudioInputChannels = 2;
+    int maxAudioInputChannels = 32;
+    int minAudioOutputChannels = 2;
+    int maxAudioOutputChannels = 32;
+    bool showMidiInputOptions = true;
+    bool showMidiOutputSelector = false;
+    bool showChannelsAsStereoPairs = true;
+    bool hideAdvancedOptionsWithButton = false;
+
+
+    // Init audioDeviceSelectorComponent
+    AudioDeviceSelectorComponent* audioDeviceSelectorComponent;
+    audioDeviceSelectorComponent = new AudioDeviceSelectorComponent(*audioDeviceManager,
+                                                                    minAudioInputChannels,
+                                                                    maxAudioInputChannels,
+                                                                    minAudioOutputChannels,
+                                                                    maxAudioOutputChannels,
+                                                                    showMidiInputOptions,
+                                                                    showMidiOutputSelector,
+                                                                    showChannelsAsStereoPairs,
+                                                                    hideAdvancedOptionsWithButton);
+    //audioDeviceSelectorComponent->setSize(400, 300);
+    audioDeviceSelectorComponent->setVisible(true);
+
+
+    // Init I/O settings dialog window
+    DialogWindow::LaunchOptions dialogWindowLaunchOptions;
+    dialogWindowLaunchOptions.dialogTitle = "I/O Settings";
+    dialogWindowLaunchOptions.dialogBackgroundColour = Colours::grey;
+    dialogWindowLaunchOptions.content.setOwned(audioDeviceSelectorComponent);
+    dialogWindowLaunchOptions.componentToCentreAround = mainDocumentWindow;
+    dialogWindowLaunchOptions.escapeKeyTriggersCloseButton = false;
+    dialogWindowLaunchOptions.useNativeTitleBar = true;
+    dialogWindowLaunchOptions.resizable = false;
+    dialogWindowLaunchOptions.useBottomRightCornerResizer = false;
+    dialogWindowLaunchOptions.launchAsync();
+}
+
+
 /*========================================================================*/
-/**
- *  This macro generates the main() routine that launches the app.
- */
+/** This macro generates the main() routine that launches the app. */
 START_JUCE_APPLICATION(MainApplication)

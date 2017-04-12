@@ -20,23 +20,19 @@
 
 
 #include "MainWindow.h"
-#include "MainGUIComponent.h"
+
+#define MAIN_WINDOW_COLOUR Colour::fromRGBA(0, 0, 0, 150)
 
 
 /*========================================================================*/
-MainWindow::MainWindow(String name, Component* content)
-: DocumentWindow(name, Colours::pink, DocumentWindow::allButtons)
+MainWindow::MainWindow(String title, Component* contentOwned)
+: DocumentWindow(title, MAIN_WINDOW_COLOUR, DocumentWindow::allButtons)
 {
-    setUsingNativeTitleBar(true);
-    setContentOwned(content, true);
-    setResizable(true, true);
+    setContentOwned(contentOwned, true);
     centreWithSize(getWidth(), getHeight());
+    setUsingNativeTitleBar(true);
+    setResizable(true, false);
     setVisible(true);
-}
-
-MainWindow::~MainWindow()
-{
-
 }
 
 
