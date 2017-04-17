@@ -19,49 +19,35 @@
  *========================================================================*/
 
 
-#ifndef MAIN_APPLICATION_H_INCLUDED
-#define MAIN_APPLICATION_H_INCLUDED
+#ifndef MENU_BAR_H_INCLUDED
+#define MENU_BAR_H_INCLUDED
 
 #include "JuceHeader.h"
+#include "Commands.h"
 
 
-class MainApplication : public JUCEApplication
+class MenuBar : public MenuBarModel
 {
 public:
     /*====================================================================*/
-    MainApplication() {}
+     MenuBar(CommandsClass* commands);
+    ~MenuBar() override;
 
     /*====================================================================*/
-    const String getApplicationName()    override { return ProjectInfo::projectName; }
-    const String getApplicationVersion() override { return ProjectInfo::versionString; }
-    bool moreThanOneInstanceAllowed()    override { return false; }
+    StringArray getMenuBarNames() override;
+    PopupMenu getMenuForIndex(int topLevelMenuIndex, const String& menuName) override;
 
     /*====================================================================*/
-    void initialise(const String& commandLine) override;
-    void shutdown() override;
-
-    /*====================================================================*/
-    void systemRequestedQuit() override;
-    void anotherInstanceStarted(const String& commandLine) override;
-
-    /*====================================================================*/
-    void openAudioDeviceSettingsDialog();
+    void menuItemSelected(int menuItemID, int topLevelMenuIndex) override;
+    void menuBarActivated(bool isActive) override;
 
 private:
     /*====================================================================*/
-    ScopedPointer<AudioProcessor> mainAudioProcessor;
-    ScopedPointer<DocumentWindow> mainDocumentWindow;
+    CommandsClass* commandsClass;
 
     /*====================================================================*/
-    ScopedPointer<AudioProcessorPlayer> audioProcessorPlayer;
-    ScopedPointer<AudioDeviceManager>   audioDeviceManager;
-
-    /*====================================================================*/
-    //ScopedPointer<ApplicationCommandTarget> appCommandTarget;
-
-    /*====================================================================*/
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainApplication)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MenuBar)
 };
 
 
-#endif /* MAIN_APPLICATION_H_INCLUDED */
+#endif /* MENU_BAR_H_INCLUDED */

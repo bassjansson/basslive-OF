@@ -46,10 +46,20 @@ void MainApplication::initialise(const String& commandLine)
     audioDeviceManager = new AudioDeviceManager();
     audioDeviceManager->initialiseWithDefaultDevices(2, 2);
     audioDeviceManager->addAudioCallback(audioProcessorPlayer);
+
+
+    // Init app command target
+    //appCommandTarget = new CommandsClass(this, mainDocumentWindow);
+
+
+    // Show audio device settings
+    openAudioDeviceSettingsDialog();
 }
 
 void MainApplication::shutdown()
 {
+    //appCommandTarget = nullptr;
+
     audioDeviceManager = nullptr;
     audioProcessorPlayer = nullptr;
 
@@ -75,6 +85,8 @@ void MainApplication::anotherInstanceStarted(const String& commandLine)
 
 
 /*====================================================================*/
+// TODO: This whole thing needs it's own class.
+// At the moment it even leaks memory when you don't close this dialog.
 void MainApplication::openAudioDeviceSettingsDialog()
 {
     // Init audio settings
@@ -99,7 +111,7 @@ void MainApplication::openAudioDeviceSettingsDialog()
                                                                     showMidiOutputSelector,
                                                                     showChannelsAsStereoPairs,
                                                                     hideAdvancedOptionsWithButton);
-    //audioDeviceSelectorComponent->setSize(400, 300);
+    audioDeviceSelectorComponent->setSize(500, 500);
     audioDeviceSelectorComponent->setVisible(true);
 
 
