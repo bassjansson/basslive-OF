@@ -1,0 +1,54 @@
+N = 16
+
+a = 1.000 + 0.000i
+b = 0.924 + 0.383i
+c = 0.707 + 0.707i
+d = 0.383 + 0.924i
+e = 0.000 + 1.000i
+
+a.i = 0.000 = sin(0 / N * 2*M_PI)
+b.i = 0.383 = sin(1 / N * 2*M_PI)
+c.i = 0.707 = sin(2 / N * 2*M_PI)
+d.i = 0.924 = sin(3 / N * 2*M_PI)
+e.i = 1.000 = sin(4 / N * 2*M_PI)
+
+12 = a0 = negateNone(e)
+8  = a1 = negateReal(a)
+4  = a2 = negateBoth(e)
+0  = a3 = negateImag(a)
+
+15 = b0 = negateNone(b)
+9  = b1 = negateReal(b)
+7  = b2 = negateBoth(b)
+1  = b3 = negateImag(b)
+
+14 = c0 = negateNone(c)
+10 = c1 = negateReal(c)
+6  = c2 = negateBoth(c)
+2  = c3 = negateImag(c)
+
+13 = d0 = negateNone(d)
+11 = d1 = negateReal(d)
+5  = d2 = negateBoth(d)
+3  = d3 = negateImag(d)
+
+
+// Ordered Z buffer
+// theta = -n / N * 2*M_PI
+// Z = cos(theta) + isin(theta);
+0  = a3 = negateImag(a)
+1  = b3 = negateImag(b)
+2  = c3 = negateImag(c)
+3  = d3 = negateImag(d)
+4  = a2 = negateBoth(e)
+5  = d2 = negateBoth(d)
+6  = c2 = negateBoth(c)
+7  = b2 = negateBoth(b)
+8  = a1 = negateReal(a)
+9  = b1 = negateReal(b)
+10 = c1 = negateReal(c)
+11 = d1 = negateReal(d)
+12 = a0 = negateNone(e)
+13 = d0 = negateNone(d)
+14 = c0 = negateNone(c)
+15 = b0 = negateNone(b)
