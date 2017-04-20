@@ -93,13 +93,42 @@ int main(int argc, const char* argv[])
 
     for (int n = 0; n < N; ++n)
     {
-        for (int k = 0; k < N; ++k)
+        cout << "n = " << n << "\n";
+
+        // Get the possible amount of repeat
+        int repeat = 1;
+
+        for (int i = 2; i <= N; i *= 2)
         {
+            if (n % i) break;
+
+            repeat = i;
+        }
+
+        // Iterate k from 0 to N / repeat
+        int N_repeat = N / repeat;
+
+        for (int k = 0; k < N_repeat; ++k)
+        {
+            // With this Z we look up values in the Z buffer
             int Z = (n * k) % N;
 
-            cout << "k = " << k << "\t";
-            cout << "n = " << n << "\t";
-            cout << "Z = " << Z << "\n";
+            // The actual product x[n] * Z^-n
+            //sigc product = signal[n] * Zbuffer[Z];
+
+            cout << "\tk = ";
+
+            for (int r = 0; r < repeat; ++r)
+            {
+                int k_repeat = k + r * N_repeat;
+
+                // The actual addition of X[k] = SUM(x[n] * Z^-n)
+                //response[k_repeat] += product;
+
+                cout << k_repeat << ", ";
+            }
+
+            cout << "->\tZ = " << Z << "\n";
         }
 
         cout << "\n";

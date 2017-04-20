@@ -52,3 +52,14 @@ e.i = 1.000 = sin(4 / N * 2*M_PI)
 13 = d0 = negateNone(d)
 14 = c0 = negateNone(c)
 15 = b0 = negateNone(b)
+
+
+// n: kN & ZN
+0:  16 & 1
+2:  2  & 8
+4:  4  & 4
+6:  2  & 8
+8:  8  & 2
+10: 2  & 8
+12: 4  & 4
+14: 2  & 8
