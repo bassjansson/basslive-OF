@@ -1,5 +1,5 @@
 
-#include "FastFourierTransform.h"
+#include "FourierTransform.h"
 #include <iomanip>
 
 
@@ -41,15 +41,15 @@ int main(int argc, const char* argv[])
     //     signal[n] = (float)rand() / RAND_MAX * 2.0f - 1.0f;
 
 
-    FastFourierTransform fft(windowSize);
+    FourierTransform ft(windowSize);
 
 
     if (mode == "spectrum")
     {
         // Compute and print the spectrum
-        //fft.slowDFT(signal, spectrum);
-        //fft.simpleDFT(signal, spectrum);
-        fft.optimizedDFT(signal, spectrum);
+        //ft.slowDFT(signal, spectrum);
+        //ft.simpleDFT(signal, spectrum);
+        ft.optimizedDFT(signal, spectrum);
 
         for (int k = 0; k < windowSize; ++k)
         {
@@ -66,21 +66,21 @@ int main(int argc, const char* argv[])
 
         // Time the slow DFT
         begin = chrono::steady_clock::now();
-        fft.slowDFT(signal, spectrum);
+        ft.slowDFT(signal, spectrum);
         end = chrono::steady_clock::now();
         cout << "     Slow DFT duration in microseconds:\t";
         cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << endl;
 
         // Time the simple DFT
         begin = chrono::steady_clock::now();
-        fft.simpleDFT(signal, spectrum);
+        ft.simpleDFT(signal, spectrum);
         end = chrono::steady_clock::now();
         cout << "   Simple DFT duration in microseconds:\t";
         cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << endl;
 
         // Time the optimized DFT
         begin = chrono::steady_clock::now();
-        fft.optimizedDFT(signal, spectrum);
+        ft.optimizedDFT(signal, spectrum);
         end = chrono::steady_clock::now();
         cout << "Optimized DFT duration in microseconds:\t";
         cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << endl;

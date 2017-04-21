@@ -5,11 +5,11 @@
 #include "Defines.h"
 
 
-class FastFourierTransform
+class FourierTransform
 {
 public:
-     FastFourierTransform(SigI size);
-    ~FastFourierTransform();
+     FourierTransform(SigI size);
+    ~FourierTransform();
 
     void      slowDFT(SigFVec& input, SigCVec& output);
     void    simpleDFT(SigFVec& input, SigCVec& output);

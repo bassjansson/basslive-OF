@@ -3,7 +3,7 @@ CC      = c++
 CFLAGS  = -Wall
 LDFLAGS =
 
-OBJECTS = fft.o FastFourierTransform.o
+OBJECTS = fft.o FourierTransform.o
 
 all: FFT_Test
 

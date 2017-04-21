@@ -1,13 +1,13 @@
 
-#include "FastFourierTransform.h"
+#include "FourierTransform.h"
 
 
-void FastFourierTransform::warning(string message)
+void FourierTransform::warning(string message)
 {
     cout << "[FFT] WARNING: " << message << endl;
 }
 
-FastFourierTransform::FastFourierTransform(SigI windowSize)
+FourierTransform::FourierTransform(SigI windowSize)
 {
     N = windowSize;
 
@@ -34,13 +34,13 @@ FastFourierTransform::FastFourierTransform(SigI windowSize)
     }
 }
 
-FastFourierTransform::~FastFourierTransform()
+FourierTransform::~FourierTransform()
 {
     ZBuffer.clear();
 }
 
 // A slow DFT with all processing in it and no optimizations.
-void FastFourierTransform::slowDFT(SigFVec& x, SigCVec& X)
+void FourierTransform::slowDFT(SigFVec& x, SigCVec& X)
 {
     if (x.size() != N ||
         X.size() != N)
@@ -65,7 +65,7 @@ void FastFourierTransform::slowDFT(SigFVec& x, SigCVec& X)
 }
 
 // A simple DFT using memory for minimum amount of processing.
-void FastFourierTransform::simpleDFT(SigFVec& x, SigCVec& X)
+void FourierTransform::simpleDFT(SigFVec& x, SigCVec& X)
 {
     if (x.size() != N ||
         X.size() != N)
@@ -83,8 +83,9 @@ void FastFourierTransform::simpleDFT(SigFVec& x, SigCVec& X)
     }
 }
 
-// An optimized DFT discarding repeated calculations.
-void FastFourierTransform::optimizedDFT(SigFVec& x, SigCVec& X)
+// An optimized DFT which discards repeated calculations.
+// BUT: This one is only faster than the simple DFT if N >= 1024.
+void FourierTransform::optimizedDFT(SigFVec& x, SigCVec& X)
 {
     if (x.size() != N ||
         X.size() != N)
@@ -103,16 +104,11 @@ void FastFourierTransform::optimizedDFT(SigFVec& x, SigCVec& X)
         // Get the possible amount of repeated calculations
         repeat = 1;
 
-        // TODO: This could be a calculation instead of a for-loop
-        // Tip: look at the bit value of n, there you can find the matching r
-        for (r = 2; r <= N; r *= 2)
-        {
-            if (n % r) break;
-
-            repeat = r;
-        }
+        for (r = 0; (repeat <= N) && !((n >> r) & 1); ++r)
+            repeat *= 2;
 
         Nr = N / repeat;
+
 
         // Iterate k from 0 to N / repeat
         for (k = 0; k < Nr; ++k)
