@@ -125,3 +125,47 @@ void FourierTransform::optimizedDFT(SigFVec& x, SigCVec& X)
     for (k = 0; k < N; ++k)
         X[k] /= NHalf;
 }
+
+void FourierTransform::recursiveFFT(SigFVec& x, SigCVec& X)
+{
+    if (x.size() != N ||
+        X.size() != N)
+        return warning("The specified vectors do not have the required window size.\
+        \nAborting transform.");
+
+    recursiveFFT(x, X, N, 0);
+
+    for (k = 0; k < N; ++k)
+        X[k] /= NHalf;
+}
+
+void FourierTransform::recursiveFFT(SigFVec& x, SigCVec& X, SigI Nr, SigI n)
+{
+    if (Nr > 1)
+    {
+        SigI NrHalf = Nr / 2;
+        SigI level  = N / Nr;
+
+        SigCVec XEven, XOdd;
+        XEven.resize(NrHalf);
+        XOdd.resize(NrHalf);
+
+        recursiveFFT(x, XEven, NrHalf, n);
+        recursiveFFT(x, XOdd , NrHalf, n + level);
+
+        for (k = 0; k < NrHalf; ++k)
+        {
+            SigC ZOdd = ZBuffer[k * level] * XOdd[k];
+
+            X[k]          = XEven[k] + ZOdd;
+            X[k + NrHalf] = XEven[k] - ZOdd;
+        }
+
+        XEven.clear();
+        XOdd.clear();
+    }
+    else
+    {
+        X[0] = x[n];
+    }
+}
