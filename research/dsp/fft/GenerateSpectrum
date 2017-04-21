@@ -3,7 +3,7 @@
 make
 echo ""
 
-FFT_Test $1 > response
+FFT_Test spectrum $1 > response
 
 echo "Generated data file 'response'."
 echo ""

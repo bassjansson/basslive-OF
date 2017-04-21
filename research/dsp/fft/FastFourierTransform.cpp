@@ -20,7 +20,11 @@ FastFourierTransform::FastFourierTransform(SigI windowSize)
     }
 
     NHalf = N / 2;
+    Nr = N;
+    n = k = r = 0;
+    repeat = 0;
 
+    xZ = SIG_ZERO;
     ZBuffer.resize(N);
 
     for (int k = 0; k < N; ++k)
@@ -35,7 +39,7 @@ FastFourierTransform::~FastFourierTransform()
     ZBuffer.clear();
 }
 
-// A slow DFT with all calculations in it and no optimizations.
+// A slow DFT with all processing in it and no optimizations.
 void FastFourierTransform::slowDFT(SigFVec& x, SigCVec& X)
 {
     if (x.size() != N ||
@@ -43,11 +47,11 @@ void FastFourierTransform::slowDFT(SigFVec& x, SigCVec& X)
         return warning("The specified vectors do not have the required window size.\
         \nAborting transform.");
 
-    for (int k = 0; k < N; ++k)
+    for (SigI k = 0; k < N; ++k)
     {
         X[k] = SIG_ZERO;
 
-        for (int n = 0; n < N; ++n)
+        for (SigI n = 0; n < N; ++n)
         {
             SigF theta = SIG_TWO * M_PI * k / N * -n;
 
@@ -60,7 +64,7 @@ void FastFourierTransform::slowDFT(SigFVec& x, SigCVec& X)
     }
 }
 
-// A simple DFT with minimum amount of calculations.
+// A simple DFT using memory for minimum amount of processing.
 void FastFourierTransform::simpleDFT(SigFVec& x, SigCVec& X)
 {
     if (x.size() != N ||
@@ -68,13 +72,60 @@ void FastFourierTransform::simpleDFT(SigFVec& x, SigCVec& X)
         return warning("The specified vectors do not have the required window size.\
         \nAborting transform.");
 
-    for (int k = 0; k < N; ++k)
+    for (k = 0; k < N; ++k)
     {
         X[k] = SIG_ZERO;
 
-        for (int n = 0; n < N; ++n)
+        for (n = 0; n < N; ++n)
             X[k] += x[n] * ZBuffer[(k * (N - n)) % N];
 
         X[k] /= NHalf;
     }
+}
+
+// An optimized DFT discarding repeated calculations.
+void FastFourierTransform::optimizedDFT(SigFVec& x, SigCVec& X)
+{
+    if (x.size() != N ||
+        X.size() != N)
+        return warning("The specified vectors do not have the required window size.\
+        \nAborting transform.");
+
+
+    // Clear X first
+    for (k = 0; k < N; ++k)
+        X[k] = SIG_ZERO;
+
+
+    // Iterate n first instead of k
+    for (n = 0; n < N; ++n)
+    {
+        // Get the possible amount of repeated calculations
+        repeat = 1;
+
+        // TODO: This could be a calculation instead of a for-loop
+        // Tip: look at the bit value of n, there you can find the matching r
+        for (r = 2; r <= N; r *= 2)
+        {
+            if (n % r) break;
+
+            repeat = r;
+        }
+
+        Nr = N / repeat;
+
+        // Iterate k from 0 to N / repeat
+        for (k = 0; k < Nr; ++k)
+        {
+            xZ = x[n] * ZBuffer[(k * (N - n)) % N];
+
+            for (r = 0; r < repeat; ++r)
+                X[k + r * Nr] += xZ;
+        }
+    }
+
+
+    // Perform the N / 2 division on X
+    for (k = 0; k < N; ++k)
+        X[k] /= NHalf;
 }
