@@ -20,7 +20,8 @@ int main(int argc, const char* argv[])
     }
     else
     {
-        cout << "Not enough arguments... Returning error 1.\n";
+        cout << "ERROR: Not enough arguments specified...\
+        \nUsage: FFT_Test <mode> <window_size>\n";
         return 1;
     }
 

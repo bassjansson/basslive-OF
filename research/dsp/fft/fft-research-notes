@@ -54,6 +54,7 @@ e.i = 1.000 = sin(4 / N * 2*M_PI)
 15 = b0 = negateNone(b)
 
 
+// DFT optimization
 // n: kN & ZN
 0:  16 & 1
 2:  2  & 8
