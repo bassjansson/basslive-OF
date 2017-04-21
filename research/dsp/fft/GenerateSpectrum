@@ -1,0 +1,17 @@
+#! /bin/bash
+
+make
+echo ""
+
+FFT_Test $1 > response
+
+make clean
+echo ""
+
+echo "Generated data file 'response'."
+echo ""
+
+gnuplot spectrum
+
+echo "PNG files created with gnuplot."
+echo ""
