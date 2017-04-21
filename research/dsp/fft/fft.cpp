@@ -33,17 +33,35 @@ int main(int argc, const char* argv[])
     // for (int n = 0; n < windowSize; ++n)
     //     signal[n] = (float)rand() / RAND_MAX * 2.0f - 1.0f;
 
+
+    chrono::steady_clock::time_point begin, end;
+
     FastFourierTransform fft(windowSize);
+
+    // Time the slow DFT
+    begin = chrono::steady_clock::now();
     fft.slowDFT(signal, spectrum);
+    end = chrono::steady_clock::now();
+    cout << "  Slow DFT duration in microseconds:\t";
+    cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << endl;
 
-    for (int k = 0; k < windowSize; ++k)
-    {
-        float frequency = (float)k / windowSize * sampleRate;
-        float magnitude = 20.0f * log10f(abs(spectrum[k]));
+    // Time the simple DFT
+    begin = chrono::steady_clock::now();
+    fft.simpleDFT(signal, spectrum);
+    end = chrono::steady_clock::now();
+    cout << "Simple DFT duration in microseconds:\t";
+    cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << endl;
 
-        cout << frequency << "\t";
-        cout << magnitude << "\n";
-    }
+
+    // Print the spectrum
+    // for (int k = 0; k < windowSize; ++k)
+    // {
+    //     float frequency = (float)k / windowSize * sampleRate;
+    //     float magnitude = 20.0f * log10f(abs(spectrum[k]));
+    //
+    //     cout << frequency << "\t";
+    //     cout << magnitude << "\n";
+    // }
 
 
     // int N = windowSize;

@@ -19,6 +19,8 @@ FastFourierTransform::FastFourierTransform(SigI windowSize)
         N = 0;
     }
 
+    NHalf = N / 2;
+
     ZBuffer.resize(N);
 
     for (int k = 0; k < N; ++k)
@@ -33,6 +35,7 @@ FastFourierTransform::~FastFourierTransform()
     ZBuffer.clear();
 }
 
+// A slow DFT with all calculations in it and no optimizations.
 void FastFourierTransform::slowDFT(SigFVec& x, SigCVec& X)
 {
     if (x.size() != N ||
@@ -54,5 +57,24 @@ void FastFourierTransform::slowDFT(SigFVec& x, SigCVec& X)
         }
 
         X[k] /= N / 2;
+    }
+}
+
+// A simple DFT with minimum amount of calculations.
+void FastFourierTransform::simpleDFT(SigFVec& x, SigCVec& X)
+{
+    if (x.size() != N ||
+        X.size() != N)
+        return warning("The specified vectors do not have the required window size.\
+        \nAborting transform.");
+
+    for (int k = 0; k < N; ++k)
+    {
+        X[k] = SIG_ZERO;
+
+        for (int n = 0; n < N; ++n)
+            X[k] += x[n] * ZBuffer[(k * (N - n)) % N];
+
+        X[k] /= NHalf;
     }
 }

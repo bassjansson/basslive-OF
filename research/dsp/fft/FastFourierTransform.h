@@ -11,12 +11,15 @@ public:
      FastFourierTransform(SigI size);
     ~FastFourierTransform();
 
-    void slowDFT(SigFVec& input, SigCVec& output);
+    void   slowDFT(SigFVec& input, SigCVec& output);
+    void simpleDFT(SigFVec& input, SigCVec& output);
 
 private:
     void warning(string message);
 
     SigI N;
+    SigI NHalf;
+    
     SigCVec ZBuffer;
 };
 
