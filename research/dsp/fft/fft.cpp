@@ -50,7 +50,8 @@ int main(int argc, const char* argv[])
         //ft.slowDFT(signal, spectrum);
         //ft.simpleDFT(signal, spectrum);
         //ft.optimizedDFT(signal, spectrum);
-        ft.recursiveFFT(signal, spectrum);
+        //ft.recursiveFFT(signal, spectrum);
+        ft.FFT(signal, spectrum);
 
         for (int k = 0; k < windowSize; ++k)
         {
@@ -91,6 +92,13 @@ int main(int argc, const char* argv[])
         ft.recursiveFFT(signal, spectrum);
         end = chrono::steady_clock::now();
         cout << "Recursive FFT duration in microseconds:\t";
+        cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << endl;
+
+        // Time the FFT
+        begin = chrono::steady_clock::now();
+        ft.FFT(signal, spectrum);
+        end = chrono::steady_clock::now();
+        cout << "          FFT duration in microseconds:\t";
         cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << endl;
     }
 
