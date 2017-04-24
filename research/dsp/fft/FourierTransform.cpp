@@ -22,18 +22,23 @@ FourierTransform::FourierTransform(SigI windowSize)
     NHalf = N / 2;
     Nr = N;
     NrHalf = Nr / 2;
-    n = k = r = 0;
+    n = k = r = i = F = 0;
     repeat = 0;
 
     xZ = SIG_ZERO;
     ZBuffer.resize(N);
-    FFTBuffer.resize(N);
+
+    x = new SigC[N];
+    X = new SigC[N];
+    swap = NULL;
+
 
     for (int k = 0; k < N; ++k)
     {
         SigF theta = SIG_TWO * M_PI * k / N;
         ZBuffer[k] = SigC(cos(theta), sin(theta));
-        FFTBuffer[k] = SIG_ZERO;
+
+        x[k] = X[k] = SIG_ZERO;
     }
 }
 
@@ -173,37 +178,35 @@ void FourierTransform::recursiveFFT(SigFVec& x, SigCVec& X, SigI Nr, SigI n)
     }
 }
 
-void FourierTransform::FFT(SigFVec& x, SigCVec& X)
+void FourierTransform::FFT(SigFVec& input, SigCVec& output)
 {
-    if (x.size() != N ||
-        X.size() != N)
+    // Check sizes
+    if (input.size() != N ||
+        output.size() != N)
         return warning("The specified vectors do not have the required window size.\
         \nAborting transform.");
 
-    for (n = 0; n < N; ++n)
-        FFTBuffer[n] = x[n];
+    // Copy input to x
+    // (this is equivelant to the loop below with Nr = 2)
+    for (n = 0; n < NHalf; ++n)
+    {
+        k = n * 2;
 
-    FFT(FFTBuffer, X);
-}
-
-void FourierTransform::FFT(SigCVec& x, SigCVec& X)
-{
-    if (x.size() != N ||
-        X.size() != N)
-        return warning("The specified vectors do not have the required window size.\
-        \nAborting transform.");
+        x[k]     = input[n] + input[n + NHalf];
+        x[k + 1] = input[n] - input[n + NHalf];
+    }
 
     // Iterate through the recursive levels
-    for (Nr = 2; Nr <= N; Nr *= 2)
+    for (Nr = 4; Nr < N; Nr *= 2)
     {
         NrHalf = Nr / 2;
         repeat = N / Nr;
 
         // Iterate through the nested transforms
-        for (int F = 0; F < N; F += Nr)
+        for (F = 0; F < N; F += Nr)
         {
             // Iterate through half of the current transform length
-            for (int i = 0; i < NrHalf; ++i)
+            for (i = 0; i < NrHalf; ++i)
             {
                 n = i + F / 2;
                 k = i + F;
@@ -215,13 +218,21 @@ void FourierTransform::FFT(SigCVec& x, SigCVec& X)
             }
         }
 
-        // Copy X back to x
-        // TODO: this should be swapping pointers
-        for (n = 0; n < N; ++n)
-            x[n] = X[n];
+        // Swap x and X
+        swap = x;
+        x = X;
+        X = swap;
     }
 
-    // Perform the N / 2 division on X
-    for (k = 0; k < N; ++k)
-        X[k] /= NHalf;
+    // Copy x to output with the N / 2 division
+    // (this is equivelant to the loop above with Nr = N)
+    for (k = 0; k < NHalf; ++k)
+    {
+        n = k;
+
+        SigC ZOdd = ZBuffer[k] * x[n + NHalf];
+
+        output[k]         = (x[n] + ZOdd) / (SigF)NHalf;
+        output[k + NHalf] = (x[n] - ZOdd) / (SigF)NHalf;
+    }
 }

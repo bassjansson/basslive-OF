@@ -17,7 +17,6 @@ public:
 
     void recursiveFFT(SigFVec& input, SigCVec& output);
     void          FFT(SigFVec& input, SigCVec& output);
-    void          FFT(SigCVec& input, SigCVec& output);
 
 private:
     void recursiveFFT(SigFVec&, SigCVec&, SigI, SigI);
@@ -25,12 +24,13 @@ private:
 
     SigI N, NHalf;
     SigI Nr, NrHalf;
-    SigI n, k, r;
+    SigI n, k, r, i, F;
     SigI repeat;
 
     SigC xZ;
     SigCVec ZBuffer;
-    SigCVec FFTBuffer;
+
+    SigC *x, *X, *swap;
 };
 
 
