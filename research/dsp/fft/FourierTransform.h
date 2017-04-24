@@ -24,7 +24,7 @@ private:
 
     SigI N, NHalf;
     SigI Nr, NrHalf;
-    SigI n, k, r, i, F;
+    SigI n, k, r, i;
     SigI repeat;
 
     SigC xZ;

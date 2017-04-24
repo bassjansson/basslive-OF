@@ -22,7 +22,7 @@ FourierTransform::FourierTransform(SigI windowSize)
     NHalf = N / 2;
     Nr = N;
     NrHalf = Nr / 2;
-    n = k = r = i = F = 0;
+    n = k = r = i = 0;
     repeat = 0;
 
     xZ = SIG_ZERO;
@@ -191,9 +191,10 @@ void FourierTransform::FFT(SigFVec& input, SigCVec& output)
     for (n = 0; n < NHalf; ++n)
     {
         k = n * 2;
+        r = n + NHalf;
 
-        x[k]     = input[n] + input[n + NHalf];
-        x[k + 1] = input[n] - input[n + NHalf];
+        x[k]     = input[n] + input[r];
+        x[k + 1] = input[n] - input[r];
     }
 
     // Iterate through the recursive levels
@@ -202,20 +203,16 @@ void FourierTransform::FFT(SigFVec& input, SigCVec& output)
         NrHalf = Nr / 2;
         repeat = N / Nr;
 
-        // Iterate through the nested transforms
-        for (F = 0; F < N; F += Nr)
+        for (n = 0; n < NHalf; ++n)
         {
-            // Iterate through half of the current transform length
-            for (i = 0; i < NrHalf; ++i)
-            {
-                n = i + F / 2;
-                k = i + F;
+            r = n % NrHalf; // x of matrix
+            i = n / NrHalf; // y of matrix
+            k = r + i * Nr;
 
-                SigC ZOdd = ZBuffer[i * repeat] * x[n + NHalf];
+            SigC ZOdd = ZBuffer[r * repeat] * x[n + NHalf];
 
-                X[k]          = x[n] + ZOdd;
-                X[k + NrHalf] = x[n] - ZOdd;
-            }
+            X[k]          = x[n] + ZOdd;
+            X[k + NrHalf] = x[n] - ZOdd;
         }
 
         // Swap x and X
@@ -226,13 +223,11 @@ void FourierTransform::FFT(SigFVec& input, SigCVec& output)
 
     // Copy x to output with the N / 2 division
     // (this is equivelant to the loop above with Nr = N)
-    for (k = 0; k < NHalf; ++k)
+    for (n = 0; n < NHalf; ++n)
     {
-        n = k;
+        SigC ZOdd = ZBuffer[n] * x[n + NHalf];
 
-        SigC ZOdd = ZBuffer[k] * x[n + NHalf];
-
-        output[k]         = (x[n] + ZOdd) / (SigF)NHalf;
-        output[k + NHalf] = (x[n] - ZOdd) / (SigF)NHalf;
+        output[n]         = (x[n] + ZOdd) / (SigF)NHalf;
+        output[n + NHalf] = (x[n] - ZOdd) / (SigF)NHalf;
     }
 }
