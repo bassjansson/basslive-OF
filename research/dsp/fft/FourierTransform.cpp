@@ -151,8 +151,8 @@ void FourierTransform::recursiveFFT(SigFVec& x, SigCVec& X, SigI Nr, SigI n)
 {
     if (Nr > 1)
     {
-        NrHalf = Nr / 2;
-        repeat = N / Nr;
+        SigI NrHalf = Nr / 2;
+        SigI repeat = N / Nr;
 
         SigCVec XEven, XOdd;
         XEven.resize(NrHalf);
@@ -161,7 +161,7 @@ void FourierTransform::recursiveFFT(SigFVec& x, SigCVec& X, SigI Nr, SigI n)
         recursiveFFT(x, XEven, NrHalf, n);
         recursiveFFT(x, XOdd , NrHalf, n + repeat);
 
-        for (k = 0; k < NrHalf; ++k)
+        for (SigI k = 0; k < NrHalf; ++k)
         {
             SigC ZOdd = ZBuffer[k * repeat] * XOdd[k];
 
