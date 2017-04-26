@@ -25,7 +25,7 @@ FourierTransform::FourierTransform(SigI windowSize)
     n = k = r = i = 0;
     repeat = 0;
 
-    xZ = SIG_ZERO;
+    xZ = ZOdd = SIG_ZERO;
     ZBuffer.resize(N);
 
     x = new SigC[N];
@@ -161,9 +161,9 @@ void FourierTransform::recursiveFFT(SigFVec& x, SigCVec& X, SigI Nr, SigI n)
         recursiveFFT(x, XEven, NrHalf, n);
         recursiveFFT(x, XOdd , NrHalf, n + repeat);
 
-        for (SigI k = 0; k < NrHalf; ++k)
+        for (k = 0; k < NrHalf; ++k)
         {
-            SigC ZOdd = ZBuffer[k * repeat] * XOdd[k];
+            ZOdd = ZBuffer[k * repeat] * XOdd[k];
 
             X[k]          = XEven[k] + ZOdd;
             X[k + NrHalf] = XEven[k] - ZOdd;
@@ -209,7 +209,7 @@ void FourierTransform::FFT(SigFVec& input, SigCVec& output)
             i = n / NrHalf; // y of matrix
             k = r + i * Nr;
 
-            SigC ZOdd = ZBuffer[r * repeat] * x[n + NHalf];
+            ZOdd = ZBuffer[r * repeat] * x[n + NHalf];
 
             X[k]          = x[n] + ZOdd;
             X[k + NrHalf] = x[n] - ZOdd;
@@ -223,11 +223,12 @@ void FourierTransform::FFT(SigFVec& input, SigCVec& output)
 
     // Copy x to output with the N / 2 division
     // (this is equivelant to the loop above with Nr = N)
+    SigF NHalfF = NHalf;
     for (n = 0; n < NHalf; ++n)
     {
-        SigC ZOdd = ZBuffer[n] * x[n + NHalf];
+        ZOdd = ZBuffer[n] * x[n + NHalf];
 
-        output[n]         = (x[n] + ZOdd) / (SigF)NHalf;
-        output[n + NHalf] = (x[n] - ZOdd) / (SigF)NHalf;
+        output[n]         = (x[n] + ZOdd) / NHalfF;
+        output[n + NHalf] = (x[n] - ZOdd) / NHalfF;
     }
 }

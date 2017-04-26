@@ -27,7 +27,7 @@ private:
     SigI n, k, r, i;
     SigI repeat;
 
-    SigC xZ;
+    SigC xZ, ZOdd;
     SigCVec ZBuffer;
 
     SigC *x, *X, *swap;
