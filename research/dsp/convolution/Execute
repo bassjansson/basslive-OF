@@ -1,0 +1,17 @@
+#! /bin/bash
+
+make
+echo ""
+
+Convolution input > input
+Convolution output > output
+Convolution response > response
+
+echo "Generated data files."
+echo ""
+
+gnuplot Signal
+gnuplot Spectrum
+
+echo "PNG files created with gnuplot."
+echo ""
