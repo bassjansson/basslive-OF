@@ -6,6 +6,7 @@ echo ""
 Convolution input > input
 Convolution output > output
 Convolution response > response
+Convolution t-var > t-var
 
 echo "Generated data files."
 echo ""

@@ -11,8 +11,11 @@ public:
      FourierTransform(sigi size);
     ~FourierTransform();
 
-    void  forward(sigf* input, sigc* output);
-    void backward(sigc* input, sigf* output);
+    void  forward(sigc* input, sigc* output);
+    void backward(sigc* input, sigc* output);
+
+    void   logarithm(sigc* input);
+    void exponential(sigc* input);
 
 private:
     sigi N, NHalf, Nr, NrHalf;

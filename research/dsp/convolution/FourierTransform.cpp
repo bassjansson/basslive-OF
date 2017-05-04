@@ -47,7 +47,7 @@ FourierTransform::~FourierTransform()
     delete[] Y;
 }
 
-void FourierTransform::forward(sigf* input, sigc* output)
+void FourierTransform::forward(sigc* input, sigc* output)
 {
     // Copy input to X
     // (this is a faster equivelant to the loop below with Nr = 2)
@@ -89,12 +89,12 @@ void FourierTransform::forward(sigf* input, sigc* output)
     {
         XOdd = Z[n] * X[n + NHalf];
 
-        output[n]         = (X[n] + XOdd) / (sigf)NHalf;
-        output[n + NHalf] = (X[n] - XOdd) / (sigf)NHalf;
+        output[n]         = (X[n] + XOdd) / (sigf)N;
+        output[n + NHalf] = (X[n] - XOdd) / (sigf)N;
     }
 }
 
-void FourierTransform::backward(sigc* input, sigf* output)
+void FourierTransform::backward(sigc* input, sigc* output)
 {
     // Copy input to X
     // (this is a faster equivelant to the loop below with Nr = 2)
@@ -136,7 +136,19 @@ void FourierTransform::backward(sigc* input, sigf* output)
     {
         XOdd = Z[N - n] * X[n + NHalf];
 
-        output[n]         = real(X[n] + XOdd) / SIG_TWO;
-        output[n + NHalf] = real(X[n] - XOdd) / SIG_TWO;
+        output[n]         = X[n] + XOdd;
+        output[n + NHalf] = X[n] - XOdd;
     }
+}
+
+void FourierTransform::logarithm(sigc* input)
+{
+    for (n = 0; n < N; ++n)
+        input[n] = log(input[n]);
+}
+
+void FourierTransform::exponential(sigc* input)
+{
+    for (n = 0; n < N; ++n)
+        input[n] = exp(input[n]);
 }
