@@ -3,16 +3,20 @@
 make
 echo ""
 
-Convolution input > input
-Convolution output > output
-Convolution response > response
-Convolution t-var > t-var
+Convolution inputRe > inputRe
+Convolution inputIm > inputIm
+Convolution ampMod > ampMod
+Convolution freqMod > freqMod
+
+#Convolution output > output
+#Convolution response > response
+#Convolution t-var > t-var
 
 echo "Generated data files."
 echo ""
 
 gnuplot Signal
-gnuplot Spectrum
+#gnuplot Spectrum
 
 echo "PNG files created with gnuplot."
 echo ""
