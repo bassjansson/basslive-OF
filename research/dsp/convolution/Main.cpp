@@ -3,6 +3,60 @@
 #include <iomanip>
 
 
+void addWindow(sigc* input, sigi N, bool inverse = false)
+{
+    for (int n = 0; n < N; ++n)
+    {
+        // Hamming window
+        //float alpha = 0.53836f;
+        //float hamming = alpha - (SIG_ONE - alpha) * cos((SIG_TWO * M_PI * n) / (N - 1));
+
+        // Nuttall window
+        // float gamma = (M_PI * n) / (N - 1);
+        // float nuttall = 0.5f -
+        // 0.487396f * cos(2.0f * gamma) +
+        // 0.144232f * cos(4.0f * gamma) -
+        // 0.012604f * cos(6.0f * gamma);
+
+        // Gaussian window
+        float beta = 0.4f; // <= 0.5
+        float gaussian = exp(-pow((n - (N - 1) / SIG_TWO) / (beta * (N - 1) / SIG_TWO), SIG_TWO) / SIG_TWO);
+
+        if (inverse) input[n] /= gaussian;
+        else         input[n] *= gaussian;
+    }
+}
+
+
+void addImaginary(sigc* input, sigi N)
+{
+    sigi NHalf = N / 2;
+    sigc* transform = new sigc[NHalf];
+
+    for (int k = 0; k < NHalf; ++k)
+    {
+        transform[k] = 0;
+
+        for (int n = 0; n < N; ++n)
+            transform[k] += input[n] * exp(sigc(0, -SIG_TWO * M_PI * k * n / N));
+
+        transform[k] /= N;
+    }
+
+    for (int n = 0; n < N; ++n)
+    {
+        input[n] = 0;
+
+        for (int k = 0; k < NHalf; ++k)
+            input[n] += transform[k] * exp(sigc(0, SIG_TWO * M_PI * k * n / N));
+
+        input[n] *= SIG_TWO;
+    }
+
+    delete[] transform;
+}
+
+
 int main(int argc, const char* argv[])
 {
     cout << fixed << setprecision(3);
@@ -34,25 +88,26 @@ int main(int argc, const char* argv[])
     sigf modFreq = 100; // Hz
 
     sigf carFreqOffset = 300;
-    sigf carFreqDepth = 150;
+    sigf carFreqDepth = 75;
     sigf carPhase = 0;
+
+    sigf AMDepth = 0.25f;
 
     for (sigi n = 0; n < N; ++n)
     {
-        float carFreq = carFreqOffset + carFreqDepth * cos(SIG_TWO * M_PI * modFreq / sampleRate * n);
+        sigf carFreq = carFreqOffset + carFreqDepth * cos(SIG_TWO * M_PI * modFreq / sampleRate * n);
         carPhase += SIG_TWO * M_PI * carFreq / sampleRate;
 
-        float AM = sin(SIG_TWO * M_PI * modFreq / sampleRate * n) * 0.48f + 0.52f;
+        sigf AM = sin(SIG_TWO * M_PI * modFreq / sampleRate * n) * AMDepth + (SIG_ONE - AMDepth);
 
-        input[n] = sigc(cos(carPhase), sin(carPhase)) * AM;
+        input[n] = sigc(cos(carPhase) * AM, 0);// sin(carPhase) * AM);
+
         //input[n] = (float)rand() / RAND_MAX * 2.0 - 1.0;
     }
 
-    for (sigi n = 0; n < N; ++n)
-    {
-        // TODO: it still goes wrong here, creating an imaginary part is hard
-        //input[n] = sigc(real(input[n]), real(input[n] - input[(n + 1) % N]) * exp(M_PI));
-    }
+    addWindow(input, N);
+    addImaginary(input, N);
+    addWindow(input, N, true);
 
 
     if (mode == "inputRe")
@@ -76,21 +131,20 @@ int main(int argc, const char* argv[])
         if (freqDiff < 0)
             freqDiff += SIG_TWO * M_PI;
 
-        output[n] = sigc(ampExp, freqDiff);
+        mask[n] = sigc(ampExp, freqDiff);
     }
-
 
     if (mode == "ampMod")
     {
         for (sigi n = 0; n < N; ++n)
-            cout << n << "\t" << real(output[n]) << "\n";
+            cout << n << "\t" << real(mask[n]) << "\n";
     }
 
     if (mode == "freqMod")
     {
         for (sigi n = 0; n < N; ++n)
         {
-            cout << n << "\t" << imag(output[n]) / (SIG_TWO * M_PI) * sampleRate / carFreqOffset;
+            cout << n << "\t" << imag(mask[n]) / (SIG_TWO * M_PI) * sampleRate / carFreqOffset;
             cout << "\n";
         }
     }
