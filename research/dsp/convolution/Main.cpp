@@ -28,38 +28,9 @@ void addWindow(sigc* input, sigi N, bool inverse = false)
 }
 
 
-void addImaginary(sigc* input, sigi N)
-{
-    sigi NHalf = N / 2;
-    sigc* transform = new sigc[NHalf];
-
-    for (int k = 0; k < NHalf; ++k)
-    {
-        transform[k] = 0;
-
-        for (int n = 0; n < N; ++n)
-            transform[k] += input[n] * exp(sigc(0, -SIG_TWO * M_PI * k * n / N));
-
-        transform[k] /= N;
-    }
-
-    for (int n = 0; n < N; ++n)
-    {
-        input[n] = 0;
-
-        for (int k = 0; k < NHalf; ++k)
-            input[n] += transform[k] * exp(sigc(0, SIG_TWO * M_PI * k * n / N));
-
-        input[n] *= SIG_TWO;
-    }
-
-    delete[] transform;
-}
-
-
 int main(int argc, const char* argv[])
 {
-    cout << fixed << setprecision(3);
+    //cout << fixed << setprecision(3);
 
     string mode = "spectrum";
 
@@ -77,6 +48,9 @@ int main(int argc, const char* argv[])
         \nUsage: Convolution <mode>\n";
         return 1;
     }
+
+
+    FourierTransform ft(N);
 
 
     sigc* input    = new sigc[N];
@@ -100,13 +74,23 @@ int main(int argc, const char* argv[])
 
         sigf AM = sin(SIG_TWO * M_PI * modFreq / sampleRate * n) * AMDepth + (SIG_ONE - AMDepth);
 
-        input[n] = sigc(cos(carPhase) * AM, 0);// sin(carPhase) * AM);
+        input[n] = sigc(cos(carPhase) * AM, SIG_ZERO);// sin(carPhase) * AM);
 
         //input[n] = (float)rand() / RAND_MAX * 2.0 - 1.0;
     }
 
+
+    // Add imaginary part
     addWindow(input, N);
-    addImaginary(input, N);
+    ft.forward(input, spectrum);
+
+    for (int k = 0; k < N / 2; ++k)
+        spectrum[k] *= SIG_TWO;
+
+    for (int k = N / 2; k < N; ++k)
+        spectrum[k] = SIG_ZERO;
+
+    ft.backward(spectrum, input);
     addWindow(input, N, true);
 
 
@@ -150,8 +134,6 @@ int main(int argc, const char* argv[])
     }
 
     /*
-    FourierTransform ft(N);
-
     ft.forward(input, spectrum);
     ft.forward(mask, output);
 
