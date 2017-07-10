@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>1BC5E1D8-410C-47F3-9E40-BBEB3D66626D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>BassLive</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1C964FE49D35D2CE41F6A80B2B4284F3388D6EBA</key>
+		<string>https://github.com/bassjansson/BassLive.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>BassLive.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1C964FE49D35D2CE41F6A80B2B4284F3388D6EBA</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/bassjansson/BassLive.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1C964FE49D35D2CE41F6A80B2B4284F3388D6EBA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1C964FE49D35D2CE41F6A80B2B4284F3388D6EBA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>BassLive</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,564 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
+		E49E97F71CAD35E6009D015A /* PercentType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E49E97F51CAD35E6009D015A /* PercentType.cpp */; };
+		E4C8813E1C9B3CE500A5C7B6 /* BufferType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C881361C9B3CE500A5C7B6 /* BufferType.cpp */; };
+		E4C8813F1C9B3CE500A5C7B6 /* InputType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C881381C9B3CE500A5C7B6 /* InputType.cpp */; };
+		E4C881401C9B3CE500A5C7B6 /* ModuleType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C8813A1C9B3CE500A5C7B6 /* ModuleType.cpp */; };
+		E4C881411C9B3CE500A5C7B6 /* NumberType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C8813C1C9B3CE500A5C7B6 /* NumberType.cpp */; };
+		E4C881491C9B3CF000A5C7B6 /* BufferFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C881431C9B3CF000A5C7B6 /* BufferFunction.cpp */; };
+		E4C8814A1C9B3CF000A5C7B6 /* MainFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C881451C9B3CF000A5C7B6 /* MainFunction.cpp */; };
+		E4C8814B1C9B3CF000A5C7B6 /* ModuleFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C881471C9B3CF000A5C7B6 /* ModuleFunction.cpp */; };
+		E4C881511C9BD71D00A5C7B6 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C8814E1C9BD71D00A5C7B6 /* Memory.cpp */; };
+		E4EC234B1C28535B00E06DC5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EC23481C28535B00E06DC5 /* main.cpp */; };
+		E4EC234C1C28535B00E06DC5 /* BassLive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EC23491C28535B00E06DC5 /* BassLive.cpp */; };
+		E4EEF6CE1C833AF000F2A323 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6BF1C833AF000F2A323 /* Character.cpp */; };
+		E4EEF6CF1C833AF000F2A323 /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C11C833AF000F2A323 /* Function.cpp */; };
+		E4EEF6D11C833AF000F2A323 /* Type.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6C51C833AF000F2A323 /* Type.cpp */; };
+		E4EEF6E41C83BE5F00F2A323 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4EEF6E21C83BE5F00F2A323 /* Module.cpp */; };
+		E4EEF6E51C83DF7C00F2A323 /* BasicModules.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4E5B6721C7F9EFB00064968 /* BasicModules.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E4328147138ABC890047C5CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E4B27C1510CBEB8E00536013;
+			remoteInfo = openFrameworks;
+		};
+		E4EEB9AB138B136A00A80321 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E4B27C1410CBEB8E00536013;
+			remoteInfo = openFrameworks;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E4C2427710CC5ABF004149E2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
+		E45879581D57CFCC00419729 /* Menlo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Menlo-Bold.ttf"; sourceTree = "<group>"; };
+		E45879591D57CFCC00419729 /* Menlo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Menlo-Regular.ttf"; sourceTree = "<group>"; };
+		E458795B1D57CFCC00419729 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		E458795E1D57CFCC00419729 /* newton.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = newton.frag; sourceTree = "<group>"; };
+		E458795F1D57CFCC00419729 /* newton.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = newton.vert; sourceTree = "<group>"; };
+		E45879641D57DAF800419729 /* BassLive-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BassLive-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E49639DA1D57EE5100726170 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E49E97F51CAD35E6009D015A /* PercentType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PercentType.cpp; sourceTree = "<group>"; };
+		E49E97F61CAD35E6009D015A /* PercentType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PercentType.hpp; sourceTree = "<group>"; };
+		E4B6FCAD0C3E899E008CF71C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4C880F11C96F14F00A5C7B6 /* Syntax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Syntax.h; sourceTree = "<group>"; };
+		E4C881361C9B3CE500A5C7B6 /* BufferType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferType.cpp; sourceTree = "<group>"; };
+		E4C881371C9B3CE500A5C7B6 /* BufferType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferType.hpp; sourceTree = "<group>"; };
+		E4C881381C9B3CE500A5C7B6 /* InputType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputType.cpp; sourceTree = "<group>"; };
+		E4C881391C9B3CE500A5C7B6 /* InputType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputType.hpp; sourceTree = "<group>"; };
+		E4C8813A1C9B3CE500A5C7B6 /* ModuleType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModuleType.cpp; sourceTree = "<group>"; };
+		E4C8813B1C9B3CE500A5C7B6 /* ModuleType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ModuleType.hpp; sourceTree = "<group>"; };
+		E4C8813C1C9B3CE500A5C7B6 /* NumberType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumberType.cpp; sourceTree = "<group>"; };
+		E4C8813D1C9B3CE500A5C7B6 /* NumberType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NumberType.hpp; sourceTree = "<group>"; };
+		E4C881431C9B3CF000A5C7B6 /* BufferFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferFunction.cpp; sourceTree = "<group>"; };
+		E4C881441C9B3CF000A5C7B6 /* BufferFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferFunction.hpp; sourceTree = "<group>"; };
+		E4C881451C9B3CF000A5C7B6 /* MainFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainFunction.cpp; sourceTree = "<group>"; };
+		E4C881461C9B3CF000A5C7B6 /* MainFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainFunction.hpp; sourceTree = "<group>"; };
+		E4C881471C9B3CF000A5C7B6 /* ModuleFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModuleFunction.cpp; sourceTree = "<group>"; };
+		E4C881481C9B3CF000A5C7B6 /* ModuleFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ModuleFunction.hpp; sourceTree = "<group>"; };
+		E4C8814E1C9BD71D00A5C7B6 /* Memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Memory.cpp; sourceTree = "<group>"; };
+		E4C8814F1C9BD71D00A5C7B6 /* Memory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Memory.hpp; sourceTree = "<group>"; };
+		E4E5B6721C7F9EFB00064968 /* BasicModules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicModules.cpp; sourceTree = "<group>"; };
+		E4E5B6731C7F9EFB00064968 /* BasicModules.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BasicModules.hpp; sourceTree = "<group>"; };
+		E4E5B6741C7F9EFB00064968 /* Modules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Modules.h; sourceTree = "<group>"; };
+		E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
+		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		E4EC23481C28535B00E06DC5 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E4EC23491C28535B00E06DC5 /* BassLive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BassLive.cpp; sourceTree = "<group>"; };
+		E4EC234A1C28535B00E06DC5 /* BassLive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BassLive.hpp; sourceTree = "<group>"; };
+		E4EEF6BF1C833AF000F2A323 /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
+		E4EEF6C01C833AF000F2A323 /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
+		E4EEF6C11C833AF000F2A323 /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Function.cpp; sourceTree = "<group>"; };
+		E4EEF6C21C833AF000F2A323 /* Function.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Function.hpp; sourceTree = "<group>"; };
+		E4EEF6C51C833AF000F2A323 /* Type.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Type.cpp; sourceTree = "<group>"; };
+		E4EEF6C61C833AF000F2A323 /* Type.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Type.hpp; sourceTree = "<group>"; };
+		E4EEF6E21C83BE5F00F2A323 /* Module.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Module.cpp; sourceTree = "<group>"; };
+		E4EEF6E31C83BE5F00F2A323 /* Module.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Module.hpp; sourceTree = "<group>"; };
+		E4F1BA501D580A28006874B5 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E4B69B590A3A1756003C02F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E4328144138ABC890047C5CB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E4328148138ABC890047C5CB /* openFrameworksDebug.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E45879561D57CFCC00419729 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				E45879571D57CFCC00419729 /* fonts */,
+				E458795A1D57CFCC00419729 /* icons */,
+				E458795D1D57CFCC00419729 /* shaders */,
+			);
+			name = data;
+			path = bin/data;
+			sourceTree = "<group>";
+		};
+		E45879571D57CFCC00419729 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E45879581D57CFCC00419729 /* Menlo-Bold.ttf */,
+				E45879591D57CFCC00419729 /* Menlo-Regular.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+		E458795A1D57CFCC00419729 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				E458795B1D57CFCC00419729 /* icon.icns */,
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
+		E458795D1D57CFCC00419729 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				E458795E1D57CFCC00419729 /* newton.frag */,
+				E458795F1D57CFCC00419729 /* newton.vert */,
+			);
+			path = shaders;
+			sourceTree = "<group>";
+		};
+		E4B69B4A0A3A1720003C02F2 = {
+			isa = PBXGroup;
+			children = (
+				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
+				E4B6FCAD0C3E899E008CF71C /* Info.plist */,
+				E4F1BA501D580A28006874B5 /* Credits.rtf */,
+				E49639DA1D57EE5100726170 /* README.md */,
+				E4B69E1C0A3A1BDC003C02F2 /* src */,
+				E45879561D57CFCC00419729 /* data */,
+				E4EEC9E9138DF44700A80321 /* openFrameworks */,
+				E45879641D57DAF800419729 /* BassLive-Debug.app */,
+			);
+			sourceTree = "<group>";
+		};
+		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				E4EC23471C28535B00E06DC5 /* Main */,
+				E4C8814C1C9BD71D00A5C7B6 /* Memory */,
+				E4E5B66D1C7F9EFB00064968 /* Modules */,
+				E4EEF6BE1C833AF000F2A323 /* Syntax */,
+				E4C881351C9B3CE500A5C7B6 /* Types */,
+				E4C881421C9B3CF000A5C7B6 /* Functions */,
+			);
+			path = src;
+			sourceTree = SOURCE_ROOT;
+		};
+		E4C881351C9B3CE500A5C7B6 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				E4C8813C1C9B3CE500A5C7B6 /* NumberType.cpp */,
+				E4C8813D1C9B3CE500A5C7B6 /* NumberType.hpp */,
+				E49E97F51CAD35E6009D015A /* PercentType.cpp */,
+				E49E97F61CAD35E6009D015A /* PercentType.hpp */,
+				E4C881381C9B3CE500A5C7B6 /* InputType.cpp */,
+				E4C881391C9B3CE500A5C7B6 /* InputType.hpp */,
+				E4C8813A1C9B3CE500A5C7B6 /* ModuleType.cpp */,
+				E4C8813B1C9B3CE500A5C7B6 /* ModuleType.hpp */,
+				E4C881361C9B3CE500A5C7B6 /* BufferType.cpp */,
+				E4C881371C9B3CE500A5C7B6 /* BufferType.hpp */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		E4C881421C9B3CF000A5C7B6 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				E4C881471C9B3CF000A5C7B6 /* ModuleFunction.cpp */,
+				E4C881481C9B3CF000A5C7B6 /* ModuleFunction.hpp */,
+				E4C881431C9B3CF000A5C7B6 /* BufferFunction.cpp */,
+				E4C881441C9B3CF000A5C7B6 /* BufferFunction.hpp */,
+				E4C881451C9B3CF000A5C7B6 /* MainFunction.cpp */,
+				E4C881461C9B3CF000A5C7B6 /* MainFunction.hpp */,
+			);
+			path = Functions;
+			sourceTree = "<group>";
+		};
+		E4C8814C1C9BD71D00A5C7B6 /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				E4C8814E1C9BD71D00A5C7B6 /* Memory.cpp */,
+				E4C8814F1C9BD71D00A5C7B6 /* Memory.hpp */,
+			);
+			path = Memory;
+			sourceTree = "<group>";
+		};
+		E4E5B66D1C7F9EFB00064968 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				E4E5B6741C7F9EFB00064968 /* Modules.h */,
+				E4EEF6E21C83BE5F00F2A323 /* Module.cpp */,
+				E4EEF6E31C83BE5F00F2A323 /* Module.hpp */,
+				E4E5B6721C7F9EFB00064968 /* BasicModules.cpp */,
+				E4E5B6731C7F9EFB00064968 /* BasicModules.hpp */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		E4EC23471C28535B00E06DC5 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				E4EC23481C28535B00E06DC5 /* main.cpp */,
+				E4EC23491C28535B00E06DC5 /* BassLive.cpp */,
+				E4EC234A1C28535B00E06DC5 /* BassLive.hpp */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		E4EEC9E9138DF44700A80321 /* openFrameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */,
+				E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */,
+			);
+			name = openFrameworks;
+			sourceTree = "<group>";
+		};
+		E4EEF6BE1C833AF000F2A323 /* Syntax */ = {
+			isa = PBXGroup;
+			children = (
+				E4C880F11C96F14F00A5C7B6 /* Syntax.h */,
+				E4EEF6BF1C833AF000F2A323 /* Character.cpp */,
+				E4EEF6C01C833AF000F2A323 /* Character.hpp */,
+				E4EEF6C51C833AF000F2A323 /* Type.cpp */,
+				E4EEF6C61C833AF000F2A323 /* Type.hpp */,
+				E4EEF6C11C833AF000F2A323 /* Function.cpp */,
+				E4EEF6C21C833AF000F2A323 /* Function.hpp */,
+			);
+			path = Syntax;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E4B69B5A0A3A1756003C02F2 /* BassLive */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "BassLive" */;
+			buildPhases = (
+				E4B69B580A3A1756003C02F2 /* Sources */,
+				E4B69B590A3A1756003C02F2 /* Frameworks */,
+				E4B6FFFD0C3F9AB9008CF71C /* ShellScript */,
+				E4C2427710CC5ABF004149E2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E4EEB9AC138B136A00A80321 /* PBXTargetDependency */,
+			);
+			name = BassLive;
+			productName = myOFApp;
+			productReference = E45879641D57DAF800419729 /* BassLive-Debug.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E4B69B4C0A3A1720003C02F2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+			};
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "BassLive" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = E4B69B4A0A3A1720003C02F2;
+			productRefGroup = E4B69B4A0A3A1720003C02F2;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E4328144138ABC890047C5CB /* Products */;
+					ProjectRef = E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				E4B69B5A0A3A1756003C02F2 /* BassLive */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E4328148138ABC890047C5CB /* openFrameworksDebug.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = openFrameworksDebug.a;
+			remoteRef = E4328147138ABC890047C5CB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E4B6FFFD0C3F9AB9008CF71C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rsync -aved ../../../libs/fmodex/lib/osx/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/\"; install_name_tool -change ./libfmodex.dylib @executable_path/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\";\nmkdir -p \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\nrsync -aved \"$SRCROOT/bin/data\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\nrsync -aved \"$SRCROOT/Credits.rtf\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\nrsync -aved ../../../libs/glut/lib/osx/GLUT.framework \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Frameworks/\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E4B69B580A3A1756003C02F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4EEF6CE1C833AF000F2A323 /* Character.cpp in Sources */,
+				E4EEF6D11C833AF000F2A323 /* Type.cpp in Sources */,
+				E4EC234C1C28535B00E06DC5 /* BassLive.cpp in Sources */,
+				E49E97F71CAD35E6009D015A /* PercentType.cpp in Sources */,
+				E4EC234B1C28535B00E06DC5 /* main.cpp in Sources */,
+				E4C881511C9BD71D00A5C7B6 /* Memory.cpp in Sources */,
+				E4C8814A1C9B3CF000A5C7B6 /* MainFunction.cpp in Sources */,
+				E4EEF6E51C83DF7C00F2A323 /* BasicModules.cpp in Sources */,
+				E4C881401C9B3CE500A5C7B6 /* ModuleType.cpp in Sources */,
+				E4C881411C9B3CE500A5C7B6 /* NumberType.cpp in Sources */,
+				E4C881491C9B3CF000A5C7B6 /* BufferFunction.cpp in Sources */,
+				E4EEF6CF1C833AF000F2A323 /* Function.cpp in Sources */,
+				E4EEF6E41C83BE5F00F2A323 /* Module.cpp in Sources */,
+				E4C8813F1C9B3CE500A5C7B6 /* InputType.cpp in Sources */,
+				E4C8813E1C9B3CE500A5C7B6 /* BufferType.cpp in Sources */,
+				E4C8814B1C9B3CF000A5C7B6 /* ModuleFunction.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E4EEB9AC138B136A00A80321 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = openFrameworks;
+			targetProxy = E4EEB9AB138B136A00A80321 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E4B69B4E0A3A1720003C02F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/builds/BassLive_$(APP_VERSION)";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "$(APP_VERSION)";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_AUTO_VECTORIZATION = YES;
+				GCC_ENABLE_SSE3_EXTENSIONS = YES;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
+				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(OF_CORE_HEADERS)",
+					src,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-D__MACOSX_CORE__",
+					"-mtune=native",
+				);
+				OTHER_LDFLAGS = (
+					"$(OF_CORE_LIBS)",
+					"$(OF_CORE_FRAMEWORKS)",
+				);
+				SDKROOT = macosx10.9;
+			};
+			name = Debug;
+		};
+		E4B69B4F0A3A1720003C02F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/builds/BassLive_$(APP_VERSION)";
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = "$(APP_VERSION)";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_AUTO_VECTORIZATION = YES;
+				GCC_ENABLE_SSE3_EXTENSIONS = YES;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
+				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(OF_CORE_HEADERS)",
+					src,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-D__MACOSX_CORE__",
+					"-mtune=native",
+				);
+				OTHER_LDFLAGS = (
+					"$(OF_CORE_LIBS)",
+					"$(OF_CORE_FRAMEWORKS)",
+				);
+				SDKROOT = macosx10.9;
+			};
+			name = Release;
+		};
+		E4B69B600A3A1757003C02F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = NONE;
+				HEADER_SEARCH_PATHS = (
+					"$(OF_CORE_HEADERS)",
+					src,
+					/usr/local/include,
+				);
+				ICON_FILE = "$(ICON_FILE_DEBUG)";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"$(OF_CORE_LIBS)",
+					"$(OF_CORE_FRAMEWORKS)",
+					"-lfftw3f",
+					"-lfftw3",
+					"-lm",
+				);
+				PRODUCT_NAME = "BassLive-Debug";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E4B69B610A3A1757003C02F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = NONE;
+				HEADER_SEARCH_PATHS = (
+					"$(OF_CORE_HEADERS)",
+					src,
+					/usr/local/include,
+				);
+				ICON_FILE = "$(ICON_FILE_RELEASE)";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"$(OF_CORE_LIBS)",
+					"$(OF_CORE_FRAMEWORKS)",
+					"-lfftw3f",
+					"-lfftw3",
+					"-lm",
+				);
+				PRODUCT_NAME = BassLive;
+				WRAPPER_EXTENSION = app;
+				baseConfigurationReference = E4EB6923138AFD0F00A09F29;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "BassLive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4B69B4E0A3A1720003C02F2 /* Debug */,
+				E4B69B4F0A3A1720003C02F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "BassLive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4B69B600A3A1757003C02F2 /* Debug */,
+				E4B69B610A3A1757003C02F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E4B69B4C0A3A1720003C02F2 /* Project object */;
+}
