@@ -11,9 +11,9 @@
 
 Read and see what **[Live Coding](https://toplap.org/)** is!
 
-## JUCE
+## OpenFrameworks
 
-Using the amazing **[JUCE](https://www.juce.com/)** library to develop my own live coding environment.
+Using the open source framework **[OpenFrameworks](http://openframeworks.cc/)** to develop my own live coding environment.
 
 ## Taiga
 

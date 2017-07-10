@@ -1,4 +1,4 @@
 .DS_Store
-build/Builds
-build/JuceLibraryCode
+
+build/bin
 docs/api

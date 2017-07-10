@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Go to the directory of this script
 cd "${0%/*}"
-rm -rf ../build/Builds
-rm -rf ../build/JuceLibraryCode
+
+# Remove build/bin and docs/api directory
+rm -rf ../build/bin
+rm -rf ../docs/api
