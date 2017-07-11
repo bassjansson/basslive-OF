@@ -1,4 +1,7 @@
 .DS_Store
 
+build/BassLive.xcodeproj/project.xcworkspace
+build/BassLive.xcodeproj/xcuserdata
 build/bin
+
 docs/api

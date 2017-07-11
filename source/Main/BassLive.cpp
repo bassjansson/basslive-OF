@@ -23,7 +23,7 @@ void BassLive::setup()
     ofSetEscapeQuitsApp(false);
     ofSetFrameRate(FRAME_RATE);
     ofSetWindowTitle(WINDOW_TITLE);
-    ofSetDataPathRoot("../Resources/data/");
+    ofSetDataPathRoot("../Resources/resources");
     
     
     memory = new Memory(INPUT_CHANNELS);
