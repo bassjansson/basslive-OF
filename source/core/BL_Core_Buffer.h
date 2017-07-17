@@ -4,14 +4,15 @@
 
 namespace BassLive
 {
-    template<class ValueType>
+    template<class T>
     class Buffer
     {
     public:
+        //================================================================
         Buffer()
         {
             bufferSize = 1;
-            buffer = new ValueType[bufferSize];
+            buffer = new T[bufferSize];
         }
 
         ~Buffer()
@@ -19,42 +20,36 @@ namespace BassLive
             delete[] buffer;
         }
 
+        //================================================================
         UInt size()
         {
             return bufferSize;
         }
 
-        void resize(UInt newSize)
+        void resize(UInt size)
         {
-            if (newSize < 1)
-                newSize = 1;
+            T* bufferToDelete = buffer;
 
-            UInt oldSize = bufferSize;
+            bufferSize = size > 0 ? size : 1;
+            buffer = new T[bufferSize];
 
-            ValueType* newBuffer = new ValueType[newSize];
-            ValueType* oldBuffer = buffer;
-
-            for (UInt i = 0; i < newSize && i < oldSize; ++i)
-                newBuffer[i] = oldBuffer[i];
-
-            buffer = newBuffer;
-            bufferSize = newSize;
-
-            delete[] oldBuffer;
+            delete[] bufferToDelete;
         }
 
-        ValueType& operator[](UInt pointer)
+        //================================================================
+        T& operator[](UInt pointer)
         {
             return (pointer < bufferSize) ? buffer[pointer] : buffer[0];
         }
 
-        const ValueType& operator[](UInt pointer) const
+        const T& operator[](UInt pointer) const
         {
             return (pointer < bufferSize) ? buffer[pointer] : buffer[0];
         }
         
     private:
-        ValueType* buffer;
+        //================================================================
         UInt bufferSize;
+        T* buffer;
     };
 }
