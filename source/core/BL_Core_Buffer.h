@@ -21,7 +21,7 @@ namespace BassLive
         }
 
         //================================================================
-        UInt size()
+        UInt size() const
         {
             return bufferSize;
         }
