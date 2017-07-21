@@ -8,6 +8,7 @@ using namespace std;
 namespace BassLive
 {
     typedef u_int  UInt;
-    typedef u_long ULong; // was: tick
+    typedef int    SInt;
+    typedef u_long ULong;
     typedef float  Float;
 }
