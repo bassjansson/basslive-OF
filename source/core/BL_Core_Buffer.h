@@ -37,14 +37,14 @@ namespace BassLive
         }
 
         //================================================================
-        T& operator[](UInt pointer)
+        T& operator[](UInt i)
         {
-            return (pointer < bufferSize) ? buffer[pointer] : buffer[0];
+            return (i < bufferSize) ? buffer[i] : buffer[0];
         }
 
-        const T& operator[](UInt pointer) const
+        const T& operator[](UInt i) const
         {
-            return (pointer < bufferSize) ? buffer[pointer] : buffer[0];
+            return (i < bufferSize) ? buffer[i] : buffer[0];
         }
         
     private:
