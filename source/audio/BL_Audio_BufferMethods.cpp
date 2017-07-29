@@ -4,9 +4,11 @@ namespace BassLive
 {
     namespace Audio
     {
-        void SetAllSamplesToZero(SampleBuffer& buffer)
+        void SetAllSamplesToZeroOf(SampleBuffer& buffer)
         {
-            for (UInt i = 0; i < buffer.size(); ++i)
+            UInt size = buffer.size();
+
+            for (UInt i = 0; i < size; ++i)
                 buffer[i] = 0.0f;
         }
 
@@ -14,14 +16,14 @@ namespace BassLive
         {
             buffer.resize(numberOfChannels);
 
-            for (UInt i = 0; i < buffer.size(); ++i)
+            for (UInt i = 0; i < numberOfChannels; ++i)
             {
                 buffer[i].resize(numberOfSamples);
-                SetAllSamplesToZero(buffer[i]);
+                SetAllSamplesToZeroOf(buffer[i]);
             }
         }
 
-        Sample GetInterpolatedSample(const SampleBuffer& buffer, Float pointer)
+        Sample GetInterpolatedSampleOf(const SampleBuffer& buffer, Float pointer)
         {
             UInt intp = (UInt)pointer;
             Float diff = pointer - intp;
@@ -29,7 +31,7 @@ namespace BassLive
             return (1.0f - diff) * buffer[intp] + diff * buffer[intp + 1];
         }
 
-        Float GetRootMeanSquare(const SampleBuffer& buffer)
+        Float GetRootMeanSquareOf(const SampleBuffer& buffer)
         {
             UInt size = buffer.size();
             Float RMS = 0.0f;

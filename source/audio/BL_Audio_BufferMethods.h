@@ -6,10 +6,10 @@ namespace BassLive
 {
     namespace Audio
     {
-        void SetAllSamplesToZero(SampleBuffer& buffer);
+        void SetAllSamplesToZeroOf(SampleBuffer& buffer);
         void SetupAudioBuffer(AudioBuffer& buffer, UInt numberOfChannels, UInt numberOfSamples);
 
-        Sample GetInterpolatedSample(const SampleBuffer& buffer, Float pointer);
-        Float GetRootMeanSquare(const SampleBuffer& buffer);
+        Sample GetInterpolatedSampleOf(const SampleBuffer& buffer, Float pointer);
+        Float GetRootMeanSquareOf(const SampleBuffer& buffer);
     }
 }
