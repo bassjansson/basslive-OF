@@ -1,0 +1,29 @@
+// The path to the root of our OF path relative to this project
+// This needs to be defined before CoreOF.xcconfig is included
+OF_PATH = $(SRCROOT)/../../../openFrameworks
+
+// This has all the header and libs for OF core
+#include "../../../openFrameworks/libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig"
+
+// Resources
+RESOURCES_PATH = $(SRCROOT)/../../resources
+
+// Credits
+CREDITS_FILE_PATH = $(RESOURCES_PATH)/docs/Credits.rtf
+
+// Icons
+ICON_NAME_DEBUG = icon-debug.icns
+ICON_NAME_RELEASE = icon-release.icns
+ICON_FILE_PATH = $(RESOURCES_PATH)/icons/
+ICON_FILE_APP_PATH = ../Resources/resources/icons/$(ICON)
+
+// Linking flags and search paths
+OTHER_LDFLAGS = $(OF_CORE_LIBS) $(OF_CORE_FRAMEWORKS) -lm -lfftw3 -lfftw3f
+HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS) /usr/local/include
+LIBRARY_SEARCH_PATHS = /usr/local/lib
+
+// App version
+APP_VERSION = 3.0.1
+
+// Build directory
+CONFIGURATION_BUILD_DIR = $(SRCROOT)/Builds/$(PROJECT_NAME)_$(APP_VERSION)/

@@ -1,0 +1,539 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E4B59B221F3B49FB00B84465 /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E40EF16A1F3B403C0022FDD3 /* openFrameworksDebug.a */; };
+		E4B9ABF51F3B417D00C34380 /* BL_Audio_BufferMethods.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABBD1F3B417D00C34380 /* BL_Audio_BufferMethods.cpp */; };
+		E4B9ABF91F3B417D00C34380 /* BufferFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABCF1F3B417D00C34380 /* BufferFunction.cpp */; };
+		E4B9ABFA1F3B417D00C34380 /* MainFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABD11F3B417D00C34380 /* MainFunction.cpp */; };
+		E4B9ABFB1F3B417D00C34380 /* ModuleFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABD31F3B417D00C34380 /* ModuleFunction.cpp */; };
+		E4B9ABFC1F3B417D00C34380 /* BassLive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABD61F3B417D00C34380 /* BassLive.cpp */; };
+		E4B9ABFD1F3B417D00C34380 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABD81F3B417D00C34380 /* main.cpp */; };
+		E4B9ABFE1F3B417D00C34380 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABDA1F3B417D00C34380 /* Memory.cpp */; };
+		E4B9ABFF1F3B417D00C34380 /* BasicModules.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABDD1F3B417D00C34380 /* BasicModules.cpp */; };
+		E4B9AC001F3B417D00C34380 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABDF1F3B417D00C34380 /* Module.cpp */; };
+		E4B9AC011F3B417D00C34380 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABE31F3B417D00C34380 /* Character.cpp */; };
+		E4B9AC021F3B417D00C34380 /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABE51F3B417D00C34380 /* Function.cpp */; };
+		E4B9AC031F3B417D00C34380 /* Type.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABE81F3B417D00C34380 /* Type.cpp */; };
+		E4B9AC041F3B417D00C34380 /* BufferType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABEB1F3B417D00C34380 /* BufferType.cpp */; };
+		E4B9AC051F3B417D00C34380 /* InputType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABED1F3B417D00C34380 /* InputType.cpp */; };
+		E4B9AC061F3B417D00C34380 /* ModuleType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABEF1F3B417D00C34380 /* ModuleType.cpp */; };
+		E4B9AC071F3B417D00C34380 /* NumberType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABF11F3B417D00C34380 /* NumberType.cpp */; };
+		E4B9AC081F3B417D00C34380 /* PercentType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABF31F3B417D00C34380 /* PercentType.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E40EF1691F3B403C0022FDD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E4B27C1510CBEB8E00536013;
+			remoteInfo = openFrameworks;
+		};
+		E4B59B1F1F3B49E300B84465 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E4B27C1410CBEB8E00536013;
+			remoteInfo = openFrameworks;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E4C2427710CC5ABF004149E2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../../../OpenFrameworks/libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
+		E4B2060A1F14EDF700B1A14C /* BassLive.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BassLive.plist; sourceTree = "<group>"; };
+		E4B9ABBC1F3B417D00C34380 /* BL_Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BL_Audio.h; sourceTree = "<group>"; };
+		E4B9ABBD1F3B417D00C34380 /* BL_Audio_BufferMethods.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BL_Audio_BufferMethods.cpp; sourceTree = "<group>"; };
+		E4B9ABBE1F3B417D00C34380 /* BL_Audio_BufferMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BL_Audio_BufferMethods.h; sourceTree = "<group>"; };
+		E4B9ABC01F3B417D00C34380 /* BL_Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BL_Core.h; sourceTree = "<group>"; };
+		E4B9ABC11F3B417D00C34380 /* BL_Core_Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BL_Core_Buffer.h; sourceTree = "<group>"; };
+		E4B9ABC21F3B417D00C34380 /* BL_Core_Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BL_Core_Node.h; sourceTree = "<group>"; };
+		E4B9ABCF1F3B417D00C34380 /* BufferFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferFunction.cpp; sourceTree = "<group>"; };
+		E4B9ABD01F3B417D00C34380 /* BufferFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferFunction.hpp; sourceTree = "<group>"; };
+		E4B9ABD11F3B417D00C34380 /* MainFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainFunction.cpp; sourceTree = "<group>"; };
+		E4B9ABD21F3B417D00C34380 /* MainFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainFunction.hpp; sourceTree = "<group>"; };
+		E4B9ABD31F3B417D00C34380 /* ModuleFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModuleFunction.cpp; sourceTree = "<group>"; };
+		E4B9ABD41F3B417D00C34380 /* ModuleFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ModuleFunction.hpp; sourceTree = "<group>"; };
+		E4B9ABD61F3B417D00C34380 /* BassLive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BassLive.cpp; sourceTree = "<group>"; };
+		E4B9ABD71F3B417D00C34380 /* BassLive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BassLive.hpp; sourceTree = "<group>"; };
+		E4B9ABD81F3B417D00C34380 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E4B9ABDA1F3B417D00C34380 /* Memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Memory.cpp; sourceTree = "<group>"; };
+		E4B9ABDB1F3B417D00C34380 /* Memory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Memory.hpp; sourceTree = "<group>"; };
+		E4B9ABDD1F3B417D00C34380 /* BasicModules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicModules.cpp; sourceTree = "<group>"; };
+		E4B9ABDE1F3B417D00C34380 /* BasicModules.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BasicModules.hpp; sourceTree = "<group>"; };
+		E4B9ABDF1F3B417D00C34380 /* Module.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Module.cpp; sourceTree = "<group>"; };
+		E4B9ABE01F3B417D00C34380 /* Module.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Module.hpp; sourceTree = "<group>"; };
+		E4B9ABE11F3B417D00C34380 /* Modules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Modules.h; sourceTree = "<group>"; };
+		E4B9ABE31F3B417D00C34380 /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
+		E4B9ABE41F3B417D00C34380 /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
+		E4B9ABE51F3B417D00C34380 /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Function.cpp; sourceTree = "<group>"; };
+		E4B9ABE61F3B417D00C34380 /* Function.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Function.hpp; sourceTree = "<group>"; };
+		E4B9ABE71F3B417D00C34380 /* Syntax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Syntax.h; sourceTree = "<group>"; };
+		E4B9ABE81F3B417D00C34380 /* Type.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Type.cpp; sourceTree = "<group>"; };
+		E4B9ABE91F3B417D00C34380 /* Type.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Type.hpp; sourceTree = "<group>"; };
+		E4B9ABEB1F3B417D00C34380 /* BufferType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferType.cpp; sourceTree = "<group>"; };
+		E4B9ABEC1F3B417D00C34380 /* BufferType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferType.hpp; sourceTree = "<group>"; };
+		E4B9ABED1F3B417D00C34380 /* InputType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputType.cpp; sourceTree = "<group>"; };
+		E4B9ABEE1F3B417D00C34380 /* InputType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputType.hpp; sourceTree = "<group>"; };
+		E4B9ABEF1F3B417D00C34380 /* ModuleType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModuleType.cpp; sourceTree = "<group>"; };
+		E4B9ABF01F3B417D00C34380 /* ModuleType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ModuleType.hpp; sourceTree = "<group>"; };
+		E4B9ABF11F3B417D00C34380 /* NumberType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumberType.cpp; sourceTree = "<group>"; };
+		E4B9ABF21F3B417D00C34380 /* NumberType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NumberType.hpp; sourceTree = "<group>"; };
+		E4B9ABF31F3B417D00C34380 /* PercentType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PercentType.cpp; sourceTree = "<group>"; };
+		E4B9ABF41F3B417D00C34380 /* PercentType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PercentType.hpp; sourceTree = "<group>"; };
+		E4C0C5711F3B473C00511798 /* BassLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = BassLive.app; path = /Users/bassjansson/Documents/Projects/BassLive/Code/basslive/build/osx/Builds/BassLive_3.0.1/BassLive.app; sourceTree = "<absolute>"; };
+		E4EB6923138AFD0F00A09F29 /* BassLive.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = BassLive.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E4B69B590A3A1756003C02F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4B59B221F3B49FB00B84465 /* openFrameworksDebug.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E40EF1661F3B403C0022FDD3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E40EF16A1F3B403C0022FDD3 /* openFrameworksDebug.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E4B69B4A0A3A1720003C02F2 = {
+			isa = PBXGroup;
+			children = (
+				E4B9ABBA1F3B417D00C34380 /* source */,
+				E4EB6923138AFD0F00A09F29 /* BassLive.xcconfig */,
+				E4B2060A1F14EDF700B1A14C /* BassLive.plist */,
+				E4EEC9E9138DF44700A80321 /* openFrameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		E4B9ABBA1F3B417D00C34380 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9ABBB1F3B417D00C34380 /* audio */,
+				E4B9ABBF1F3B417D00C34380 /* core */,
+				E4B9ABCD1F3B417D00C34380 /* v2_0_1 */,
+			);
+			name = source;
+			path = ../../source;
+			sourceTree = "<group>";
+		};
+		E4B9ABBB1F3B417D00C34380 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9ABBC1F3B417D00C34380 /* BL_Audio.h */,
+				E4B9ABBD1F3B417D00C34380 /* BL_Audio_BufferMethods.cpp */,
+				E4B9ABBE1F3B417D00C34380 /* BL_Audio_BufferMethods.h */,
+			);
+			path = audio;
+			sourceTree = "<group>";
+		};
+		E4B9ABBF1F3B417D00C34380 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9ABC01F3B417D00C34380 /* BL_Core.h */,
+				E4B9ABC11F3B417D00C34380 /* BL_Core_Buffer.h */,
+				E4B9ABC21F3B417D00C34380 /* BL_Core_Node.h */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		E4B9ABCD1F3B417D00C34380 /* v2_0_1 */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9ABCE1F3B417D00C34380 /* Functions */,
+				E4B9ABD51F3B417D00C34380 /* Main */,
+				E4B9ABD91F3B417D00C34380 /* Memory */,
+				E4B9ABDC1F3B417D00C34380 /* Modules */,
+				E4B9ABE21F3B417D00C34380 /* Syntax */,
+				E4B9ABEA1F3B417D00C34380 /* Types */,
+			);
+			path = v2_0_1;
+			sourceTree = "<group>";
+		};
+		E4B9ABCE1F3B417D00C34380 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9ABCF1F3B417D00C34380 /* BufferFunction.cpp */,
+				E4B9ABD01F3B417D00C34380 /* BufferFunction.hpp */,
+				E4B9ABD11F3B417D00C34380 /* MainFunction.cpp */,
+				E4B9ABD21F3B417D00C34380 /* MainFunction.hpp */,
+				E4B9ABD31F3B417D00C34380 /* ModuleFunction.cpp */,
+				E4B9ABD41F3B417D00C34380 /* ModuleFunction.hpp */,
+			);
+			path = Functions;
+			sourceTree = "<group>";
+		};
+		E4B9ABD51F3B417D00C34380 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9ABD61F3B417D00C34380 /* BassLive.cpp */,
+				E4B9ABD71F3B417D00C34380 /* BassLive.hpp */,
+				E4B9ABD81F3B417D00C34380 /* main.cpp */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		E4B9ABD91F3B417D00C34380 /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9ABDA1F3B417D00C34380 /* Memory.cpp */,
+				E4B9ABDB1F3B417D00C34380 /* Memory.hpp */,
+			);
+			path = Memory;
+			sourceTree = "<group>";
+		};
+		E4B9ABDC1F3B417D00C34380 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9ABDD1F3B417D00C34380 /* BasicModules.cpp */,
+				E4B9ABDE1F3B417D00C34380 /* BasicModules.hpp */,
+				E4B9ABDF1F3B417D00C34380 /* Module.cpp */,
+				E4B9ABE01F3B417D00C34380 /* Module.hpp */,
+				E4B9ABE11F3B417D00C34380 /* Modules.h */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		E4B9ABE21F3B417D00C34380 /* Syntax */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9ABE31F3B417D00C34380 /* Character.cpp */,
+				E4B9ABE41F3B417D00C34380 /* Character.hpp */,
+				E4B9ABE51F3B417D00C34380 /* Function.cpp */,
+				E4B9ABE61F3B417D00C34380 /* Function.hpp */,
+				E4B9ABE71F3B417D00C34380 /* Syntax.h */,
+				E4B9ABE81F3B417D00C34380 /* Type.cpp */,
+				E4B9ABE91F3B417D00C34380 /* Type.hpp */,
+			);
+			path = Syntax;
+			sourceTree = "<group>";
+		};
+		E4B9ABEA1F3B417D00C34380 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9ABEB1F3B417D00C34380 /* BufferType.cpp */,
+				E4B9ABEC1F3B417D00C34380 /* BufferType.hpp */,
+				E4B9ABED1F3B417D00C34380 /* InputType.cpp */,
+				E4B9ABEE1F3B417D00C34380 /* InputType.hpp */,
+				E4B9ABEF1F3B417D00C34380 /* ModuleType.cpp */,
+				E4B9ABF01F3B417D00C34380 /* ModuleType.hpp */,
+				E4B9ABF11F3B417D00C34380 /* NumberType.cpp */,
+				E4B9ABF21F3B417D00C34380 /* NumberType.hpp */,
+				E4B9ABF31F3B417D00C34380 /* PercentType.cpp */,
+				E4B9ABF41F3B417D00C34380 /* PercentType.hpp */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		E4EEC9E9138DF44700A80321 /* openFrameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */,
+			);
+			name = openFrameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E4B69B5A0A3A1756003C02F2 /* BassLive */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "BassLive" */;
+			buildPhases = (
+				E4B69B580A3A1756003C02F2 /* Sources */,
+				E4B69B590A3A1756003C02F2 /* Frameworks */,
+				E4B6FFFD0C3F9AB9008CF71C /* ShellScript */,
+				E4C2427710CC5ABF004149E2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E4B59B201F3B49E300B84465 /* PBXTargetDependency */,
+			);
+			name = BassLive;
+			productName = myOFApp;
+			productReference = E4C0C5711F3B473C00511798 /* BassLive.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E4B69B4C0A3A1720003C02F2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+			};
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "BassLive" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = E4B69B4A0A3A1720003C02F2;
+			productRefGroup = E4B69B4A0A3A1720003C02F2;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E40EF1661F3B403C0022FDD3 /* Products */;
+					ProjectRef = E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				E4B69B5A0A3A1756003C02F2 /* BassLive */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E40EF16A1F3B403C0022FDD3 /* openFrameworksDebug.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = openFrameworksDebug.a;
+			remoteRef = E40EF1691F3B403C0022FDD3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E4B6FFFD0C3F9AB9008CF71C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Create App/Resources directory if necessary\nmkdir -p \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\";\n\n# Copy resources into App/Resources\nrsync -aved \"$RESOURCES_PATH\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\";\n\n# Copy credits into App/Resources\nrsync -aved \"$CREDITS_FILE_PATH\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\";\n\n# Copy libfmod and change install directory for fmod to run\nrsync -aved \"$OF_PATH/libs/fmodex/lib/osx/libfmodex.dylib\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Frameworks/\";\n\n# Install name tool\ninstall_name_tool -change @executable_path/libfmodex.dylib @executable_path/../Frameworks/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\";\n\n# Copy GLUT framework (must remove for AppStore submissions)\nrsync -aved \"$OF_PATH/libs/glut/lib/osx/GLUT.framework\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Frameworks/\";";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E4B69B580A3A1756003C02F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4B9ABFA1F3B417D00C34380 /* MainFunction.cpp in Sources */,
+				E4B9AC061F3B417D00C34380 /* ModuleType.cpp in Sources */,
+				E4B9AC001F3B417D00C34380 /* Module.cpp in Sources */,
+				E4B9AC021F3B417D00C34380 /* Function.cpp in Sources */,
+				E4B9ABFD1F3B417D00C34380 /* main.cpp in Sources */,
+				E4B9ABFF1F3B417D00C34380 /* BasicModules.cpp in Sources */,
+				E4B9ABFE1F3B417D00C34380 /* Memory.cpp in Sources */,
+				E4B9ABF51F3B417D00C34380 /* BL_Audio_BufferMethods.cpp in Sources */,
+				E4B9AC031F3B417D00C34380 /* Type.cpp in Sources */,
+				E4B9ABFB1F3B417D00C34380 /* ModuleFunction.cpp in Sources */,
+				E4B9AC041F3B417D00C34380 /* BufferType.cpp in Sources */,
+				E4B9AC051F3B417D00C34380 /* InputType.cpp in Sources */,
+				E4B9AC081F3B417D00C34380 /* PercentType.cpp in Sources */,
+				E4B9ABFC1F3B417D00C34380 /* BassLive.cpp in Sources */,
+				E4B9ABF91F3B417D00C34380 /* BufferFunction.cpp in Sources */,
+				E4B9AC011F3B417D00C34380 /* Character.cpp in Sources */,
+				E4B9AC071F3B417D00C34380 /* NumberType.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E4B59B201F3B49E300B84465 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = openFrameworks;
+			targetProxy = E4B59B1F1F3B49E300B84465 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E4B69B4E0A3A1720003C02F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* BassLive.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "$(APP_VERSION)";
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_AUTO_VECTORIZATION = YES;
+				GCC_ENABLE_SSE3_EXTENSIONS = YES;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
+				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"-D__MACOSX_CORE__",
+					"-mtune=native",
+				);
+				PRODUCT_NAME = "$(PROJECT_NAME)_Debug";
+			};
+			name = Debug;
+		};
+		E4B69B4F0A3A1720003C02F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* BassLive.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = "$(APP_VERSION)";
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_AUTO_VECTORIZATION = YES;
+				GCC_ENABLE_SSE3_EXTENSIONS = YES;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
+				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_CPLUSPLUSFLAGS = (
+					"-D__MACOSX_CORE__",
+					"-mtune=native",
+				);
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+			};
+			name = Release;
+		};
+		E4B69B600A3A1757003C02F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* BassLive.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = NONE;
+				ICON = "$(ICON_NAME_DEBUG)";
+				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
+				INFOPLIST_FILE = "$(SRCROOT)/BassLive.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bassjansson.BassLive;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E4B69B610A3A1757003C02F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* BassLive.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = NONE;
+				ICON = "$(ICON_NAME_RELEASE)";
+				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
+				INFOPLIST_FILE = "$(SRCROOT)/BassLive.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bassjansson.BassLive;
+				WRAPPER_EXTENSION = app;
+				baseConfigurationReference = E4EB6923138AFD0F00A09F29;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "BassLive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4B69B4E0A3A1720003C02F2 /* Debug */,
+				E4B69B4F0A3A1720003C02F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "BassLive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4B69B600A3A1757003C02F2 /* Debug */,
+				E4B69B610A3A1757003C02F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E4B69B4C0A3A1720003C02F2 /* Project object */;
+}
