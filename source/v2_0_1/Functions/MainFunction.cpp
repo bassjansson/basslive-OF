@@ -17,7 +17,7 @@ MainFunction::MainFunction (Memory* memory) : Function(CHAR_FUNC_MAIN_OPEN,
     typeType = MODULE;
     
     
-    charFont.load("fonts/Menlo-Bold.ttf", FONT_SIZE);
+    charFont.load("fonts/menlo-bold.ttf", FONT_SIZE);
     charWidth    = charFont.stringWidth("X");
     charHeight   = charFont.stringHeight("Xgj{|");
     charSelected = begin;

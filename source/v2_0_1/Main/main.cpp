@@ -14,11 +14,11 @@ int main()
     ofGLFWWindowSettings settings;
     
     settings.setGLVersion(3, 2);
-    settings.width = 1024;
-    settings.height = 576;
+    settings.width = 2048;
+    settings.height = 1152;
     settings.windowMode = OF_WINDOW;
     
     ofCreateWindow(settings);
     
-    return ofRunApp(new BassLive());
+    return ofRunApp(new BassLiveApp());
 }

@@ -9,10 +9,13 @@
 #ifndef BassLive_hpp
 #define BassLive_hpp
 
+// Just for testing the new core
+#include "BL_Core_Node.h"
+
 #include "Syntax.h"
 
 
-class BassLive : public ofBaseApp
+class BassLiveApp : public ofBaseApp
 {
 public:
     //========================================================================

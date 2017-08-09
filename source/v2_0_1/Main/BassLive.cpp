@@ -13,7 +13,7 @@
 
 
 //========================================================================
-void BassLive::setup()
+void BassLiveApp::setup()
 {
     // OF setup
     ofSetLogLevel(OF_LOG_VERBOSE);
@@ -23,7 +23,7 @@ void BassLive::setup()
     ofSetEscapeQuitsApp(false);
     ofSetFrameRate(FRAME_RATE);
     ofSetWindowTitle(WINDOW_TITLE);
-    ofSetDataPathRoot("../Resources/resources");
+    ofSetDataPathRoot(DATA_PATH_ROOT);
     
     
     memory = new Memory(INPUT_CHANNELS);
@@ -43,11 +43,22 @@ void BassLive::setup()
     zoomTarget = 1.0f;
     
     
-    sideBarFont.load("fonts/Menlo-Bold.ttf", FONT_SIZE / 2);
+    sideBarFont.load("fonts/menlo-bold.ttf", FONT_SIZE / 2);
     shader.load("shaders/newton");
+
+
+    // Testing the new core
+    BassLive::Node<float> node1, node2;
+
+    node1.value() = 0.5f;
+    node2.value() = 0.25f;
+
+    node1.connectTo(node2);
+
+    cout << "Node 2 value: " << node1.getValueOfConnectedNode(0) << endl;
 }
 
-void BassLive::exit()
+void BassLiveApp::exit()
 {
     shader.unload();
     
@@ -56,7 +67,7 @@ void BassLive::exit()
     delete memory;
 }
 
-void BassLive::update()
+void BassLiveApp::update()
 {
     // Update mouse position in main
     main->mouseX = (mouseX - xOffset) / zoom;
@@ -67,7 +78,7 @@ void BassLive::update()
     zoom = 0.9f * zoom + 0.1f * zoomTarget;
 }
 
-void BassLive::draw()
+void BassLiveApp::draw()
 {
     // Clear background
     ofBackground(0);
@@ -180,18 +191,18 @@ void BassLive::draw()
 }
 
 //========================================================================
-void BassLive::audioIn (float* input, int size, int channels)
+void BassLiveApp::audioIn (float* input, int size, int channels)
 {
     memory->audioIn(input, size, channels);
 }
 
-void BassLive::audioOut (float* output, int size, int channels)
+void BassLiveApp::audioOut (float* output, int size, int channels)
 {
     memory->audioOut(output, size, channels);
 }
 
 //========================================================================
-void BassLive::keyPressed (int key)
+void BassLiveApp::keyPressed (int key)
 {
     // Send key to main
     main->keyPressed(key);
@@ -205,18 +216,18 @@ void BassLive::keyPressed (int key)
     }
 }
 
-void BassLive::keyReleased (int key)
+void BassLiveApp::keyReleased (int key)
 {
 
 }
 
 //========================================================================
-void BassLive::mouseMoved (int x, int y)
+void BassLiveApp::mouseMoved (int x, int y)
 {
     
 }
 
-void BassLive::mouseDragged (int x, int y, int button)
+void BassLiveApp::mouseDragged (int x, int y, int button)
 {
     if (button == OF_MOUSE_BUTTON_RIGHT)
     {
@@ -225,28 +236,28 @@ void BassLive::mouseDragged (int x, int y, int button)
     }
 }
 
-void BassLive::mousePressed (int x, int y, int button)
+void BassLiveApp::mousePressed (int x, int y, int button)
 {
     main->mousePressed(main->mouseX, main->mouseY, button);
 }
 
-void BassLive::mouseReleased (int x, int y, int button)
+void BassLiveApp::mouseReleased (int x, int y, int button)
 {
     main->mouseReleased(main->mouseX, main->mouseY, button);
 }
 
 //========================================================================
-void BassLive::windowResized (int w, int h)
+void BassLiveApp::windowResized (int w, int h)
 {
     
 }
 
-void BassLive::dragEvent (ofDragInfo dragInfo)
+void BassLiveApp::dragEvent (ofDragInfo dragInfo)
 {
     
 }
 
-void BassLive::gotMessage (ofMessage msg)
+void BassLiveApp::gotMessage (ofMessage msg)
 {
     
 }

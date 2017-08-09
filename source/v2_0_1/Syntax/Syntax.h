@@ -23,7 +23,8 @@
 #include "BufferFunction.hpp"
 #include "MainFunction.hpp"
 
-#define WINDOW_TITLE "BassLive"
+#define WINDOW_TITLE   "BassLive"
+#define DATA_PATH_ROOT "../Resources/resources"
 
 #define HORIZONTAL 0
 #define VERTICAL   1
@@ -34,7 +35,7 @@
 #define DOWN  1
 
 #define FRAME_RATE 30
-#define FONT_SIZE  24
+#define FONT_SIZE  48
 
 #define CHAR_TYPE_NUMBER  '$'
 #define CHAR_TYPE_PERCENT '%'
