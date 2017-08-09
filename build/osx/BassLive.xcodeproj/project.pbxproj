@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E4B59B221F3B49FB00B84465 /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E40EF16A1F3B403C0022FDD3 /* openFrameworksDebug.a */; };
+		E42F48601F3BB53900E8DCA0 /* openFrameworks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E42F485F1F3BB53900E8DCA0 /* openFrameworks.a */; };
 		E4B9ABF51F3B417D00C34380 /* BL_Audio_BufferMethods.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABBD1F3B417D00C34380 /* BL_Audio_BufferMethods.cpp */; };
 		E4B9ABF91F3B417D00C34380 /* BufferFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABCF1F3B417D00C34380 /* BufferFunction.cpp */; };
 		E4B9ABFA1F3B417D00C34380 /* MainFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B9ABD11F3B417D00C34380 /* MainFunction.cpp */; };
@@ -28,18 +28,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E40EF1691F3B403C0022FDD3 /* PBXContainerItemProxy */ = {
+		E42F485D1F3BB44000E8DCA0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */;
+			containerPortal = E42F48591F3BB44000E8DCA0 /* openFrameworksLib.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = E4B27C1510CBEB8E00536013;
-			remoteInfo = openFrameworks;
-		};
-		E4B59B1F1F3B49E300B84465 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = E4B27C1410CBEB8E00536013;
 			remoteInfo = openFrameworks;
 		};
 /* End PBXContainerItemProxy section */
@@ -57,7 +50,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../../../OpenFrameworks/libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
+		E42F48571F3BB35C00E8DCA0 /* BassLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = BassLive.app; path = /Users/bassjansson/Documents/Projects/BassLive/Repositories/basslive/build/osx/Builds/BassLive_3.0.1/BassLive.app; sourceTree = "<absolute>"; };
+		E42F48591F3BB44000E8DCA0 /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../openFrameworks/libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = "<group>"; };
+		E42F485F1F3BB53900E8DCA0 /* openFrameworks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; name = openFrameworks.a; path = ../../../openFrameworks/libs/openFrameworksCompiled/lib/osx/openFrameworks.a; sourceTree = SOURCE_ROOT; };
 		E4B2060A1F14EDF700B1A14C /* BassLive.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BassLive.plist; sourceTree = "<group>"; };
 		E4B9ABBC1F3B417D00C34380 /* BL_Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BL_Audio.h; sourceTree = "<group>"; };
 		E4B9ABBD1F3B417D00C34380 /* BL_Audio_BufferMethods.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BL_Audio_BufferMethods.cpp; sourceTree = "<group>"; };
@@ -98,7 +93,6 @@
 		E4B9ABF21F3B417D00C34380 /* NumberType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NumberType.hpp; sourceTree = "<group>"; };
 		E4B9ABF31F3B417D00C34380 /* PercentType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PercentType.cpp; sourceTree = "<group>"; };
 		E4B9ABF41F3B417D00C34380 /* PercentType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PercentType.hpp; sourceTree = "<group>"; };
-		E4C0C5711F3B473C00511798 /* BassLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = BassLive.app; path = /Users/bassjansson/Documents/Projects/BassLive/Code/basslive/build/osx/Builds/BassLive_3.0.1/BassLive.app; sourceTree = "<absolute>"; };
 		E4EB6923138AFD0F00A09F29 /* BassLive.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = BassLive.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,17 +101,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4B59B221F3B49FB00B84465 /* openFrameworksDebug.a in Frameworks */,
+				E42F48601F3BB53900E8DCA0 /* openFrameworks.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E40EF1661F3B403C0022FDD3 /* Products */ = {
+		E42F485A1F3BB44000E8DCA0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E40EF16A1F3B403C0022FDD3 /* openFrameworksDebug.a */,
+				E42F485E1F3BB44000E8DCA0 /* openFrameworksDebug.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,9 +119,9 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
-				E4B9ABBA1F3B417D00C34380 /* source */,
-				E4EB6923138AFD0F00A09F29 /* BassLive.xcconfig */,
 				E4B2060A1F14EDF700B1A14C /* BassLive.plist */,
+				E4EB6923138AFD0F00A09F29 /* BassLive.xcconfig */,
+				E4B9ABBA1F3B417D00C34380 /* source */,
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 			);
 			sourceTree = "<group>";
@@ -254,7 +248,8 @@
 		E4EEC9E9138DF44700A80321 /* openFrameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */,
+				E42F485F1F3BB53900E8DCA0 /* openFrameworks.a */,
+				E42F48591F3BB44000E8DCA0 /* openFrameworksLib.xcodeproj */,
 			);
 			name = openFrameworks;
 			sourceTree = "<group>";
@@ -274,11 +269,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				E4B59B201F3B49E300B84465 /* PBXTargetDependency */,
 			);
 			name = BassLive;
 			productName = myOFApp;
-			productReference = E4C0C5711F3B473C00511798 /* BassLive.app */;
+			productReference = E42F48571F3BB35C00E8DCA0 /* BassLive.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -304,8 +298,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = E40EF1661F3B403C0022FDD3 /* Products */;
-					ProjectRef = E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */;
+					ProductGroup = E42F485A1F3BB44000E8DCA0 /* Products */;
+					ProjectRef = E42F48591F3BB44000E8DCA0 /* openFrameworksLib.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -316,11 +310,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		E40EF16A1F3B403C0022FDD3 /* openFrameworksDebug.a */ = {
+		E42F485E1F3BB44000E8DCA0 /* openFrameworksDebug.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = openFrameworksDebug.a;
-			remoteRef = E40EF1691F3B403C0022FDD3 /* PBXContainerItemProxy */;
+			remoteRef = E42F485D1F3BB44000E8DCA0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -367,14 +361,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		E4B59B201F3B49E300B84465 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = openFrameworks;
-			targetProxy = E4B59B1F1F3B49E300B84465 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E4B69B4E0A3A1720003C02F2 /* Debug */ = {
