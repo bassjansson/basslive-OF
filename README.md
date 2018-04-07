@@ -2,6 +2,6 @@
 
 This is the first version of BassLive running on openFrameworks.
 
-To see the new repository: [bl-engine](https://github.com/bassjansson/bl-engine)
+The new BassLive running on Node.js: [basslive-engine](https://github.com/bassjansson/basslive-engine)
 
 ## Bass Jansson
